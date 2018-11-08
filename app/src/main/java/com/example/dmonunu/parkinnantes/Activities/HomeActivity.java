@@ -1,7 +1,9 @@
-package com.example.dmonunu.parkinnantes;
+package com.example.dmonunu.parkinnantes.Activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.example.dmonunu.parkinnantes.R;
 
 public class HomeActivity extends AppCompatActivity {
 

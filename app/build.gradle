@@ -25,5 +25,20 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:9.0.0-rc1'
+
+
+    // Add ButterKnife to project
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+
+    // Add OkHTTP
+    implementation 'com.squareup.okhttp3:okhttp:3.11.0'
+
+    // Add Active Android
+    implementation 'com.michaelpardo:activeandroid:3.1.0-SNAPSHOT'
+
+    // Add Retrofit (with GSON converter)
+    implementation 'com.squareup.retrofit2:retrofit:2.1.0'
+    implementation 'com.google.code.gson:gson:2.6.2'
+    implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
 }

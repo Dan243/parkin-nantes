@@ -3,45 +3,57 @@ package com.example.dmonunu.parkinnantes.Classes;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
+import com.google.gson.annotations.Expose;
 
 import java.io.Serializable;
 
 @Table( name="Parking")
 public class Parking extends Model implements Serializable {
 
+    @Expose
     @Column(name = "id_Parking", index = true, unique = true, onUniqueConflict = Column.ConflictAction.REPLACE)
     public String id_Parking;
 
+    @Expose
     @Column(name = "nom_Parking")
     public String nom_Parking;
 
+    @Expose
     @Column(name = "categorie")
     public String categorie;
 
+    @Expose
     @Column(name = "commune")
     public String commune;
 
+    @Expose
     @Column(name = "adresse")
     public String adresse;
 
+    @Expose
     @Column(name = "telephone")
     public String telephone;
 
+    @Expose
     @Column(name = "code_postale")
     public String code_postale;
 
+    @Expose
     @Column(name = "capacite")
     public String capacite;
 
     @Column(name = "access_pmr")
     public boolean access_pmr = false ;
 
+    @Expose
     @Column(name = "moyen_paiement")
     public String moyen_paiement;
 
+    @Expose
     @Column(name = "acces_transport_commun")
     public String acces_transport_commun;
 
+    @Expose
     @Column(name = "PlaceDisponible")
     public int availablePlaces;
 
@@ -65,7 +77,6 @@ public class Parking extends Model implements Serializable {
 
     @Column(name="Cheque")
     public boolean isChequeAvailable = false;
-
 
     public String getId_Parking() {
         return id_Parking;
@@ -218,6 +229,5 @@ public class Parking extends Model implements Serializable {
     public void setChequeAvailable(boolean chequeAvailable) {
         isChequeAvailable = chequeAvailable;
     }
-
 
 }

@@ -1,4 +1,4 @@
-package com.example.dmonunu.parkinnantes.Classes;
+package com.example.dmonunu.parkinnantes.Models;
 
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
@@ -7,8 +7,8 @@ import com.google.gson.annotations.Expose;
 
 import java.io.Serializable;
 
-@Table( name="Parking")
-public class Parking extends Model implements Serializable {
+@Table( name="ParkingProperties")
+public class ParkingProperties extends Model implements Serializable {
 
     @Expose
     @Column(name = "id_Parking", index = true, unique = true, onUniqueConflict = Column.ConflictAction.REPLACE)
@@ -57,26 +57,9 @@ public class Parking extends Model implements Serializable {
     @Column(name = "PlaceDisponible")
     public int availablePlaces;
 
-    @Column(name = "Latitude")
-    public double latitude;
-
-    @Column(name = "Longitude")
-    public double longitude;
-
     @Column(name = "Favorite")
     public boolean isFavorite = false;
 
-    @Column(name="CarteBancaire")
-    public boolean isCreditCardAvailable = false;
-
-    @Column(name="Espece")
-    public boolean isCashAvailable = false;
-
-    @Column(name="TotalGR")
-    public boolean isTotalGRCardAvailable = false;
-
-    @Column(name="Cheque")
-    public boolean isChequeAvailable = false;
 
     public String getId_Parking() {
         return id_Parking;
@@ -174,60 +157,12 @@ public class Parking extends Model implements Serializable {
         this.availablePlaces = availablePlaces;
     }
 
-    public double getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
-    }
-
-    public double getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
-    }
-
     public boolean isFavorite() {
         return isFavorite;
     }
 
     public void setFavorite(boolean favorite) {
         isFavorite = favorite;
-    }
-
-    public boolean isCreditCardAvailable() {
-        return isCreditCardAvailable;
-    }
-
-    public void setCreditCardAvailable(boolean creditCardAvailable) {
-        isCreditCardAvailable = creditCardAvailable;
-    }
-
-    public boolean isCashAvailable() {
-        return isCashAvailable;
-    }
-
-    public void setCashAvailable(boolean cashAvailable) {
-        isCashAvailable = cashAvailable;
-    }
-
-    public boolean isTotalGRCardAvailable() {
-        return isTotalGRCardAvailable;
-    }
-
-    public void setTotalGRCardAvailable(boolean totalGRCardAvailable) {
-        isTotalGRCardAvailable = totalGRCardAvailable;
-    }
-
-    public boolean isChequeAvailable() {
-        return isChequeAvailable;
-    }
-
-    public void setChequeAvailable(boolean chequeAvailable) {
-        isChequeAvailable = chequeAvailable;
     }
 
 }

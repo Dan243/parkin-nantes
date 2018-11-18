@@ -15,6 +15,9 @@ public class ParkingProperties extends Model implements Serializable {
     public String id_Parking;
 
     @Expose
+    @Column
+    public int idobj;
+    @Expose
     @Column(name = "nom_Parking")
     public String nom_Parking;
 
@@ -68,6 +71,11 @@ public class ParkingProperties extends Model implements Serializable {
     public void setId_Parking(String id_Parking) {
         this.id_Parking = id_Parking;
     }
+
+    public int getIdobj() { return idobj; }
+
+    public void setIdobj(int idobj) { this.idobj = idobj; }
+
 
     public String getNom_Parking() {
         return nom_Parking;

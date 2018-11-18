@@ -1,5 +1,7 @@
 package com.example.dmonunu.parkinnantes.Services;
 
+import android.util.Log;
+
 import com.activeandroid.ActiveAndroid;
 import com.activeandroid.query.Select;
 import com.example.dmonunu.parkinnantes.Models.Parking;
@@ -54,10 +56,13 @@ public class ParkingSearchService {
                 if(result != null && result.parkingList != null){
                     ActiveAndroid.beginTransaction();
                     for(Parking parking: result.parkingList){
+                    /*
                         parking.id_parking = parking.properties.id_Parking;
                         parking.geometry.id_parking = parking.properties.id_Parking;
                         parking.availability.id_parking = parking.properties.id_Parking;
                         parking.schedule.id_parking = parking.properties.id_Parking;
+                     */
+                        ParkingInitService.onSearchParking(parking.properties);
                     }
                 } else {
                     // Null result

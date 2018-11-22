@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "957826246516",
+    "firebase_url": "https://parkinnantes-1541869233065.firebaseio.com",
+    "project_id": "parkinnantes-1541869233065",
+    "storage_bucket": "parkinnantes-1541869233065.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:957826246516:android:e3f0983ba558667d",
+        "android_client_info": {
+          "package_name": "com.example.dmonunu.parkinnantes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "957826246516-jmm6345s5e1n4d540su0felie51qg2gd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyChlje7tviqTTJC2gg_U8T0Cs8e4Lx4Vog"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -6,6 +6,10 @@
     <string name="about">about</string>
     <string name="help">help</string>
     <string name="donate">donate</string>
+    <string name="connection_succeed">"Connexion réussie"</string>
+    <string name="error_authentication_canceled">Authentification annulée</string>
+    <string name="error_unknown_error">Erreur inconnue</string>
+    <string name="error_no_internet">Pas d\'internet</string>
     <string name="facebook_app_id">785245918480471</string>
     <string name="fb_login_protocol_scheme">fb785245918480471</string>
 

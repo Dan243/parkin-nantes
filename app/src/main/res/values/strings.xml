@@ -10,7 +10,8 @@
     <string name="error_authentication_canceled">Authentification annulée</string>
     <string name="error_unknown_error">Erreur inconnue</string>
     <string name="error_no_internet">Pas d\'internet</string>
-    <string name="facebook_app_id">785245918480471</string>
-    <string name="fb_login_protocol_scheme">fb785245918480471</string>
+    <string name="facebook_application_id" translatable="false">785245918480471</string>
+    <string name="facebook_login_protocol_scheme" translatable="false">fb785245918480471</string>
+
 
 </resources>

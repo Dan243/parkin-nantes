@@ -7,13 +7,7 @@ import java.util.List;
 public class ParkingSearchResult {
 
     @Expose
-    public List<Parking> parkingList;
+    public List<Parking> records;
 
-    public List<Parking> getParkingPropertiesList() {
-        return parkingList;
-    }
 
-    public void setParkingPropertiesList(List<Parking> parkingPropertiesList) {
-        this.parkingList = parkingPropertiesList;
-    }
 }

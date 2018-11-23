@@ -53,16 +53,15 @@ public class ParkingSearchService {
             public void onResponse(Call<ParkingSearchResult> call, Response<ParkingSearchResult>
                     response) {
                 final ParkingSearchResult result = response.body();
-                if(result != null && result.parkingList != null){
+                if(result != null && result.records != null){
                     ActiveAndroid.beginTransaction();
-                    for(Parking parking: result.parkingList){
+                    for(Parking parking: result.records){
                     /*
                         parking.id_parking = parking.properties.id_Parking;
                         parking.geometry.id_parking = parking.properties.id_Parking;
                         parking.availability.id_parking = parking.properties.id_Parking;
                         parking.schedule.id_parking = parking.properties.id_Parking;
                      */
-                        ParkingInitService.onSearchParking(parking.properties);
                     }
                 } else {
                     // Null result

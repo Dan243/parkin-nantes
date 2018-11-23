@@ -12,16 +12,11 @@ public class Parking {
     public String id_parking;
 
     @Expose
-    public ParkingProperties properties;
+    public ParkingProperties fields;
 
     @Expose
     public ParkingCoordinates geometry;
 
-    @Expose
-    public ParkingSchedules schedule;
-
-    @Expose
-    public ParkingAvailability availability;
 
 
 }

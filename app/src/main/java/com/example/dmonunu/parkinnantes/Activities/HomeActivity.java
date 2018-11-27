@@ -25,7 +25,7 @@ import butterknife.ButterKnife;
 public class HomeActivity extends FragmentActivity implements GoogleMap.OnMyLocationButtonClickListener,
         GoogleMap.OnMyLocationClickListener,
         OnMapReadyCallback {
-
+    // My Branche Gregoire
     private GoogleMap mainMap;
     private static final int MY_LOCATION_REQUEST_CODE = 9401;
 

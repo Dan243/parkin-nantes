@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.dmonunu.parkinnantes.Auth.BaseActivity;
+import com.example.dmonunu.parkinnantes.Auth.ProfilActivity;
 import com.example.dmonunu.parkinnantes.R;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.ErrorCodes;
@@ -19,7 +21,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Arrays;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends BaseActivity {
 
     @BindView(R.id.button)
     Button mbutton;
@@ -76,10 +78,22 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    // 2 - Update UI when activity is resuming
+    /*
+    private void updateUIWhenResuming(){
+        this.mbutton.setText(this.isCurrentUserLogged() ? getString(R.string.button_login_text_logged) : getString(R.string.button_login_text_not_logged));
+    }
+    */
+
+    // 3 - Launching Profile Activity
+    private void startProfileActivity(){
+        Intent intent = new Intent(this, ProfilActivity.class);
+        startActivity(intent);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
         mbutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,6 +102,15 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public int getFragmentLayout() { return R.layout.activity_login; }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+     //   this.updateUIWhenResuming();
     }
 
     @Override

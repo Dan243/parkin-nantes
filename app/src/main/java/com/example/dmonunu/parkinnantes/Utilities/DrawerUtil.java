@@ -1,15 +1,20 @@
 package com.example.dmonunu.parkinnantes.Utilities;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.view.View;
 
 import com.example.dmonunu.parkinnantes.Activities.HomeActivity;
 import com.example.dmonunu.parkinnantes.R;
+import com.mikepenz.materialdrawer.AccountHeader;
+import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
+import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
@@ -36,9 +41,6 @@ public class DrawerUtil {
                 .withName(R.string.help);
         SecondaryDrawerItem drawerItemDonate = new SecondaryDrawerItem().withIdentifier(6)
                 .withName(R.string.donate);
-
-
-
 
 
         //create the drawer and remember the `Drawer` result object

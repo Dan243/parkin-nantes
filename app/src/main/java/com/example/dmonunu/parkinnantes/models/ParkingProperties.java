@@ -1,4 +1,4 @@
-package com.example.dmonunu.parkinnantes.Models;
+package com.example.dmonunu.parkinnantes.models;
 
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;

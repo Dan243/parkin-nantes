@@ -15,14 +15,6 @@
       },
       "oauth_client": [
         {
-          "client_id": "957826246516-tnskljr894m2lljri58o5h40fpr9ool6.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.dmonunu.parkinnantes",
-            "certificate_hash": "c43e2d6641e2f2fade3b206b0d698893cdf2327d"
-          }
-        },
-        {
           "client_id": "957826246516-jmm6345s5e1n4d540su0felie51qg2gd.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -37,13 +29,8 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "957826246516-jmm6345s5e1n4d540su0felie51qg2gd.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "status": 1,
+          "other_platform_oauth_client": []
         },
         "ads_service": {
           "status": 2

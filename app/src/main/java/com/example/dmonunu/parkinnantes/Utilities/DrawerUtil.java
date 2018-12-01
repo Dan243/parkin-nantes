@@ -3,10 +3,8 @@ package com.example.dmonunu.parkinnantes.Utilities;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
-import android.widget.Button;
 
-import com.example.dmonunu.parkinnantes.Activities.HomeActivity;
-import com.example.dmonunu.parkinnantes.Auth.ProfilActivity;
+import com.example.dmonunu.parkinnantes.auth.ProfilActivity;
 import com.example.dmonunu.parkinnantes.R;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;

@@ -1,28 +1,22 @@
-package com.example.dmonunu.parkinnantes.Auth;
+package com.example.dmonunu.parkinnantes.auth;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.example.dmonunu.parkinnantes.Activities.LoginActivity;
+import com.example.dmonunu.parkinnantes.activities.LoginActivity;
 import com.example.dmonunu.parkinnantes.R;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.textfield.TextInputEditText;
 
 import static com.example.dmonunu.parkinnantes.Utilities.DrawerUtil.LOAD_METHOD_CODE;
 import static com.example.dmonunu.parkinnantes.Utilities.DrawerUtil.LOAD_METHOD_CODE2;

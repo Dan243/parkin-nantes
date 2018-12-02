@@ -11,10 +11,13 @@ import android.widget.Toast;
 import com.example.dmonunu.parkinnantes.Utilities.DrawerUtil;
 import com.example.dmonunu.parkinnantes.R;
 import com.example.dmonunu.parkinnantes.models.BaseResponse;
+import com.example.dmonunu.parkinnantes.models.DispoModel;
+import com.example.dmonunu.parkinnantes.models.HoraireModel;
 import com.example.dmonunu.parkinnantes.models.ParkingModel;
 import com.example.dmonunu.parkinnantes.models.ParkingDataBase;
 import com.example.dmonunu.parkinnantes.models.Record;
 import com.example.dmonunu.parkinnantes.services.BaseService;
+import com.example.dmonunu.parkinnantes.services.HoraireDao;
 import com.example.dmonunu.parkinnantes.services.ParkingSearchRESTService;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -93,7 +96,66 @@ public class HomeActivity extends FragmentActivity implements GoogleMap.OnMyLoca
                 
             }
         });
-        
+
+        this.parkingService.recupToutesLesDispos("244400404_parkings-publics-nantes-disponibilites").enqueue(new Callback<BaseResponse<DispoModel>>() {
+            @Override
+            public void onResponse(Call<BaseResponse<DispoModel>> call, Response<BaseResponse<DispoModel>> response) {
+                List<Record<DispoModel>> records = response.body().getRecords();
+                List<DispoModel> parkingModelList = new ArrayList<>();
+                for(final Record<DispoModel> record : records ){
+                    parkingModelList.add(record.getFields());
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            parkingDataBase.dispoDao().createDispoDao(record.getFields());
+                        }
+                    }).start();
+                }
+
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        List<DispoModel> parkingModels = parkingDataBase.dispoDao().getDisponibilite();
+                        Log.d(TAG, "retrieved from database ok");
+                    }
+                }).start();
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse<DispoModel>> call, Throwable t) {
+
+            }
+        });
+
+        this.parkingService.recupTousLesHoraires("244400404_parkings-publics-nantes-disponibilites").enqueue(new Callback<BaseResponse<HoraireModel>>() {
+            @Override
+            public void onResponse(Call<BaseResponse<HoraireModel>> call, Response<BaseResponse<HoraireModel>> response) {
+                List<Record<HoraireModel>> records = response.body().getRecords();
+                List<HoraireModel> parkingModelList = new ArrayList<>();
+                for(final Record<HoraireModel> record : records ){
+                    parkingModelList.add(record.getFields());
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            parkingDataBase.horaireDao().createHoraire(record.getFields());
+                        }
+                    }).start();
+                }
+
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        List<HoraireModel> parkingModels = parkingDataBase.horaireDao().getHoraire();
+                        Log.d(TAG, "retrieved from database ok");
+                    }
+                }).start();
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse<HoraireModel>> call, Throwable t) {
+
+            }
+        });
         
         SupportMapFragment mapFragment =
                 (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);

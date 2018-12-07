@@ -1,4 +1,4 @@
-package com.example.dmonunu.parkinnantes.Models;
+package com.example.dmonunu.parkinnantes.models;
 
 import com.google.gson.annotations.Expose;
 
@@ -7,7 +7,7 @@ import java.util.List;
 public class ParkingSearchResult {
 
     @Expose
-    public List<Parking> records;
+    public List<ParkingModel> records;
 
 
 }

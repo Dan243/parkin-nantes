@@ -1,18 +1,16 @@
-package com.example.dmonunu.parkinnantes.Activities;
+package com.example.dmonunu.parkinnantes.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.dmonunu.parkinnantes.Auth.BaseActivity;
-import com.example.dmonunu.parkinnantes.Auth.ProfilActivity;
+import com.example.dmonunu.parkinnantes.auth.BaseActivity;
+import com.example.dmonunu.parkinnantes.auth.ProfilActivity;
 import com.example.dmonunu.parkinnantes.R;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.ErrorCodes;

@@ -1,13 +1,11 @@
-package com.example.dmonunu.parkinnantes.Auth;
+package com.example.dmonunu.parkinnantes.auth;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import butterknife.ButterKnife;
 
 import android.os.Bundle;
 
-import com.example.dmonunu.parkinnantes.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 

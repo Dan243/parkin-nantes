@@ -1,8 +1,7 @@
 <resources>
     <string name="app_name">Park\'In Nantes</string>
     <string name="tournament"> Menu </string>
-    <string name="manage_player">Premier choix</string>
-    <string name="settings">settings</string>
+    <string name="manage_player">MON PROFIL</string>
     <string name="about">about</string>
     <string name="help">help</string>
     <string name="donate">donate</string>
@@ -10,7 +9,16 @@
     <string name="error_authentication_canceled">Authentification annulée</string>
     <string name="error_unknown_error">Erreur inconnue</string>
     <string name="error_no_internet">Pas d\'internet</string>
-    <string name="facebook_app_id">785245918480471</string>
-    <string name="fb_login_protocol_scheme">fb785245918480471</string>
+    <string name="facebook_application_id" translatable="false">785245918480471</string>
+    <string name="facebook_login_protocol_scheme" translatable="false">fb785245918480471</string>
+    <string name="popup_message_confirmation_delete_account"> Voulez-vous vraiment supprimer le compte ?</string>
+    <string name="info_no_email_found">Pas d\'email trouvé</string>
+    <string name="info_no_username_found">Pas de nom d\'utilisateur trouvé</string>
+    <string name="button_login_text_logged">Connecté</string>
+    <string name="button_login_text_not_logged">Pas connecté</string>
+    <string name="twitterUsername">"@danmonunu"</string>
+    <string name="popup_message_choice_yes"> Oui </string>
+    <string name="popup_message_choice_no"> Non </string>
+
 
 </resources>

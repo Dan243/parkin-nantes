@@ -1,16 +1,16 @@
-package com.example.dmonunu.parkinnantes.Activities;
+package com.example.dmonunu.parkinnantes.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.dmonunu.parkinnantes.auth.BaseActivity;
+import com.example.dmonunu.parkinnantes.auth.ProfilActivity;
 import com.example.dmonunu.parkinnantes.R;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.ErrorCodes;
@@ -19,10 +19,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Arrays;
 
-public class LoginActivity extends AppCompatActivity {
-
-    @BindView(R.id.button)
-    Button mbutton;
+public class LoginActivity extends BaseActivity {
 
     @BindView(R.id.coordinator)
     CoordinatorLayout coordinatorLayout;
@@ -37,9 +34,9 @@ public class LoginActivity extends AppCompatActivity {
                         .createSignInIntentBuilder()
                         .setTheme(R.style.LoginTheme)
                         .setAvailableProviders(
-                                Arrays.asList(new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),
-                                        new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build(),
-                                        new AuthUI.IdpConfig.Builder(AuthUI.FACEBOOK_PROVIDER).build()))
+                                Arrays.asList(new AuthUI.IdpConfig.EmailBuilder().build(),
+                                        new AuthUI.IdpConfig.GoogleBuilder().build(),
+                                        new AuthUI.IdpConfig.FacebookBuilder().build()))
                         .setIsSmartLockEnabled(false, true)
                         //.setLogo(R.drawable.ic_logo_auth)
                         .build(),
@@ -67,27 +64,45 @@ public class LoginActivity extends AppCompatActivity {
             } else { // ERRORS
                 if (response == null) {
                     showSnackBar(this.coordinatorLayout, getString(R.string.error_authentication_canceled));
-                } else if (response.getErrorCode() == ErrorCodes.NO_NETWORK) {
+                } else if (response.getError().getErrorCode() == ErrorCodes.NO_NETWORK) {
                     showSnackBar(this.coordinatorLayout, getString(R.string.error_no_internet));
-                } else if (response.getErrorCode() == ErrorCodes.UNKNOWN_ERROR) {
+                } else if (response.getError().getErrorCode() == ErrorCodes.UNKNOWN_ERROR) {
                     showSnackBar(this.coordinatorLayout, getString(R.string.error_unknown_error));
                 }
             }
         }
     }
 
+    // 2 - Update UI when activity is resuming
+    /*
+    private void updateUIWhenResuming(){
+        this.mbutton.setText(this.isCurrentUserLogged() ? getString(R.string.button_login_text_logged) : getString(R.string.button_login_text_not_logged));
+    }
+    */
+
+    // 3 - Launching Profile Activity
+    private void startProfileActivity(){
+        Intent intent = new Intent(this, ProfilActivity.class);
+        startActivity(intent);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-        mbutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LoginActivity.this.startSignInActivity();
-            }
-        });
 
+        this.startSignInActivity();
+
+
+    }
+
+    @Override
+    public int getFragmentLayout() { return R.layout.activity_login; }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+     //   this.updateUIWhenResuming();
     }
 
     @Override

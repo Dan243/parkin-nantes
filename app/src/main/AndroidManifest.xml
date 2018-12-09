@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:name="com.activeandroid.app.Application"
@@ -14,6 +15,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <uses-library android:name="org.apache.http.legacy" android:required="false" />
+
+
 
         <!-- Création de la base de donnée -->
         <!-- DB Name -->
@@ -26,17 +31,24 @@
         <meta-data
             android:name="AA_DB_VERSION"
             android:value="17" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
 
-        <activity
-            android:name=".Activities.HomeActivity">
-        </activity>
-        <activity android:name=".Activities.LoginActivity">
+        <activity android:name=".activities.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activities.LoginActivity">
+
+        </activity>
+        <activity
+            android:name=".auth.ProfilActivity"
+            android:label="@string/manage_player"
+            android:parentActivityName=".activities.HomeActivity" />
     </application>
 
 </manifest>

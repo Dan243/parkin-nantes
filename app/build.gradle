@@ -41,9 +41,9 @@ dependencies {
     implementation 'com.michaelpardo:activeandroid:3.1.0-SNAPSHOT'
 
     // Add Retrofit (with GSON converter)
-    implementation 'com.squareup.retrofit2:retrofit:2.1.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
     implementation 'com.google.code.gson:gson:2.8.2'
-    implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
 
     // Add Otto Event Bus
     implementation 'com.squareup:otto:1.3.8'
@@ -58,14 +58,27 @@ dependencies {
     //Google Material Icons
     implementation 'com.mikepenz:fontawesome-typeface:5.3.1.1@aar'     //FontAwesome
 
-    implementation "com.google.firebase:firebase-core:11.8.0"
+    implementation "com.google.firebase:firebase-core:16.0.5"
 
     // FirebaseUI
-    implementation 'com.firebaseui:firebase-ui-auth:3.1.3'
+    implementation 'com.firebaseui:firebase-ui-auth:4.1.0'
 
     // FACEBOOK LOGIN SUPPORT
-    implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
+    implementation 'com.facebook.android:facebook-android-sdk:4.38.1'
+
+    //GOOGLE SERVICE MAP
+    implementation 'com.google.android.gms:play-services-maps:16.0.0'
+
+    //GLIDE
+
+    implementation 'com.github.bumptech.glide:glide:4.8.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+
+    implementation 'android.arch.persistence.room:runtime:1.0.0'
+    annotationProcessor 'android.arch.persistence.room:compiler:1.0.0'
 
 }
 
 apply plugin: 'com.google.gms.google-services'
+com.google.gms.googleservices.GoogleServicesPlugin.config.disableVersionCheck = true

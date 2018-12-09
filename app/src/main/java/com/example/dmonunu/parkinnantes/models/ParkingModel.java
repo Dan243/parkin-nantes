@@ -11,7 +11,7 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "Parkings")
+@Entity(tableName = "ParkingModel")
 public class ParkingModel implements Serializable {
 
     @SerializedName("capacite_moto")

@@ -21,9 +21,6 @@ import java.util.Arrays;
 
 public class LoginActivity extends BaseActivity {
 
-    @BindView(R.id.button)
-    Button mbutton;
-
     @BindView(R.id.coordinator)
     CoordinatorLayout coordinatorLayout;
 
@@ -93,12 +90,9 @@ public class LoginActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
-        mbutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LoginActivity.this.startSignInActivity();
-            }
-        });
+
+        this.startSignInActivity();
+
 
     }
 

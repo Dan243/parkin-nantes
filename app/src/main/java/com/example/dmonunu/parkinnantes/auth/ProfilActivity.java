@@ -18,10 +18,10 @@ import com.example.dmonunu.parkinnantes.R;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnSuccessListener;
 
-import static com.example.dmonunu.parkinnantes.Utilities.DrawerUtil.LOAD_METHOD_CODE;
-import static com.example.dmonunu.parkinnantes.Utilities.DrawerUtil.LOAD_METHOD_CODE2;
-import static com.example.dmonunu.parkinnantes.Utilities.DrawerUtil.LOAD_METHOD_ID;
-import static com.example.dmonunu.parkinnantes.Utilities.DrawerUtil.LOAD_METHOD_ID2;
+import static com.example.dmonunu.parkinnantes.utilities.DrawerUtil.LOAD_METHOD_CODE;
+import static com.example.dmonunu.parkinnantes.utilities.DrawerUtil.LOAD_METHOD_CODE2;
+import static com.example.dmonunu.parkinnantes.utilities.DrawerUtil.LOAD_METHOD_ID;
+import static com.example.dmonunu.parkinnantes.utilities.DrawerUtil.LOAD_METHOD_ID2;
 
 public class ProfilActivity extends BaseActivity {
 

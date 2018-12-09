@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.dmonunu.parkinnantes.Utilities.DrawerUtil;
+import com.example.dmonunu.parkinnantes.utilities.DrawerUtil;
 import com.example.dmonunu.parkinnantes.R;
 import com.example.dmonunu.parkinnantes.models.BaseResponse;
 import com.example.dmonunu.parkinnantes.models.DispoModel;
@@ -17,7 +17,6 @@ import com.example.dmonunu.parkinnantes.models.ParkingModel;
 import com.example.dmonunu.parkinnantes.models.ParkingDataBase;
 import com.example.dmonunu.parkinnantes.models.Record;
 import com.example.dmonunu.parkinnantes.services.BaseService;
-import com.example.dmonunu.parkinnantes.services.HoraireDao;
 import com.example.dmonunu.parkinnantes.services.ParkingSearchRESTService;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;

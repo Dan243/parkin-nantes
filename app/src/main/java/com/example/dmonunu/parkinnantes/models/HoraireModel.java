@@ -4,122 +4,138 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "HoraireModel")
 public class HoraireModel implements Serializable {
 
-    @SerializedName("grp_complet")
-    @Expose
-    private int grp_complet;
 
-    @SerializedName("grp_identifiant")
+    @SerializedName("nom")
     @Expose
-    private int grp_identifiant;
+    private String nom;
 
-    @SerializedName("grp_horodatage")
+    @SerializedName("type_horaire")
     @Expose
-    private String grp_horodatage;
+    private String type_horaire;
 
-    @SerializedName("grp_disponible")
+    @SerializedName("jour")
     @Expose
-    private int grp_disponible;
+    private String jour;
+
+    @SerializedName("nom_periode")
+    @Expose
+    private String nom_periode;
+
+    @SerializedName("heure_fin")
+    @Expose
+    private String heure_fin;
+
+    @SerializedName("heure_debut")
+    @Expose
+    private String heure_debut;
+
+    @SerializedName("date_fin")
+    @Expose
+    private String date_fin;
 
     @SerializedName("idobj")
     @Expose
     @PrimaryKey
     @NonNull
-    private int idobj;
+    private String idobj;
 
-    @SerializedName("grp_nom")
+    @SerializedName("location")
     @Expose
-    private String grp_nom;
+    @Ignore
+    private List<Double> location;
 
-    @SerializedName("grp_statut")
+    @SerializedName("date_debut")
     @Expose
-    private int grp_statut;
+    private String date_debut;
 
-    @SerializedName("grp_exploitant")
-    @Expose
-    private int grp_exploitant;
-
-    @SerializedName("grp_pri_auth")
-    @Expose
-    private int grp_pri_auth;
-
-
-    public int getGrp_complet() {
-        return grp_complet;
+    public String getNom() {
+        return nom;
     }
 
-    public void setGrp_complet(int grp_complet) {
-        this.grp_complet = grp_complet;
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
-    public int getGrp_identifiant() {
-        return grp_identifiant;
+    public String getType_horaire() {
+        return type_horaire;
     }
 
-    public void setGrp_identifiant(int grp_identifiant) {
-        this.grp_identifiant = grp_identifiant;
+    public void setType_horaire(String type_horaire) {
+        this.type_horaire = type_horaire;
     }
 
-    public String getGrp_horodatage() {
-        return grp_horodatage;
+    public String getJour() {
+        return jour;
     }
 
-    public void setGrp_horodatage(String grp_horodatage) {
-        this.grp_horodatage = grp_horodatage;
+    public void setJour(String jour) {
+        this.jour = jour;
     }
 
-    public int getGrp_disponible() {
-        return grp_disponible;
+    public String getNom_periode() {
+        return nom_periode;
     }
 
-    public void setGrp_disponible(int grp_disponible) {
-        this.grp_disponible = grp_disponible;
+    public void setNom_periode(String nom_periode) {
+        this.nom_periode = nom_periode;
     }
 
-    public int getIdobj() {
+    public String getHeure_fin() {
+        return heure_fin;
+    }
+
+    public void setHeure_fin(String heure_fin) {
+        this.heure_fin = heure_fin;
+    }
+
+    public String getHeure_debut() {
+        return heure_debut;
+    }
+
+    public void setHeure_debut(String heure_debut) {
+        this.heure_debut = heure_debut;
+    }
+
+    public String getDate_fin() {
+        return date_fin;
+    }
+
+    public void setDate_fin(String date_fin) {
+        this.date_fin = date_fin;
+    }
+
+    @NonNull
+    public String getIdobj() {
         return idobj;
     }
 
-    public void setIdobj(int idobj) {
+    public void setIdobj(@NonNull String idobj) {
         this.idobj = idobj;
     }
 
-    public String getGrp_nom() {
-        return grp_nom;
+    public List<Double> getLocation() {
+        return location;
     }
 
-    public void setGrp_nom(String grp_nom) {
-        this.grp_nom = grp_nom;
+    public void setLocation(List<Double> location) {
+        this.location = location;
     }
 
-    public int getGrp_statut() {
-        return grp_statut;
+    public String getDate_debut() {
+        return date_debut;
     }
 
-    public void setGrp_statut(int grp_statut) {
-        this.grp_statut = grp_statut;
-    }
-
-    public int getGrp_exploitant() {
-        return grp_exploitant;
-    }
-
-    public void setGrp_exploitant(int grp_exploitant) {
-        this.grp_exploitant = grp_exploitant;
-    }
-
-    public int getGrp_pri_auth() {
-        return grp_pri_auth;
-    }
-
-    public void setGrp_pri_auth(int grp_pri_auth) {
-        this.grp_pri_auth = grp_pri_auth;
+    public void setDate_debut(String date_debut) {
+        this.date_debut = date_debut;
     }
 }

@@ -1,4 +1,4 @@
-package com.example.dmonunu.parkinnantes.Utilities;
+package com.example.dmonunu.parkinnantes.utilities;
 
 import android.app.Activity;
 import android.content.Intent;

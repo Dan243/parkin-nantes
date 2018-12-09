@@ -14,6 +14,9 @@ public interface ParkingDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void createParking(ParkingModel parkingModel);
 
-    @Query("SELECT * FROM ParkingModel")
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void createParkings(List<ParkingModel> parkingModels);
+
+    @Query("SELECT * FROM Parkings")
     List<ParkingModel> getParkings();
 }

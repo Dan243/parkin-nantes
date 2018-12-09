@@ -12,11 +12,11 @@ import retrofit2.http.Query;
 public interface ParkingSearchRESTService {
 
     @GET("api/records/1.0/search/")
-    Call<BaseResponse<ParkingModel>> recupTousLesParkings(@Query("dataset") String datasetId);
+    Call<BaseResponse<ParkingModel>> recupTousLesParkings(@Query("dataset") String datasetId, @Query("rows") int rows);
 
     @GET("api/records/1.0/search/")
-    Call<BaseResponse<DispoModel>> recupToutesLesDispos(@Query("dataset") String datasetId);
+    Call<BaseResponse<DispoModel>> recupToutesLesDispos(@Query("dataset") String datasetId, @Query("rows") int rows);
 
     @GET("api/records/1.0/search/")
-    Call<BaseResponse<HoraireModel>> recupTousLesHoraires(@Query("dataset") String datasetId);
+    Call<BaseResponse<HoraireModel>> recupTousLesHoraires(@Query("dataset") String datasetId, @Query("rows") int rows);
 }

@@ -1,8 +1,8 @@
 package com.example.dmonunu.parkinnantes.models;
 
 import java.io.Serializable;
-import java.util.List;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -10,6 +10,7 @@ import androidx.room.PrimaryKey;
 public class LightParking implements Serializable {
 
     @PrimaryKey
+    @NonNull
     private String idobj;
 
     private String nomParking;
@@ -22,38 +23,43 @@ public class LightParking implements Serializable {
 
     private String moyenPaiement;
 
-    private String heure_debut;
+    private String heureDebut;
 
-    private String heure_fin;
+    private String heureFin;
 
-    private List<Double> location;
+    private double latitude;
 
-    private String date_debut;
+    private double longitude;
 
-    private String date_fin;
+    private String dateDebut;
+
+    private String dateFin;
 
     private String adresse;
 
-    public LightParking(String idobj, String nomParking, int nbPlaceDispo, int capaciteTotale, String telephone, String moyenPaiement, String heure_debut, String heure_fin, List<Double> location, String date_debut, String date_fin, String adress) {
-        this.idobj = idobj;
-        this.nomParking = nomParking;
-        this.nbPlaceDispo = nbPlaceDispo;
-        this.capaciteTotale = capaciteTotale;
-        this.telephone = telephone;
-        this.moyenPaiement = moyenPaiement;
-        this.heure_debut = heure_debut;
-        this.heure_fin = heure_fin;
-        this.location = location;
-        this.date_debut = date_debut;
-        this.date_fin = date_fin;
-        this.adresse = adress;
+    public LightParking() {}
+
+    public LightParking(LightParkingBuilder builder){
+        this.idobj = builder.idobj;
+        this.adresse = builder.adresse;
+        this.capaciteTotale = builder.capaciteTotale;
+        this.dateDebut = builder.dateDebut;
+        this.dateFin = builder.dateFin;
+        this.heureDebut = builder.heureDebut;
+        this.heureFin = builder.heureFin;
+        this.latitude = builder.latitude;
+        this.longitude = builder.longitude;
+        this.moyenPaiement = builder.moyenPaiement;
+        this.nomParking = builder.nomParking;
+        this.telephone = builder.telephone;
     }
 
+    @NonNull
     public String getIdobj() {
         return idobj;
     }
 
-    public void setIdobj(String idobj) {
+    public void setIdobj(@NonNull String idobj) {
         this.idobj = idobj;
     }
 
@@ -97,44 +103,52 @@ public class LightParking implements Serializable {
         this.moyenPaiement = moyenPaiement;
     }
 
-    public String getHeure_debut() {
-        return heure_debut;
+    public String getHeureDebut() {
+        return heureDebut;
     }
 
-    public void setHeure_debut(String heure_debut) {
-        this.heure_debut = heure_debut;
+    public void setHeureDebut(String heureDebut) {
+        this.heureDebut = heureDebut;
     }
 
-    public String getHeure_fin() {
-        return heure_fin;
+    public String getHeureFin() {
+        return heureFin;
     }
 
-    public void setHeure_fin(String heure_fin) {
-        this.heure_fin = heure_fin;
+    public void setHeureFin(String heureFin) {
+        this.heureFin = heureFin;
     }
 
-    public List<Double> getLocation() {
-        return location;
+    public double getLatitude() {
+        return latitude;
     }
 
-    public void setLocation(List<Double> location) {
-        this.location = location;
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
     }
 
-    public String getDate_debut() {
-        return date_debut;
+    public double getLongitude() {
+        return longitude;
     }
 
-    public void setDate_debut(String date_debut) {
-        this.date_debut = date_debut;
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 
-    public String getDate_fin() {
-        return date_fin;
+    public String getDateDebut() {
+        return dateDebut;
     }
 
-    public void setDate_fin(String date_fin) {
-        this.date_fin = date_fin;
+    public void setDateDebut(String dateDebut) {
+        this.dateDebut = dateDebut;
+    }
+
+    public String getDateFin() {
+        return dateFin;
+    }
+
+    public void setDateFin(String dateFin) {
+        this.dateFin = dateFin;
     }
 
     public String getAdresse() {
@@ -143,5 +157,105 @@ public class LightParking implements Serializable {
 
     public void setAdresse(String adresse) {
         this.adresse = adresse;
+    }
+
+    public static class LightParkingBuilder {
+
+        private String idobj;
+
+        private String nomParking;
+
+        private int nbPlaceDispo;
+
+        private int capaciteTotale;
+
+        private String telephone;
+
+        private String moyenPaiement;
+
+        private String heureDebut;
+
+        private String heureFin;
+
+        private double latitude;
+
+        private double longitude;
+
+        private String dateDebut;
+
+        private String dateFin;
+
+        private String adresse;
+
+        public LightParkingBuilder() {}
+
+        public LightParkingBuilder idObj(String idObj) {
+            this.idobj = idObj;
+            return this;
+        }
+
+        public LightParkingBuilder nomParking(String nomParking) {
+            this.nomParking = nomParking;
+            return this;
+        }
+
+        public LightParkingBuilder nbPlaceDispo(int nbPlaceDispo) {
+            this.nbPlaceDispo = nbPlaceDispo;
+            return this;
+        }
+
+        public LightParkingBuilder capaciteTotale(int capaciteTotale) {
+            this.capaciteTotale = capaciteTotale;
+            return this;
+        }
+
+        public LightParkingBuilder telephone(String telephone) {
+            this.telephone = telephone;
+            return this;
+        }
+
+        public LightParkingBuilder moyenPaiement(String moyenPaiement) {
+            this.moyenPaiement = moyenPaiement;
+            return this;
+        }
+
+        public LightParkingBuilder heureDebut(String heureDebut) {
+            this.heureDebut = heureDebut;
+            return this;
+        }
+
+        public LightParkingBuilder heureFin(String heureFin) {
+            this.heureFin = heureFin;
+            return this;
+        }
+
+        public LightParkingBuilder latitude(double latitude) {
+            this.latitude = latitude;
+            return this;
+        }
+
+        public LightParkingBuilder longitude(double longitude) {
+            this.longitude = longitude;
+            return this;
+        }
+
+        public LightParkingBuilder dateDebut(String dateDebut) {
+            this.dateDebut = dateDebut;
+            return this;
+        }
+
+        public LightParkingBuilder dateFin(String dateFin) {
+            this.dateFin = dateFin;
+            return this;
+        }
+
+        public LightParkingBuilder adresse(String adresse) {
+            this.adresse = adresse;
+            return this;
+        }
+
+        public LightParking build() {
+            return new LightParking(this);
+        }
     }
 }

@@ -34,7 +34,7 @@ public class DispoModel implements Serializable {
     @Expose
     @PrimaryKey
     @NonNull
-    private int idobj;
+    private String idobj;
 
     @SerializedName("grp_nom")
     @Expose
@@ -85,11 +85,11 @@ public class DispoModel implements Serializable {
         this.grp_disponible = grp_disponible;
     }
 
-    public int getIdobj() {
+    public String getIdobj() {
         return idobj;
     }
 
-    public void setIdobj(int idobj) {
+    public void setIdobj(String idobj) {
         this.idobj = idobj;
     }
 

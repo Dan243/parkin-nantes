@@ -1,43 +1,81 @@
 package com.example.dmonunu.parkinnantes.models;
 
-import android.util.Log;
-
+import java.util.ArrayList;
 import java.util.List;
-
-import androidx.room.Room;
 
 public class ParkingMapper {
 
+    public static List<LightParking> createLightParkings(List<DispoModel> dispoModels, List<HoraireModel> horaireModels, List<ParkingModel> parkingModels) {
+        List<LightParking> lightParkings = new ArrayList<>();
+        for (ParkingModel parkingModel : parkingModels) {
+            DispoModel dispoModel = getDispoModelById(dispoModels, parkingModel.getIdobj());
+            HoraireModel horaireModel = getHoraireModelByid(horaireModels, parkingModel.getIdobj());
+            lightParkings.add(createLightParking(dispoModel, horaireModel, parkingModel));
+        }
 
-    public static void createLightParking(DispoModel dispoModel, HoraireModel horaireModel, ParkingModel parkingModel){
+        return lightParkings;
+    }
 
-        final String DATABASE_NAME = "parking_db";
-        final ParkingDataBase parkingDataBase;
-
-        parkingDataBase = Room.databaseBuilder(getApplicationContext(), ParkingDataBase.class, DATABASE_NAME)
-                .fallbackToDestructiveMigration()
-                .build();
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                List<LightParking> lightParking = parkingDataBase.lightParkingDao().getIdobjParking();
+    private static DispoModel getDispoModelById(List<DispoModel> dispoModels, String id) {
+        for (DispoModel dispoModel : dispoModels) {
+            if (id.equals(dispoModel.getIdobj())) {
+                return dispoModel;
             }
-        }).start();
+        }
 
-         String idobj = parkingModel.getIdobj();
-         String nomParking = horaireModel.getNom();
-         int nbPlaceDispo = dispoModel.getGrp_disponible();
-         int capaciteTotale = parkingModel.getCarCapacity();
-         String telephone = parkingModel.getTelephone();
-         String moyenPaiement = parkingModel.getPaymentWays();
-         String heure_debut = horaireModel.getHeure_debut();
-         String heure_fin = horaireModel.getHeure_fin();
-         List<Double> location = parkingModel.getLocation();
-         String date_debut = horaireModel.getDate_debut();
-         String date_fin = horaireModel.getDate_fin();
-         String adresse = parkingModel.getAddress();
+        return null;
+    }
 
-         LightParking lightParking = new LightParking(idobj, nomParking,  nbPlaceDispo,  capaciteTotale,  telephone,moyenPaiement,heure_debut,heure_fin,location,date_debut,date_fin,adresse);
+    private static HoraireModel getHoraireModelByid(List<HoraireModel> horaireModels, String id) {
+        for (HoraireModel horaireModel : horaireModels) {
+            if (id.equals(horaireModel.getIdobj())) {
+                return horaireModel;
+            }
+        }
+
+        return null;
+    }
+
+    public static LightParking createLightParking(DispoModel dispoModel, HoraireModel horaireModel, ParkingModel parkingModel){
+
+        if (parkingModel != null) {
+            String idobj = parkingModel.getIdobj();
+            int capaciteTotale = parkingModel.getCarCapacity();
+            String telephone = parkingModel.getTelephone();
+            String moyenPaiement = parkingModel.getPaymentWays();
+            double latitude = parkingModel.getLatitude();
+            double longitude = parkingModel.getLongitude();
+            String adresse = parkingModel.getAddress();
+
+            if (horaireModel != null) {
+                String nomParking = horaireModel.getNom();
+                String heureDebut = horaireModel.getHeure_debut();
+
+                String heureFin = horaireModel.getHeure_fin();
+                String dateDebut = horaireModel.getDate_debut();
+                String dateFin = horaireModel.getDate_fin();
+
+                if (dispoModel != null) {
+                    int nbPlaceDispo = dispoModel.getGrp_disponible();
+
+                    return new LightParking.LightParkingBuilder()
+                            .idObj(idobj)
+                            .nomParking(nomParking)
+                            .nbPlaceDispo(nbPlaceDispo)
+                            .capaciteTotale(capaciteTotale)
+                            .telephone(telephone)
+                            .moyenPaiement(moyenPaiement)
+                            .heureDebut(heureDebut)
+                            .heureFin(heureFin)
+                            .latitude(latitude)
+                            .longitude(longitude)
+                            .dateDebut(dateDebut)
+                            .dateFin(dateFin)
+                            .adresse(adresse)
+                            .build();
+                }
+            }
+        }
+        return null;
     }
 }

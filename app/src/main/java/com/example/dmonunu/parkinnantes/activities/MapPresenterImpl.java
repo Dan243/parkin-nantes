@@ -7,7 +7,11 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.example.dmonunu.parkinnantes.models.BaseResponse;
+import com.example.dmonunu.parkinnantes.models.DispoModel;
+import com.example.dmonunu.parkinnantes.models.HoraireModel;
+import com.example.dmonunu.parkinnantes.models.LightParking;
 import com.example.dmonunu.parkinnantes.models.ParkingDataBase;
+import com.example.dmonunu.parkinnantes.models.ParkingMapper;
 import com.example.dmonunu.parkinnantes.models.ParkingModel;
 import com.example.dmonunu.parkinnantes.models.Record;
 import com.example.dmonunu.parkinnantes.services.BaseService;
@@ -44,7 +48,7 @@ public class MapPresenterImpl implements MapPresenter {
     }
 
     private void getParkingsFromApi() {
-        this.parkingService.recupTousLesParkings("244400404_parkings-publics-nantes").enqueue(new Callback<BaseResponse<ParkingModel>>() {
+        this.parkingService.recupTousLesParkings("244400404_parkings-publics-nantes", 100).enqueue(new Callback<BaseResponse<ParkingModel>>() {
             @Override
             public void onResponse(Call<BaseResponse<ParkingModel>> call, Response<BaseResponse<ParkingModel>> response) {
 
@@ -57,24 +61,54 @@ public class MapPresenterImpl implements MapPresenter {
                     parkingModels.add(parkingModel);
                 }
 
-                insertParkignsInRoom(parkingModels);
-                if (view != null) {
-                    view.initMap(parkingModels);
-                }
+                parkingService.recupToutesLesDispos("244400404_parkings-publics-nantes-disponibilites", 100).enqueue(new Callback<BaseResponse<DispoModel>>() {
+                    @Override
+                    public void onResponse(Call<BaseResponse<DispoModel>> call, Response<BaseResponse<DispoModel>> response) {
+                        List<Record<DispoModel>> records = response.body().getRecords();
+                        final List<DispoModel> dispoModels = new ArrayList<>();
+                        for(final Record<DispoModel> record : records ){
+                            dispoModels.add(record.getFields());
+                        }
+
+                        parkingService.recupTousLesHoraires("244400404_parkings-publics-nantes-disponibilites", 100).enqueue(new Callback<BaseResponse<HoraireModel>>() {
+                            @Override
+                            public void onResponse(Call<BaseResponse<HoraireModel>> call, Response<BaseResponse<HoraireModel>> response) {
+                                List<Record<HoraireModel>> records = response.body().getRecords();
+                                List<HoraireModel> horaireModels = new ArrayList<>();
+                                for (final Record<HoraireModel> record : records ){
+                                    horaireModels.add(record.getFields());
+                                }
+
+                                List<LightParking> lightParkings = ParkingMapper.createLightParkings(dispoModels, horaireModels, parkingModels);
+                                view.initMap(lightParkings);
+                            }
+
+                            @Override
+                            public void onFailure(Call<BaseResponse<HoraireModel>> call, Throwable t) {
+                                Log.d("", "");
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onFailure(Call<BaseResponse<DispoModel>> call, Throwable t) {
+                        Log.d("", "");
+                    }
+                });
             }
 
             @Override
             public void onFailure(Call<BaseResponse<ParkingModel>> call, Throwable t) {
-
+                Log.d("", "");
             }
         });
     }
 
-    private void insertParkignsInRoom(final List<ParkingModel> parkingModelList) {
+    private void insertParkignsInRoom(final List<LightParking> parkingModelList) {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                ParkingDataBase.getAppDatabase(context).parkingDao().createParkings(parkingModelList);
+                ParkingDataBase.getAppDatabase(context).lightParkingDao().createParkings(parkingModelList);
             }
         }).start();
     }
@@ -103,16 +137,16 @@ public class MapPresenterImpl implements MapPresenter {
 
     }
 
-    private class RoomAsyncTask extends AsyncTask<String, Integer, List<ParkingModel>> {
-        protected List<ParkingModel> doInBackground(String... urls) {
-            return ParkingDataBase.getAppDatabase(context).parkingDao().getParkings();
+    private class RoomAsyncTask extends AsyncTask<String, Integer, List<LightParking>> {
+        protected List<LightParking> doInBackground(String... urls) {
+            return ParkingDataBase.getAppDatabase(context).lightParkingDao().getParkings();
         }
 
         protected void onProgressUpdate(Integer... progress) {
 
         }
 
-        protected void onPostExecute(List<ParkingModel> result) {
+        protected void onPostExecute(List<LightParking> result) {
             if (view != null) {
                 view.initMap(result);
             }

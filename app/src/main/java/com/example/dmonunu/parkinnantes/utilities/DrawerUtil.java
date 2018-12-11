@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
 
+import com.example.dmonunu.parkinnantes.activities.ListParkingActivity;
 import com.example.dmonunu.parkinnantes.auth.ProfilActivity;
 import com.example.dmonunu.parkinnantes.R;
 import com.mikepenz.materialdrawer.Drawer;
@@ -36,7 +37,7 @@ public class DrawerUtil {
         PrimaryDrawerItem drawerItemManagePlayers = new PrimaryDrawerItem().withIdentifier(1)
                 .withName(R.string.manage_player).withIcon(R.drawable.outline_account_circle_24);
         PrimaryDrawerItem drawerItemManagePlayersTournaments = new PrimaryDrawerItem()
-                .withIdentifier(2).withName(R.string.tournament);
+                .withIdentifier(2).withName(R.string.list_parking).withIcon(R.drawable.baseline_directions_car_24);
 
 
         SecondaryDrawerItem drawerItemSettings = new SecondaryDrawerItem().withIdentifier(3);
@@ -86,6 +87,11 @@ public class DrawerUtil {
                         if (drawerItem.getIdentifier() == 1 && !(activity instanceof ProfilActivity)) {
                             // load tournament screen
                             Intent intent = new Intent(activity, ProfilActivity.class);
+                            view.getContext().startActivity(intent);
+                        }
+
+                        if (drawerItem.getIdentifier() == 2 && !(activity instanceof ListParkingActivity)) {
+                            Intent intent = new Intent(activity, ListParkingActivity.class);
                             view.getContext().startActivity(intent);
                         }
 

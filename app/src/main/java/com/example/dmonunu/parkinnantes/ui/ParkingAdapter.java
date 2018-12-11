@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -51,8 +52,9 @@ public class ParkingAdapter extends ArrayAdapter<LightParking> {
     @BindView(R.id.parking_adapter_cheque_imageview)
     ImageView chequeImg;
 
-    @BindView(R.id.parking_adapter_fav_imageview)
-    ImageView favortiteImg;
+    @BindView(R.id.favorite)
+    ImageButton favorite;
+
     public ParkingAdapter(Context context, List<LightParking> parkings){
         super(context, -1, parkings);
     }
@@ -85,6 +87,7 @@ public class ParkingAdapter extends ArrayAdapter<LightParking> {
                 double percentage = getPercentage(placeDisponible, placesMax);
                 this.parkingPlacesProgBar.setProgress((int) percentage);
             }
+            // setPaymentOptions(parkingDetails);
 
         }
         return actualView;
@@ -94,6 +97,22 @@ public class ParkingAdapter extends ArrayAdapter<LightParking> {
         int value = refValue - currentValue;
         double div = ((double) value / (double) refValue);
         return (div * 100);
+    }
+    /*
+    private void setPaymentOptions(final LightParking parking) {
+        this.setImageVisibility(parking.isCreditCardAvailable(), this.credCardImg);
+        this.setImageVisibility(parking.isCashAvailable(), this.cashImg);
+        this.setImageVisibility(parking.isTotalGRCardAvailable(), this.totalImg);
+        this.setImageVisibility(parking.isChequeAvailable(), this.chequeImg);
+    }
+    */
+    private static void setImageVisibility(final boolean isServiceAvailable, final ImageView
+            imageView) {
+        int result = ImageView.GONE;
+        if (isServiceAvailable) {
+            result = ImageView.VISIBLE;
+        }
+        imageView.setVisibility(result);
     }
 
 }

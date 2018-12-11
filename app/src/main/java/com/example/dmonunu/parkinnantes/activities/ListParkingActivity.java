@@ -7,19 +7,26 @@ import butterknife.ButterKnife;
 
 import android.os.Bundle;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import com.example.dmonunu.parkinnantes.R;
 import com.example.dmonunu.parkinnantes.models.LightParking;
 import com.example.dmonunu.parkinnantes.ui.ParkingAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class ListParkingActivity extends AppCompatActivity {
+public class ListParkingActivity extends AppCompatActivity implements ListParkingView{
 
     @BindView(R.id.my_list_view)
     ListView myListView;
 
+
+
     private ParkingAdapter parkingAdapter;
+
+    private ListParkingPresenter presenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,10 +34,15 @@ public class ListParkingActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        this.parkingAdapter = new ParkingAdapter(this, new ArrayList<LightParking>());
-        this.myListView.setAdapter(this.parkingAdapter);
-        this.myListView.setTranscriptMode(ListView.TRANSCRIPT_MODE_NORMAL);
+        presenter = new ListParkingPresenterImpl(this, getApplicationContext());
+        presenter.getParkings();
 
+    }
 
+    @Override
+    public void createList(List<LightParking> parkings){
+        parkingAdapter = new ParkingAdapter(this, parkings);
+        myListView.setAdapter(parkingAdapter);
+        myListView.setTranscriptMode(ListView.TRANSCRIPT_MODE_NORMAL);
     }
 }

@@ -46,7 +46,11 @@
             android:name=".auth.ProfilActivity"
             android:label="@string/manage_player"
             android:parentActivityName=".activities.HomeActivity" />
-        <activity android:name=".activities.ListParkingActivity"></activity>
+        <activity
+            android:name=".activities.ListParkingActivity"
+            android:label="TOUS LES PARKINGS"
+            android:parentActivityName=".activities.HomeActivity"
+            ></activity>
     </application>
 
 </manifest>

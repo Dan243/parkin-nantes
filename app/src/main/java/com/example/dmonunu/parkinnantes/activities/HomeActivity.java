@@ -111,14 +111,12 @@ public class HomeActivity extends FragmentActivity implements MapView,
                             Log.i("Nombre place :", " "+parkingModel.getNbPlaceDispo());
                             Marker marker = googleMap.addMarker(new MarkerOptions()
                                     .position(latLng)
-                                   // .icon(BitmapDescriptorFactory.fromResource(R.drawable.dispo_icon))
                                     .title(parkingModel.getNomParking()));
                             marker.setTag(parkingModel);
                         } else {
                             Log.i("Nombre place :", " "+parkingModel.getNbPlaceDispo());
                             Marker marker = googleMap.addMarker(new MarkerOptions()
                                     .position(latLng)
-                                   // .icon(BitmapDescriptorFactory.fromResource(R.drawable.full_icon))
                                     .title(parkingModel.getNomParking()));
                             marker.setTag(parkingModel);
                         }

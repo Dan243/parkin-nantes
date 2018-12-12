@@ -15,10 +15,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <uses-library android:name="org.apache.http.legacy" android:required="false" />
-
-
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
 
         <!-- Création de la base de donnée -->
         <!-- DB Name -->
@@ -42,13 +41,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.LoginActivity">
-
-        </activity>
+        <activity android:name=".activities.LoginActivity" />
         <activity
             android:name=".auth.ProfilActivity"
             android:label="@string/manage_player"
             android:parentActivityName=".activities.HomeActivity" />
+        <activity
+            android:name=".activities.ListParkingActivity"
+            android:label="TOUS LES PARKINGS"
+            android:parentActivityName=".activities.HomeActivity" />
+        <activity android:name=".activities.ParkingDetailsActivity"></activity>
     </application>
 
 </manifest>

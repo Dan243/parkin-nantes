@@ -46,9 +46,10 @@ public class ParkingMapper {
             double latitude = parkingModel.getLatitude();
             double longitude = parkingModel.getLongitude();
             String adresse = parkingModel.getAddress();
+            String nomParking = parkingModel.getFullname();
 
             if (horaireModel != null) {
-                String nomParking = horaireModel.getNom();
+
                 String heureDebut = horaireModel.getHeure_debut();
 
                 String heureFin = horaireModel.getHeure_fin();

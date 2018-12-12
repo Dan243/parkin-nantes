@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <ImageButton
+            android:id="@+id/parking_details_favorites_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:background="#0000"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/ic_40dp_star" />
+
+        <TextView
+            android:id="@+id/parking_details_name"
+            android:layout_width="257dp"
+            android:layout_height="39dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:text="TextView"
+            android:textColor="#000"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.29"
+            app:layout_constraintStart_toEndOf="@+id/parking_details_favorites_button" />
+
+        <TextView
+            android:id="@+id/parking_details_adress"
+            android:layout_width="244dp"
+            android:layout_height="32dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="4dp"
+            android:text="TextView"
+            android:textColor="#000"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/location_image_view"
+            app:layout_constraintTop_toTopOf="@+id/location_image_view" />
+
+        <View
+            android:id="@+id/parking_details_separator"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_marginTop="8dp"
+            android:background="@android:color/black"
+            app:layout_constraintTop_toBottomOf="@+id/parking_details_adress"
+            tools:layout_editor_absoluteX="0dp" />
+
+        <fragment
+            android:id="@+id/parking_details_mapView"
+            android:name="com.google.android.gms.maps.StreetViewPanoramaFragment"
+            android:layout_width="match_parent"
+            android:layout_height="192dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.511"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/parking_details_separator" />
+
+        <TextView
+            android:id="@+id/parking_details_away_places"
+            android:layout_width="152dp"
+            android:layout_height="29dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:gravity="center"
+            android:text="TextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.783"
+            app:layout_constraintStart_toEndOf="@+id/constant_away_places"
+            app:layout_constraintTop_toTopOf="@+id/constant_away_places" />
+
+        <TextView
+            android:id="@+id/constant_away_places"
+            android:layout_width="138dp"
+            android:layout_height="26dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="30dp"
+            android:gravity="center_vertical|left"
+            android:text="Places disponibles :"
+            android:textColor="#000"
+            android:textSize="13sp"
+            app:layout_constraintStart_toEndOf="@+id/parked_car_imageview"
+            app:layout_constraintTop_toBottomOf="@+id/parking_details_constante_info_compl" />
+
+        <TextView
+            android:id="@+id/constant_payement_otpions"
+            android:layout_width="159dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="32dp"
+            android:gravity="center_vertical|left"
+            android:text="Options de paiements : "
+            android:textColor="#000"
+            android:textSize="13sp"
+            app:layout_constraintStart_toEndOf="@+id/give_money_imageview"
+            app:layout_constraintTop_toBottomOf="@+id/constant_away_places" />
+
+        <ImageView
+            android:id="@+id/credit_card_imageview"
+            android:layout_width="35dp"
+            android:layout_height="31dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="28dp"
+            app:layout_constraintStart_toEndOf="@+id/constant_payement_otpions"
+            app:layout_constraintTop_toBottomOf="@+id/parking_details_away_places"
+            app:srcCompat="@drawable/ic_40dp_credit_card" />
+
+        <ImageView
+            android:id="@+id/money_imageview"
+            android:layout_width="29dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="4dp"
+            app:layout_constraintStart_toEndOf="@+id/credit_card_imageview"
+            app:layout_constraintTop_toTopOf="@+id/credit_card_imageview"
+            app:srcCompat="@drawable/ic_40dp_money" />
+
+        <ImageView
+            android:id="@+id/total_gr_imageview"
+            android:layout_width="29dp"
+            android:layout_height="31dp"
+            android:layout_marginStart="4dp"
+            app:layout_constraintStart_toEndOf="@+id/money_imageview"
+            app:layout_constraintTop_toTopOf="@+id/money_imageview"
+            app:srcCompat="@drawable/ic_total_color" />
+
+        <ImageView
+            android:id="@+id/cheque_imageview"
+            android:layout_width="29dp"
+            android:layout_height="31dp"
+            android:layout_marginStart="4dp"
+            app:layout_constraintStart_toEndOf="@+id/total_gr_imageview"
+            app:layout_constraintTop_toTopOf="@+id/total_gr_imageview"
+            app:srcCompat="@drawable/ic_40dp_cheque_color" />
+
+        <ImageView
+            android:id="@+id/location_image_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="@+id/parking_details_name"
+            app:layout_constraintTop_toBottomOf="@+id/parking_details_name"
+            app:srcCompat="@drawable/ic_location_on_black_25dp" />
+
+        <ImageView
+            android:id="@+id/parked_car_imageview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            app:layout_constraintStart_toStartOf="@+id/parking_details_constante_info_compl"
+            app:layout_constraintTop_toBottomOf="@+id/parking_details_constante_info_compl"
+            app:srcCompat="@drawable/ic_25dp_parked_car" />
+
+        <ImageView
+            android:id="@+id/give_money_imageview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            app:layout_constraintStart_toStartOf="@+id/parked_car_imageview"
+            app:layout_constraintTop_toBottomOf="@+id/parked_car_imageview"
+            app:srcCompat="@drawable/ic_25dp_give_money" />
+
+        <TextView
+            android:id="@+id/parking_details_constante_info_compl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="30dp"
+            android:text="Informations complémentaires"
+            android:textColor="@color/colorPrimary"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/parking_details_mapView" />
+
+        <View
+            android:id="@+id/test"
+            android:layout_width="170dp"
+            android:layout_height="2dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="40dp"
+            android:background="@color/colorPrimary"
+            app:layout_constraintStart_toEndOf="@+id/parking_details_constante_info_compl"
+            app:layout_constraintTop_toBottomOf="@+id/parking_details_mapView" />
+
+        <ImageView
+            android:id="@+id/parking_details_tram_imageview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            app:layout_constraintStart_toStartOf="@+id/give_money_imageview"
+            app:layout_constraintTop_toBottomOf="@+id/give_money_imageview"
+            app:srcCompat="@drawable/ic_25dp_tram" />
+
+        <TextView
+            android:id="@+id/parking_details_constante_transports"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
+            android:gravity="center_vertical|left"
+            android:text="Transports en commun :"
+            android:textColor="#000"
+            android:textSize="13sp"
+            app:layout_constraintStart_toEndOf="@+id/parking_details_tram_imageview"
+            app:layout_constraintTop_toBottomOf="@+id/constant_payement_otpions" />
+
+        <ImageView
+            android:id="@+id/parking_details_ligne1_imageview"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="32dp"
+            app:layout_constraintStart_toEndOf="@+id/parking_details_constante_transports"
+            app:layout_constraintTop_toTopOf="@+id/parking_details_constante_transports"
+            app:srcCompat="@drawable/ic_ligne1" />
+
+        <ImageView
+            android:id="@+id/parking_details_ligne2_imageview"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="58dp"
+            app:layout_constraintStart_toEndOf="@+id/parking_details_constante_transports"
+            app:layout_constraintTop_toTopOf="@+id/parking_details_constante_transports"
+            app:srcCompat="@drawable/ic_ligne2" />
+
+        <ImageView
+            android:id="@+id/parking_details_ligne3_imageview"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="84dp"
+            app:layout_constraintStart_toEndOf="@+id/parking_details_constante_transports"
+            app:layout_constraintTop_toTopOf="@+id/parking_details_constante_transports"
+            app:srcCompat="@drawable/ic_ligne3" />
+
+        <ImageView
+            android:id="@+id/parking_details_ligne4_imageview"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="110dp"
+            app:layout_constraintStart_toEndOf="@+id/parking_details_constante_transports"
+            app:layout_constraintTop_toTopOf="@+id/parking_details_constante_transports"
+            app:srcCompat="@drawable/ic_ligne4" />
+
+        <Button
+            android:id="@+id/parking_details_go_path_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="60dp"
+            android:background="@color/colorPrimaryDark"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="Comment y aller ?"
+            android:textColor="#ffff"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.501"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/parking_details_constante_transports" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</ScrollView>

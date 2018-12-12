@@ -2,8 +2,11 @@ package com.example.dmonunu.parkinnantes.activities;
 
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -11,10 +14,13 @@ import android.widget.Toast;
 import com.example.dmonunu.parkinnantes.models.LightParking;
 import com.example.dmonunu.parkinnantes.utilities.DrawerUtil;
 import com.example.dmonunu.parkinnantes.R;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -35,8 +41,36 @@ public class HomeActivity extends FragmentActivity implements MapView,
     private static final String TAG = HomeActivity.class.getName();
     private GoogleMap mainMap;
     private static final int MY_LOCATION_REQUEST_CODE = 9401;
-
     private MapPresenter presenter;
+    private LocationManager mLocationManager;
+
+    private final LocationListener mLocationListener = new LocationListener() {
+        @Override
+        public void onLocationChanged(final Location location) {
+            double currentLatitude = location.getLatitude();
+            double currentLongitude = location.getLongitude();
+
+            LatLng latLng = new LatLng(currentLatitude, currentLongitude);
+            float zoomLevel = 16.0f; //This goes up to 21
+            mainMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+            mainMap.animateCamera( CameraUpdateFactory.zoomTo(zoomLevel) );
+        }
+
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+
+        }
+
+        @Override
+        public void onProviderEnabled(String provider) {
+
+        }
+
+        @Override
+        public void onProviderDisabled(String provider) {
+
+        }
+    };
 
     @BindView(R.id.toolbar)
     public Toolbar toolBar;
@@ -51,6 +85,8 @@ public class HomeActivity extends FragmentActivity implements MapView,
         DrawerUtil.getDrawer(this,toolBar);
         this.presenter = new MapPresenterImpl(this, getApplicationContext());
         this.presenter.getParkings();
+        mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+
     }
 
     @Override
@@ -65,20 +101,29 @@ public class HomeActivity extends FragmentActivity implements MapView,
                     ActivityCompat.requestPermissions(HomeActivity.this, new String[] {
                             Manifest.permission.ACCESS_FINE_LOCATION}, MY_LOCATION_REQUEST_CODE);
                 }
-
                 // Add some markers to the map, and add a data object to each marker.
-
+                mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 300,
+                        300, mLocationListener);
                 for (LightParking parkingModel : parkingModels) {
                     if (parkingModel != null) {
                         LatLng latLng = new LatLng(parkingModel.getLatitude(), parkingModel.getLongitude());
-                        Marker marker = googleMap.addMarker(new MarkerOptions()
-                                .position(latLng)
-                                .title(parkingModel.getNomParking()));
-
-                        marker.setTag(parkingModel);
+                        if (parkingModel.getNbPlaceDispo() > 0) {
+                            Log.i("Nombre place :", " "+parkingModel.getNbPlaceDispo());
+                            Marker marker = googleMap.addMarker(new MarkerOptions()
+                                    .position(latLng)
+                                   // .icon(BitmapDescriptorFactory.fromResource(R.drawable.dispo_icon))
+                                    .title(parkingModel.getNomParking()));
+                            marker.setTag(parkingModel);
+                        } else {
+                            Log.i("Nombre place :", " "+parkingModel.getNbPlaceDispo());
+                            Marker marker = googleMap.addMarker(new MarkerOptions()
+                                    .position(latLng)
+                                   // .icon(BitmapDescriptorFactory.fromResource(R.drawable.full_icon))
+                                    .title(parkingModel.getNomParking()));
+                            marker.setTag(parkingModel);
+                        }
                     }
                 }
-
                 // Set a listener for marker click.
                 googleMap.setOnMarkerClickListener(HomeActivity.this);
             }
@@ -139,4 +184,5 @@ public class HomeActivity extends FragmentActivity implements MapView,
             }
         }
     }
+
 }

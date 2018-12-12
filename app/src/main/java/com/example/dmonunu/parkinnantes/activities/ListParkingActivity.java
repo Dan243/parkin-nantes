@@ -42,8 +42,7 @@ public class ListParkingActivity extends AppCompatActivity implements ListParkin
         parkingAdapter = new ParkingAdapter(this, parkings);
         myListView.setAdapter(parkingAdapter);
         myListView.setTranscriptMode(ListView.TRANSCRIPT_MODE_NORMAL);
-        myListView.setItemsCanFocus(false);
-        
+
         myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

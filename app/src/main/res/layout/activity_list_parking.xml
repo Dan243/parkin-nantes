@@ -10,9 +10,8 @@
         android:id="@+id/my_list_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:focusable = "false"
-        android:focusableInTouchMode = "false"
-        android:descendantFocusability="beforeDescendants"
+        android:isScrollContainer="false"
+
         >
     </ListView>
 

@@ -104,18 +104,20 @@ public class HomeActivity extends FragmentActivity implements MapView,
                 // Add some markers to the map, and add a data object to each marker.
                 mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 300,
                         300, mLocationListener);
+                int i = 0;
                 for (LightParking parkingModel : parkingModels) {
+                    i++;
                     if (parkingModel != null) {
+                        Log.d(TAG, "onMapReady: "+i);
+                        Log.i("XXXXXXXXXXXXXXXXXXNombre place :", " "+parkingModel.getNbPlaceDispo());
                             LatLng latLng = new LatLng(parkingModel.getLatitude(), parkingModel.getLongitude());
                             if (parkingModel.getNbPlaceDispo() > 0) {
-                                Log.i("Nombre place :", " "+parkingModel.getNbPlaceDispo());
                                 Marker marker = googleMap.addMarker(new MarkerOptions()
                                         .position(latLng)
                                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.dispo_icon))
                                         .title(parkingModel.getNomParking()));
                                 marker.setTag(parkingModel);
                             } else {
-                                Log.i("Nombre place :", " "+parkingModel.getNbPlaceDispo());
                                 Marker marker = googleMap.addMarker(new MarkerOptions()
                                         .position(latLng)
                                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.full_icon))

@@ -52,6 +52,7 @@ public class LightParking implements Serializable {
         this.moyenPaiement = builder.moyenPaiement;
         this.nomParking = builder.nomParking;
         this.telephone = builder.telephone;
+        this.nbPlaceDispo = builder.nbPlaceDispo;
     }
 
     @NonNull

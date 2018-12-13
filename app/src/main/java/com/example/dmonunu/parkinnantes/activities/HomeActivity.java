@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.example.dmonunu.parkinnantes.models.LightParking;
 import com.example.dmonunu.parkinnantes.utilities.DrawerUtil;
 import com.example.dmonunu.parkinnantes.R;
+import com.example.dmonunu.parkinnantes.utilities.MarkerMap;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -51,9 +52,11 @@ public class HomeActivity extends FragmentActivity implements MapView,
             double currentLongitude = location.getLongitude();
 
             LatLng latLng = new LatLng(currentLatitude, currentLongitude);
+            Log.i("XXXXXXXXXXX","XXXXXXXXXXXXXXXXXXxx");
             float zoomLevel = 16.0f; //This goes up to 21
             mainMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
             mainMap.animateCamera( CameraUpdateFactory.zoomTo(zoomLevel) );
+            Log.i("XXXXXXXXXXX","XXXXXXXXXXXXXXXXXXxx");
         }
 
         @Override
@@ -104,26 +107,10 @@ public class HomeActivity extends FragmentActivity implements MapView,
                 // Add some markers to the map, and add a data object to each marker.
                 mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 300,
                         300, mLocationListener);
-                int i = 0;
                 for (LightParking parkingModel : parkingModels) {
-                    i++;
                     if (parkingModel != null) {
-                        Log.d(TAG, "onMapReady: "+i);
-                        Log.i("XXXXXXXXXXXXXXXXXXNombre place :", " "+parkingModel.getNbPlaceDispo());
-                            LatLng latLng = new LatLng(parkingModel.getLatitude(), parkingModel.getLongitude());
-                            if (parkingModel.getNbPlaceDispo() > 0) {
-                                Marker marker = googleMap.addMarker(new MarkerOptions()
-                                        .position(latLng)
-                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.dispo_icon))
-                                        .title(parkingModel.getNomParking()));
-                                marker.setTag(parkingModel);
-                            } else {
-                                Marker marker = googleMap.addMarker(new MarkerOptions()
-                                        .position(latLng)
-                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.full_icon))
-                                        .title(parkingModel.getNomParking()));
-                                marker.setTag(parkingModel);
-                            }
+                        MarkerMap markerMap = new MarkerMap(parkingModel, googleMap);
+                        Marker marker = markerMap.createMarker();
                     }
                 }
                 // Set a listener for marker click.

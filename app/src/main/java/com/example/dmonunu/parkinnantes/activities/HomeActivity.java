@@ -2,7 +2,6 @@ package com.example.dmonunu.parkinnantes.activities;
 
 
 import android.Manifest;
-import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -20,7 +19,6 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -33,7 +31,7 @@ import androidx.fragment.app.FragmentActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class HomeActivity extends FragmentActivity implements MapView,
+public class HomeActivity extends FragmentActivity implements ParkingView,
         GoogleMap.OnMyLocationButtonClickListener,
         GoogleMap.OnMyLocationClickListener, GoogleMap.OnMarkerClickListener{
 
@@ -41,7 +39,7 @@ public class HomeActivity extends FragmentActivity implements MapView,
     private static final String TAG = HomeActivity.class.getName();
     private GoogleMap mainMap;
     private static final int MY_LOCATION_REQUEST_CODE = 9401;
-    private MapPresenter presenter;
+    private ParkingPresenter presenter;
     private LocationManager mLocationManager;
 
     private final LocationListener mLocationListener = new LocationListener() {
@@ -83,14 +81,14 @@ public class HomeActivity extends FragmentActivity implements MapView,
         toolBar.setTitle(getResources().getString(R.string.tournament));
 
         DrawerUtil.getDrawer(this,toolBar);
-        this.presenter = new MapPresenterImpl(this, getApplicationContext());
+        this.presenter = new ParkingPresenterImpl(this, getApplicationContext());
         this.presenter.getParkings();
         mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
     }
 
     @Override
-    public void initMap(final List<LightParking> parkingModels) {
+    public void init(final List<LightParking> parkingModels) {
         SupportMapFragment mapFragment =
                 (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(new OnMapReadyCallback() {

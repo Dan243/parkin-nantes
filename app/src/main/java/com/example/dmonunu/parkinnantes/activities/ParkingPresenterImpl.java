@@ -20,19 +20,18 @@ import com.example.dmonunu.parkinnantes.services.ParkingSearchRESTService;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.room.Room;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MapPresenterImpl implements MapPresenter {
+public class ParkingPresenterImpl implements ParkingPresenter {
     private static final String DATABASE_NAME = "parking_db";
 
     private ParkingSearchRESTService parkingService;
-    private MapView view;
+    private ParkingView view;
     private Context context;
 
-    public MapPresenterImpl(MapView view, Context context) {
+    public ParkingPresenterImpl(ParkingView view, Context context) {
         this.view = view;
         this.context = context;
         this.parkingService = BaseService.getRetrofitInstance().create(ParkingSearchRESTService.class);
@@ -80,7 +79,7 @@ public class MapPresenterImpl implements MapPresenter {
                                 }
 
                                 List<LightParking> lightParkings = ParkingMapper.createLightParkings(dispoModels, horaireModels, parkingModels);
-                                view.initMap(lightParkings);
+                                view.init(lightParkings);
                             }
 
                             @Override
@@ -148,7 +147,7 @@ public class MapPresenterImpl implements MapPresenter {
 
         protected void onPostExecute(List<LightParking> result) {
             if (view != null) {
-                view.initMap(result);
+                view.init(result);
             }
         }
     }

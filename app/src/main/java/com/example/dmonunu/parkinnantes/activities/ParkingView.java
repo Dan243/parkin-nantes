@@ -4,7 +4,7 @@ import com.example.dmonunu.parkinnantes.models.LightParking;
 
 import java.util.List;
 
-public interface ListParkingView {
+public interface ParkingView {
 
-    void createList(List<LightParking> parkingModels);
+    void init(List<LightParking> parkingModels);
 }

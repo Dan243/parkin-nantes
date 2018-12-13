@@ -1,7 +1,6 @@
 package com.example.dmonunu.parkinnantes.ui;
 
 import android.content.Context;
-import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +11,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.dmonunu.parkinnantes.R;
-import com.example.dmonunu.parkinnantes.activities.MapPresenterImpl;
 import com.example.dmonunu.parkinnantes.models.LightParking;
-import com.example.dmonunu.parkinnantes.models.ParkingDataBase;
 
 import java.util.List;
 

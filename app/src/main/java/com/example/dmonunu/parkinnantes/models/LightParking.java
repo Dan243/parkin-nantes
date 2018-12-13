@@ -37,6 +37,8 @@ public class LightParking implements Serializable {
 
     private String adresse;
 
+    private boolean isFavorite = false;
+
     public LightParking() {}
 
     public LightParking(LightParkingBuilder builder){
@@ -53,6 +55,7 @@ public class LightParking implements Serializable {
         this.nomParking = builder.nomParking;
         this.telephone = builder.telephone;
         this.nbPlaceDispo = builder.nbPlaceDispo;
+        this.isFavorite = builder.isFavorite;
     }
 
     @NonNull
@@ -160,6 +163,14 @@ public class LightParking implements Serializable {
         this.adresse = adresse;
     }
 
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        isFavorite = favorite;
+    }
+
     public static class LightParkingBuilder {
 
         private String idobj;
@@ -187,6 +198,8 @@ public class LightParking implements Serializable {
         private String dateFin;
 
         private String adresse;
+
+        private boolean isFavorite = false;
 
         public LightParkingBuilder() {}
 
@@ -252,6 +265,11 @@ public class LightParking implements Serializable {
 
         public LightParkingBuilder adresse(String adresse) {
             this.adresse = adresse;
+            return this;
+        }
+
+        public LightParkingBuilder isFavorite(Boolean favorite){
+            this.isFavorite = favorite;
             return this;
         }
 

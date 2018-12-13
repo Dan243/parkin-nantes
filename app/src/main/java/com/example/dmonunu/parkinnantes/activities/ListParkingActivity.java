@@ -16,14 +16,14 @@ import com.example.dmonunu.parkinnantes.ui.ParkingAdapter;
 
 import java.util.List;
 
-public class ListParkingActivity extends AppCompatActivity implements ListParkingView{
+public class ListParkingActivity extends AppCompatActivity implements ParkingView {
 
     @BindView(R.id.my_list_view)
     ListView myListView;
 
     private ParkingAdapter parkingAdapter;
 
-    private ListParkingPresenter presenter;
+    private ParkingPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,13 +32,13 @@ public class ListParkingActivity extends AppCompatActivity implements ListParkin
 
         ButterKnife.bind(this);
 
-        presenter = new ListParkingPresenterImpl(this, getApplicationContext());
+        presenter = new ParkingPresenterImpl(this, getApplicationContext());
         presenter.getParkings();
 
     }
 
     @Override
-    public void createList(List<LightParking> parkings){
+    public void init(List<LightParking> parkings){
         parkingAdapter = new ParkingAdapter(this, parkings);
         myListView.setAdapter(parkingAdapter);
         myListView.setTranscriptMode(ListView.TRANSCRIPT_MODE_NORMAL);

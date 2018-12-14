@@ -1,5 +1,6 @@
 package com.example.dmonunu.parkinnantes.activities;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -13,6 +14,7 @@ import android.widget.ListView;
 import com.example.dmonunu.parkinnantes.R;
 import com.example.dmonunu.parkinnantes.models.LightParking;
 import com.example.dmonunu.parkinnantes.ui.ParkingAdapter;
+import com.mancj.materialsearchbar.MaterialSearchBar;
 
 import java.util.List;
 
@@ -20,6 +22,9 @@ public class ListParkingActivity extends AppCompatActivity implements ParkingVie
 
     @BindView(R.id.my_list_view)
     ListView myListView;
+
+    @BindView(R.id.search_bar)
+    MaterialSearchBar searchBar;
 
     private ParkingAdapter parkingAdapter;
 
@@ -31,7 +36,8 @@ public class ListParkingActivity extends AppCompatActivity implements ParkingVie
         setContentView(R.layout.activity_list_parking);
 
         ButterKnife.bind(this);
-
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
         presenter = new ParkingPresenterImpl(this, getApplicationContext());
         presenter.getParkings();
 

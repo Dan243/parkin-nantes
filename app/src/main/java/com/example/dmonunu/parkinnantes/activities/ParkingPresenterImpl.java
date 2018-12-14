@@ -69,7 +69,7 @@ public class ParkingPresenterImpl implements ParkingPresenter {
                             dispoModels.add(record.getFields());
                         }
 
-                        parkingService.recupTousLesHoraires("244400404_parkings-publics-nantes-disponibilites", 100).enqueue(new Callback<BaseResponse<HoraireModel>>() {
+                        parkingService.recupTousLesHoraires("244400404_parkings-publics-nantes-horaires", 100).enqueue(new Callback<BaseResponse<HoraireModel>>() {
                             @Override
                             public void onResponse(Call<BaseResponse<HoraireModel>> call, Response<BaseResponse<HoraireModel>> response) {
                                 List<Record<HoraireModel>> records = response.body().getRecords();

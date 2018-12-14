@@ -5,13 +5,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import com.example.dmonunu.parkinnantes.R;
+import com.example.dmonunu.parkinnantes.activities.ParkingPresenter;
+import com.example.dmonunu.parkinnantes.activities.ParkingPresenterImpl;
 import com.example.dmonunu.parkinnantes.models.LightParking;
+import com.example.dmonunu.parkinnantes.models.ParkingDataBase;
 
 import java.util.List;
 
@@ -19,6 +24,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class ParkingAdapter extends ArrayAdapter<LightParking> {
 
@@ -28,8 +34,6 @@ public class ParkingAdapter extends ArrayAdapter<LightParking> {
     @BindView(R.id.parking_adapter_address)
     TextView parkingAdress;
 
-    @BindView(R.id.parking_adapter_nb_available_places)
-    TextView parkingNbAvPlaces;
 
     @BindView(R.id.parking_adapter_nb_max_places)
     TextView parkingNbMaxPlaces;
@@ -49,11 +53,21 @@ public class ParkingAdapter extends ArrayAdapter<LightParking> {
     @BindView(R.id.parking_adapter_cheque_imageview)
     ImageView chequeImg;
 
+    @BindView(R.id.heure_debut)
+    TextView heureDebut;
+
+    @BindView(R.id.heure_fin)
+    TextView heureFin;
+
     @BindView(R.id.favorite)
-    ImageButton favorite;
+    ToggleButton favorite;
+
+    private Context context;
+
 
     public ParkingAdapter(Context context, List<LightParking> parkings){
         super(context, -1, parkings);
+        this.context = context;
     }
 
     @NonNull
@@ -67,26 +81,61 @@ public class ParkingAdapter extends ArrayAdapter<LightParking> {
         }
         ButterKnife.bind(this, actualView);
 
-        LightParking parkingDetails = getItem(position);
+        LightParking lightParking = getItem(position);
 
-        if (parkingDetails != null) {
-            this.parkingName.setText(parkingDetails.getNomParking());
-            final String address = parkingDetails.getAdresse();
+        if (lightParking != null) {
+            this.parkingName.setText(lightParking.getNomParking());
+            final String address = lightParking.getAdresse();
             if (address != null) {
                 this.parkingAdress.setText(address);
             }
-            int placeDisponible = parkingDetails.getNbPlaceDispo();
-            int placesMax = parkingDetails.getCapaciteTotale();
-            this.parkingNbAvPlaces.setText(String.valueOf(placeDisponible));
+            int placeDisponible = lightParking.getNbPlaceDispo();
+            int placesMax = lightParking.getCapaciteTotale();
+            //this.parkingNbAvPlaces.setText(String.valueOf(placeDisponible));
             this.parkingNbMaxPlaces.setText(String.valueOf(placesMax));
             this.parkingPlacesProgBar.setMax(100);
             if (placesMax != 0) {
                 double percentage = getPercentage(placeDisponible, placesMax);
                 this.parkingPlacesProgBar.setProgress((int) percentage);
-            }
-            // setPaymentOptions(parkingDetails);
+                this.parkingNbMaxPlaces.setText(String.valueOf(Math.round(percentage) + "%"));
 
+            }
+
+            favorite.setChecked(false);
+            favorite.setText(null);
+            favorite.setTextOn(null);
+            favorite.setTextOff(null);
+            favorite.setBackgroundDrawable(context.getDrawable(R.drawable.star_grey));
+            favorite.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (isChecked){
+                        favorite.setBackgroundDrawable(context.getDrawable(R.drawable.star_yellow));
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                ParkingDataBase.getAppDatabase(context).lightParkingDao().setFavorite(true);
+                            }
+                        }).start();
+                    } else {
+                        favorite.setBackgroundDrawable(context.getDrawable(R.drawable.star_grey));
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                ParkingDataBase.getAppDatabase(context).lightParkingDao().removeFavorite(false);
+                            }
+                        }).start();
+                    }
+                }
+            });
+
+            heureDebut.setText(lightParking.getHeureDebut());
+            heureFin.setText(" à " + lightParking.getHeureFin());
         }
+
+
+
+
         return actualView;
     }
 

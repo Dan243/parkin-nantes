@@ -26,6 +26,7 @@ public interface LightParkingDao {
     @Query("UPDATE LightParking SET isFavorite = :test")
     void setFavorite(boolean test);
 
-
+    @Query("UPDATE LightParking SET isFavorite = :test")
+    void removeFavorite(boolean test);
 
 }

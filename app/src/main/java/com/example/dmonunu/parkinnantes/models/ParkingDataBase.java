@@ -8,7 +8,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-@Database(entities = {LightParking.class}, version = 3, exportSchema = false)
+@Database(entities = {LightParking.class}, version = 4, exportSchema = false)
 public abstract class ParkingDataBase extends RoomDatabase {
 
     private static final String DATABASE_NAME = "parking_db";
@@ -21,6 +21,7 @@ public abstract class ParkingDataBase extends RoomDatabase {
                             // allow queries on the main thread.
                             // Don't do this on a real app! See PersistenceBasicSample for an example.
                             .allowMainThreadQueries()
+                            .fallbackToDestructiveMigration()
                             .build();
         }
         return INSTANCE;

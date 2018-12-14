@@ -5,24 +5,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageButton
+    <ToggleButton
         android:id="@+id/favorite"
-        android:layout_width="wrap_content"
-        android:layout_height="101dp"
+        android:layout_width="40dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="128dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="100dp"
         android:background="#00ffffff"
-        android:onClick="onToggleStar"
-        android:src="@android:drawable/btn_star"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/parking_adapter_address"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.105"
-        tools:layout_editor_absoluteX="336dp" />
+        app:layout_constraintVertical_bias="0.132" />
 
     <TextView
         android:id="@+id/parking_adapter_name"
         android:layout_width="290dp"
-        android:layout_height="46dp"
+        android:layout_height="30dp"
         android:layout_marginTop="28dp"
         android:layout_marginEnd="68dp"
         android:text="TextView"
@@ -34,8 +35,8 @@
 
     <TextView
         android:id="@+id/parking_adapter_address"
-        android:layout_width="291dp"
-        android:layout_height="42dp"
+        android:layout_width="153dp"
+        android:layout_height="27dp"
         android:text="TextView"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="@+id/parking_adapter_name"
@@ -47,7 +48,7 @@
         android:layout_width="87dp"
         android:layout_height="25dp"
         android:layout_marginStart="2dp"
-        app:layout_constraintStart_toEndOf="@+id/parking_adapter_nb_available_places"
+        app:layout_constraintStart_toEndOf="@+id/parking_adapter_constant_available_places"
         app:layout_constraintTop_toBottomOf="@+id/parking_adapter_address" />
 
     <TextView
@@ -59,26 +60,17 @@
         app:layout_constraintStart_toStartOf="@+id/parking_adapter_address"
         app:layout_constraintTop_toBottomOf="@+id/parking_adapter_address" />
 
-    <TextView
-        android:id="@+id/parking_adapter_nb_available_places"
-        android:layout_width="wrap_content"
-        android:layout_height="25dp"
-        android:layout_marginStart="2dp"
-        android:text="TextView"
-        android:textSize="11sp"
-        app:layout_constraintStart_toEndOf="@+id/parking_adapter_constant_available_places"
-        app:layout_constraintTop_toBottomOf="@+id/parking_adapter_address" />
 
     <TextView
         android:id="@+id/parking_adapter_nb_max_places"
         android:layout_width="wrap_content"
         android:layout_height="25dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="2dp"
+        android:layout_marginEnd="8dp"
         android:text="TextView"
         android:textSize="11sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.174"
         app:layout_constraintStart_toEndOf="@+id/parking_adapter_progressBar"
         app:layout_constraintTop_toBottomOf="@+id/parking_adapter_address" />
 
@@ -97,7 +89,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         app:layout_constraintStart_toEndOf="@+id/parking_adapter_constant_payment_options"
-        app:layout_constraintTop_toBottomOf="@+id/parking_adapter_nb_available_places"
+        app:layout_constraintTop_toBottomOf="@+id/parking_adapter_nb_max_places"
         app:srcCompat="@drawable/ic_20dp_credit_card" />
 
     <ImageView
@@ -126,5 +118,36 @@
         app:layout_constraintStart_toEndOf="@+id/parking_adapter_total_imageview"
         app:layout_constraintTop_toTopOf="@+id/parking_adapter_total_imageview"
         app:srcCompat="@drawable/ic_40dp_cheque_color" />
+
+    <TextView
+        android:id="@+id/horaires"
+        android:layout_width="75dp"
+        android:layout_height="27dp"
+        android:layout_marginTop="4dp"
+        android:text="Ouvert de "
+        android:textSize="11sp"
+        app:layout_constraintStart_toStartOf="@+id/parking_adapter_address"
+        app:layout_constraintTop_toBottomOf="@+id/parking_adapter_cheque_imageview" />
+
+    <TextView
+        android:id="@+id/heure_debut"
+        android:layout_width="59dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:textSize="11sp"
+        app:layout_constraintEnd_toStartOf="@+id/heure_fin"
+        app:layout_constraintStart_toEndOf="@+id/horaires"
+        app:layout_constraintTop_toBottomOf="@+id/parking_adapter_constant_payment_options" />
+
+    <TextView
+        android:id="@+id/heure_fin"
+        android:layout_width="59dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="52dp"
+        android:textSize="11sp"
+        app:layout_constraintEnd_toEndOf="@+id/parking_adapter_cheque_imageview"
+        app:layout_constraintTop_toBottomOf="@+id/parking_adapter_total_imageview" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

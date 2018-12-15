@@ -4,6 +4,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnItemClick;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.dmonunu.parkinnantes.R;
+import com.example.dmonunu.parkinnantes.event.EventBusManager;
 import com.example.dmonunu.parkinnantes.models.LightParking;
 import com.example.dmonunu.parkinnantes.ui.ParkingAdapter;
 import com.mancj.materialsearchbar.MaterialSearchBar;
@@ -47,17 +49,35 @@ public class ListParkingActivity extends AppCompatActivity implements ParkingVie
     public void init(List<LightParking> parkings){
         parkingAdapter = new ParkingAdapter(this, parkings);
         myListView.setAdapter(parkingAdapter);
-        myListView.setTranscriptMode(ListView.TRANSCRIPT_MODE_NORMAL);
-
+       // myListView.setTranscriptMode(ListView.TRANSCRIPT_MODE_NORMAL);
         myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                final Intent parkingDetail = new Intent(ListParkingActivity.this, ParkingDetailsActivity.class);
-                LightParking lightParking = (LightParking) parent.getItemAtPosition(position);
-                parkingDetail.putExtra("SelectedParking", lightParking);
-                startActivity(parkingDetail);
+                final Intent parkingIntent = new Intent(ListParkingActivity.this, ParkingDetailsActivity.class);
+                LightParking lightParking = (LightParking) parkingAdapter.getItem(position);
+                parkingIntent.putExtra("SelectedParking", lightParking);
+                startActivity(parkingIntent);
             }
         });
+
+    }
+    @Override
+    protected void onResume() {
+        // Do NOT forget to call super.onResume()
+        super.onResume();
+
+        // Register to Event bus : now each time an event is posted, the activity will receive it if it is @Subscribed to this event
+        EventBusManager.BUS.register(this);
+
+
     }
 
+    @Override
+    protected void onPause() {
+        // Unregister from Event bus : if event are posted now, the activity will not receive it
+        EventBusManager.BUS.unregister(this);
+
+        // Do NOT forget to call super.onPause()
+        super.onPause();
+    }
 }

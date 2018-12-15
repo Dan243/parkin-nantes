@@ -105,12 +105,12 @@ public class ParkingAdapter extends ArrayAdapter<LightParking> {
             favorite.setText(null);
             favorite.setTextOn(null);
             favorite.setTextOff(null);
-            favorite.setBackgroundDrawable(context.getDrawable(R.drawable.star_grey));
+            favorite.setBackgroundDrawable(context.getDrawable(R.drawable.ic_40dp_star));
             favorite.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (isChecked){
-                        favorite.setBackgroundDrawable(context.getDrawable(R.drawable.star_yellow));
+                        favorite.setBackgroundDrawable(context.getDrawable(R.drawable.ic_40dp_yellow_star));
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
@@ -118,7 +118,7 @@ public class ParkingAdapter extends ArrayAdapter<LightParking> {
                             }
                         }).start();
                     } else {
-                        favorite.setBackgroundDrawable(context.getDrawable(R.drawable.star_grey));
+                        favorite.setBackgroundDrawable(context.getDrawable(R.drawable.ic_40dp_star));
                         new Thread(new Runnable() {
                             @Override
                             public void run() {

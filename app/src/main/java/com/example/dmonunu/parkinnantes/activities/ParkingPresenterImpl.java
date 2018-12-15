@@ -6,6 +6,8 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.example.dmonunu.parkinnantes.event.EventBusManager;
+import com.example.dmonunu.parkinnantes.event.SearchResultEvent;
 import com.example.dmonunu.parkinnantes.models.BaseResponse;
 import com.example.dmonunu.parkinnantes.models.DispoModel;
 import com.example.dmonunu.parkinnantes.models.HoraireModel;
@@ -80,6 +82,7 @@ public class ParkingPresenterImpl implements ParkingPresenter {
 
                                 List<LightParking> lightParkings = ParkingMapper.createLightParkings(dispoModels, horaireModels, parkingModels);
                                 view.init(lightParkings);
+                                EventBusManager.BUS.post(new SearchResultEvent(lightParkings));
                             }
 
                             @Override

@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.dmonunu.parkinnantes.event.EventBusManager;
 import com.example.dmonunu.parkinnantes.models.LightParking;
 import com.example.dmonunu.parkinnantes.utilities.DrawerUtil;
 import com.example.dmonunu.parkinnantes.R;
@@ -172,4 +173,24 @@ public class HomeActivity extends FragmentActivity implements ParkingView,
         }
     }
 
+
+    @Override
+    protected void onResume() {
+        // Do NOT forget to call super.onResume()
+        super.onResume();
+
+        // Register to Event bus : now each time an event is posted, the activity will receive it if it is @Subscribed to this event
+        EventBusManager.BUS.register(this);
+
+
+    }
+
+    @Override
+    protected void onPause() {
+        // Unregister from Event bus : if event are posted now, the activity will not receive it
+        EventBusManager.BUS.unregister(this);
+
+        // Do NOT forget to call super.onPause()
+        super.onPause();
+    }
 }

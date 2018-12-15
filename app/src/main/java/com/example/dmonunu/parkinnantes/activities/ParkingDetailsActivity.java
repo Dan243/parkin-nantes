@@ -66,6 +66,7 @@ public class ParkingDetailsActivity extends AppCompatActivity implements OnStree
                 (StreetViewPanoramaFragment) getFragmentManager().findFragmentById(R.id
                         .parking_details_mapView);
         streetViewPanoramaFragment.getStreetViewPanoramaAsync(this);
+
         this.selectedParking = (LightParking) getIntent().getSerializableExtra("SelectedParking");
     }
 

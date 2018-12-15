@@ -10,10 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </FrameLayout>
+
         <com.mancj.materialsearchbar.MaterialSearchBar
             android:id="@+id/search_bar"
             android:layout_width="match_parent"
@@ -29,8 +26,6 @@
             android:id="@+id/my_list_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:isScrollContainer="false"
-
             >
         </ListView>
     </LinearLayout>

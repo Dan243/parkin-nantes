@@ -2,6 +2,9 @@ package com.example.dmonunu.parkinnantes.activities;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnItemClick;
@@ -15,6 +18,7 @@ import android.widget.ListView;
 import com.example.dmonunu.parkinnantes.R;
 import com.example.dmonunu.parkinnantes.event.EventBusManager;
 import com.example.dmonunu.parkinnantes.models.LightParking;
+import com.example.dmonunu.parkinnantes.ui.MyAdapter;
 import com.example.dmonunu.parkinnantes.ui.ParkingAdapter;
 import com.mancj.materialsearchbar.MaterialSearchBar;
 
@@ -23,12 +27,13 @@ import java.util.List;
 public class ListParkingActivity extends AppCompatActivity implements ParkingView {
 
     @BindView(R.id.my_list_view)
-    ListView myListView;
+    RecyclerView myListView;
 
     @BindView(R.id.search_bar)
     MaterialSearchBar searchBar;
 
-    private ParkingAdapter parkingAdapter;
+    private RecyclerView.Adapter mAdapter;
+    private LinearLayoutManager layoutManager;
 
     private ParkingPresenter presenter;
 
@@ -42,23 +47,16 @@ public class ListParkingActivity extends AppCompatActivity implements ParkingVie
         actionBar.hide();
         presenter = new ParkingPresenterImpl(this, getApplicationContext());
         presenter.getParkings();
+        layoutManager = new LinearLayoutManager(this);
+        myListView.setLayoutManager(layoutManager);
 
     }
 
     @Override
     public void init(List<LightParking> parkings){
-        parkingAdapter = new ParkingAdapter(this, parkings);
-        myListView.setAdapter(parkingAdapter);
-       // myListView.setTranscriptMode(ListView.TRANSCRIPT_MODE_NORMAL);
-        myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                final Intent parkingIntent = new Intent(ListParkingActivity.this, ParkingDetailsActivity.class);
-                LightParking lightParking = (LightParking) parkingAdapter.getItem(position);
-                parkingIntent.putExtra("SelectedParking", lightParking);
-                startActivity(parkingIntent);
-            }
-        });
+        myListView.setAdapter(new MyAdapter(parkings, this));
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(myListView.getContext(), layoutManager.getOrientation() );
+        myListView.addItemDecoration(dividerItemDecoration);
 
     }
     @Override

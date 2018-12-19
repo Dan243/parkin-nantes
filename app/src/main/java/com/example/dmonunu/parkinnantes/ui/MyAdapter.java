@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 
 import com.example.dmonunu.parkinnantes.R;
@@ -56,17 +57,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                 activity.startActivity(parkingIntent);
             }
         });
-/*
-        holder.favorite = new MaterialFavoriteButton.Builder(activity.getApplicationContext())
-                .create();
-        holder.favorite.setOnFavoriteChangeListener(
-                new MaterialFavoriteButton.OnFavoriteChangeListener() {
-                    @Override
-                    public void onFavoriteChanged(MaterialFavoriteButton buttonView, boolean favorite) {
-                        //
-                    }
-                });
-                */
+
+
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -88,7 +80,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         @BindView(R.id.heure_fin)
         TextView heureFin;
 
-
+        @BindView(R.id.favorite)
+        ToggleButton favorite;
 
         private LightParking currentParking;
 
@@ -96,6 +89,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             super(itemView);
             ButterKnife.bind(this,itemView);
 
+            favorite.setText(null);
+            favorite.setTextOn(null);
+            favorite.setTextOff(null);
         }
 
         public void bind(LightParking parking){
@@ -115,7 +111,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                 }
                 heureDebut.setText(parking.getHeureDebut());
                 heureFin.setText(" à " + parking.getHeureFin());
-
 
             }
         }

@@ -16,7 +16,7 @@ public class ParkingModel implements Serializable {
 
     @SerializedName("capacite_moto")
     @Expose
-    private String motoCapacity;
+    private int motoCapacity;
 
     @SerializedName("telephone")
     @Expose
@@ -85,7 +85,7 @@ public class ParkingModel implements Serializable {
 
     @SerializedName("capacite_pmr")
     @Expose
-    private String pmrCapacity;
+    private int pmrCapacity;
 
     @SerializedName("code_postal")
     @Expose
@@ -113,11 +113,11 @@ public class ParkingModel implements Serializable {
 
     public ParkingModel() {}
 
-    public String getMotoCapacity() {
+    public int getMotoCapacity() {
         return motoCapacity;
     }
 
-    public void setMotoCapacity(String motoCapacity) {
+    public void setMotoCapacity(int motoCapacity) {
         this.motoCapacity = motoCapacity;
     }
 
@@ -241,11 +241,11 @@ public class ParkingModel implements Serializable {
         this.address = address;
     }
 
-    public String getPmrCapacity() {
+    public int getPmrCapacity() {
         return pmrCapacity;
     }
 
-    public void setPmrCapacity(String pmrCapacity) {
+    public void setPmrCapacity(int pmrCapacity) {
         this.pmrCapacity = pmrCapacity;
     }
 

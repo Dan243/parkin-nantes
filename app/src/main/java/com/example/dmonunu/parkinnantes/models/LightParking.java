@@ -39,6 +39,36 @@ public class LightParking implements Serializable {
 
     private boolean isFavorite = false;
 
+    // La capacité totale du stationnement vélo
+    private int stationnement_velo;
+
+    //La capacité des PMR
+    private int capacite_pmr;
+
+    // La capacité moto
+    private int capacite_moto;
+
+    // La présentation globale de la station
+    private String presentation;
+
+    private String acces_transports_communs;
+
+    public boolean isCreditCardAvailable = false;
+
+    public boolean isCashAvailable = false;
+
+    public boolean isTotalGRCardAvailable = false;
+
+    public boolean isChequeAvailable = false;
+
+    public boolean isLigneOneNear = false;
+
+    public boolean isLigneTwoNear = false;
+
+    public boolean isLigneThreeNear = false;
+
+    public boolean isLigneFourNear = false;
+
     public LightParking() {}
 
     public LightParking(LightParkingBuilder builder){
@@ -56,6 +86,18 @@ public class LightParking implements Serializable {
         this.telephone = builder.telephone;
         this.nbPlaceDispo = builder.nbPlaceDispo;
         this.isFavorite = builder.isFavorite;
+        this.stationnement_velo = builder.stationnement_velo;
+        this.capacite_moto = builder.capacite_moto;
+        this.capacite_pmr = builder.capacite_pmr;
+        this.presentation = builder.presentation;
+        this.isCashAvailable = builder.isCashAvailable;
+        this.isChequeAvailable = builder.isChequeAvailable;
+        this.isCreditCardAvailable = builder.isCreditCardAvailable;
+        this.isLigneOneNear = builder.isLigneOneNear;
+        this.isTotalGRCardAvailable = builder.isTotalGRCardAvailable;
+        this.isLigneTwoNear = builder.isLigneTwoNear;
+        this.isLigneThreeNear = builder.isLigneThreeNear;
+        this.isLigneFourNear = builder.isLigneFourNear;
     }
 
     @NonNull
@@ -171,6 +213,110 @@ public class LightParking implements Serializable {
         isFavorite = favorite;
     }
 
+    public String getAcces_transports_communs() {
+        return acces_transports_communs;
+    }
+
+    public void setAcces_transports_communs(String acces_transports_communs) {
+        this.acces_transports_communs = acces_transports_communs;
+    }
+
+    public int getStationnement_velo() {
+        return stationnement_velo;
+    }
+
+    public void setStationnement_velo(int stationnement_velo) {
+        this.stationnement_velo = stationnement_velo;
+    }
+
+    public int getCapacite_pmr() {
+        return capacite_pmr;
+    }
+
+    public void setCapacite_pmr(int capacite_pmr) {
+        this.capacite_pmr = capacite_pmr;
+    }
+
+    public int getCapacite_moto() {
+        return capacite_moto;
+    }
+
+    public void setCapacite_moto(int capacite_moto) {
+        this.capacite_moto = capacite_moto;
+    }
+
+    public String getPresentation() {
+        return presentation;
+    }
+
+    public void setPresentation(String presentation) {
+        this.presentation = presentation;
+    }
+
+    public boolean isCreditCardAvailable() {
+        return isCreditCardAvailable;
+    }
+
+    public void setCreditCardAvailable(boolean creditCardAvailable) {
+        isCreditCardAvailable = creditCardAvailable;
+    }
+
+    public boolean isCashAvailable() {
+        return isCashAvailable;
+    }
+
+    public void setCashAvailable(boolean cashAvailable) {
+        isCashAvailable = cashAvailable;
+    }
+
+    public boolean isTotalGRCardAvailable() {
+        return isTotalGRCardAvailable;
+    }
+
+    public void setTotalGRCardAvailable(boolean totalGRCardAvailable) {
+        isTotalGRCardAvailable = totalGRCardAvailable;
+    }
+
+    public boolean isChequeAvailable() {
+        return isChequeAvailable;
+    }
+
+    public void setChequeAvailable(boolean chequeAvailable) {
+        isChequeAvailable = chequeAvailable;
+    }
+
+    public boolean isLigneOneNear() {
+        return isLigneOneNear;
+    }
+
+    public void setLigneOneNear(boolean ligneOneNear) {
+        isLigneOneNear = ligneOneNear;
+    }
+
+    public boolean isLigneTwoNear() {
+        return isLigneTwoNear;
+    }
+
+    public void setLigneTwoNear(boolean ligneTwoNear) {
+        isLigneTwoNear = ligneTwoNear;
+    }
+
+    public boolean isLigneThreeNear() {
+        return isLigneThreeNear;
+    }
+
+    public void setLigneThreeNear(boolean ligneThreeNear) {
+        isLigneThreeNear = ligneThreeNear;
+    }
+
+    public boolean isLigneFourNear() {
+        return isLigneFourNear;
+    }
+
+    public void setLigneFourNear(boolean ligneFourNear) {
+        isLigneFourNear = ligneFourNear;
+    }
+
     public static class LightParkingBuilder {
 
         private String idobj;
@@ -200,6 +346,36 @@ public class LightParking implements Serializable {
         private String adresse;
 
         private boolean isFavorite = false;
+
+        // La capacité totale du stationnement vélo
+        private int stationnement_velo;
+
+        //La capacité des PMR
+        private int capacite_pmr;
+
+        // La capacité moto
+        private int capacite_moto;
+
+        // La présentation globale de la station
+        private String presentation;
+
+        private String acces_transports_communs;
+
+        public boolean isCreditCardAvailable = false;
+
+        public boolean isCashAvailable = false;
+
+        public boolean isTotalGRCardAvailable = false;
+
+        public boolean isChequeAvailable = false;
+
+        public boolean isLigneOneNear = false;
+
+        public boolean isLigneTwoNear = false;
+
+        public boolean isLigneThreeNear = false;
+
+        public boolean isLigneFourNear = false;
 
         public LightParkingBuilder() {}
 
@@ -270,6 +446,71 @@ public class LightParking implements Serializable {
 
         public LightParkingBuilder isFavorite(Boolean favorite){
             this.isFavorite = favorite;
+            return this;
+        }
+
+        public LightParkingBuilder stationnement_velo(int nb){
+            this.stationnement_velo = nb;
+            return this;
+        }
+
+        public LightParkingBuilder capacite_pmr(int nb){
+            this.capacite_pmr = nb;
+            return this;
+        }
+
+        public LightParkingBuilder capacite_moto(int nb){
+            this.capacite_moto = nb;
+            return this;
+        }
+
+        public LightParkingBuilder presentation(String presentation){
+            this.presentation = presentation;
+            return this;
+        }
+
+        public LightParkingBuilder isCreditCardAvailable(boolean isCreditCardAvailable){
+            this.isCreditCardAvailable = isCreditCardAvailable;
+            return this;
+        }
+
+        public LightParkingBuilder isCashAvailable(boolean isCashAvailable){
+            this.isCashAvailable = isCashAvailable;
+            return this;
+        }
+
+        public LightParkingBuilder isTotalGRCardAvailable(boolean isTotalGRCardAvailable){
+            this.isTotalGRCardAvailable = isTotalGRCardAvailable;
+            return this;
+        }
+
+        public LightParkingBuilder isChequeAvailable(boolean isChequeAvailable){
+            this.isChequeAvailable = isChequeAvailable;
+            return this;
+        }
+
+        public LightParkingBuilder isLigneOneNear(boolean isLigneOneNear){
+            this.isLigneOneNear = isLigneOneNear;
+            return this;
+        }
+
+        public LightParkingBuilder isLigneTwoNear(boolean isLigneTwoNear){
+            this.isLigneTwoNear = isLigneTwoNear;
+            return this;
+        }
+
+        public LightParkingBuilder isLigneThreeNear(boolean isLigneThreeNear){
+            this.isLigneThreeNear = isLigneThreeNear;
+            return this;
+        }
+
+        public LightParkingBuilder isLigneFourNear(boolean isLigneFourNear){
+            this.isLigneFourNear = isLigneFourNear;
+            return this;
+        }
+
+        public LightParkingBuilder acces_transports_communs(String acces_transports_communs){
+            this.acces_transports_communs = acces_transports_communs;
             return this;
         }
 

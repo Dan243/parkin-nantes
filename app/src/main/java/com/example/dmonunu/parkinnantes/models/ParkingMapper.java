@@ -1,5 +1,7 @@
 package com.example.dmonunu.parkinnantes.models;
 
+import com.example.dmonunu.parkinnantes.utilities.ParkingParser;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,6 +49,34 @@ public class ParkingMapper {
             double longitude = parkingModel.getLongitude();
             String adresse = parkingModel.getAddress();
             String nomParking = parkingModel.getFullname();
+            String presentation = parkingModel.getPresentation();
+            String acces_transports_communs = parkingModel.getPublicTransportAccess();
+            int stationnement_velo = parkingModel.getBikeCapacity();
+            int capacite_moto = parkingModel.getMotoCapacity();
+            int capacite_pmr = parkingModel.getPmrCapacity();
+            boolean isCreditCardAvailable = false;
+            boolean isCashAvailable = false;
+            boolean isChequeAvailable = false;
+            boolean isTotalGRCardAvailable = false;
+            if (moyenPaiement != null ){
+                 isCreditCardAvailable = ParkingParser.isCreditCardAvailable(moyenPaiement);
+                 isCashAvailable = ParkingParser.isCashAvailable(moyenPaiement);
+                 isChequeAvailable = ParkingParser.isChequeAvailable(moyenPaiement);
+                 isTotalGRCardAvailable = ParkingParser.isTotalGRAvailable(moyenPaiement);
+            }
+
+            boolean isLigneOneNear = false;
+            boolean isLigneTwoNear = false;
+            boolean isLigneThreeNear = false;
+            boolean isLigneFourNear = false;
+            if (acces_transports_communs != null ) {
+                 isLigneOneNear = ParkingParser.isLigneOneNear(acces_transports_communs);
+                 isLigneTwoNear = ParkingParser.isLigneTwoNear(acces_transports_communs);
+                 isLigneThreeNear = ParkingParser.isLigneThreeNear(acces_transports_communs);
+                 isLigneFourNear = ParkingParser.isLigneFourNear(acces_transports_communs);
+            }
+
+
 
             if (horaireModel != null) {
 
@@ -73,6 +103,19 @@ public class ParkingMapper {
                             .dateDebut(dateDebut)
                             .dateFin(dateFin)
                             .adresse(adresse)
+                            .acces_transports_communs(acces_transports_communs)
+                            .capacite_moto(capacite_moto)
+                            .capacite_pmr(capacite_pmr)
+                            .stationnement_velo(stationnement_velo)
+                            .presentation(presentation)
+                            .isCashAvailable(isCashAvailable)
+                            .isChequeAvailable(isChequeAvailable)
+                            .isCreditCardAvailable(isCreditCardAvailable)
+                            .isTotalGRCardAvailable(isTotalGRCardAvailable)
+                            .isLigneOneNear(isLigneOneNear)
+                            .isLigneTwoNear(isLigneTwoNear)
+                            .isLigneThreeNear(isLigneThreeNear)
+                            .isLigneFourNear(isLigneFourNear)
                             .build();
                 }
             }

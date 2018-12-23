@@ -14,6 +14,7 @@ import android.widget.ToggleButton;
 import com.example.dmonunu.parkinnantes.R;
 import com.example.dmonunu.parkinnantes.activities.ParkingDetailsActivity;
 import com.example.dmonunu.parkinnantes.models.LightParking;
+import com.example.dmonunu.parkinnantes.utilities.ParkingParser;
 
 import java.util.List;
 
@@ -80,6 +81,18 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         @BindView(R.id.heure_fin)
         TextView heureFin;
 
+        @BindView(R.id.parking_adapter_credit_card_imageview)
+        ImageView credCardImg;
+
+        @BindView(R.id.parking_adapter_cash_imageview)
+        ImageView cashImg;
+
+        @BindView(R.id.parking_adapter_total_imageview)
+        ImageView totalImg;
+
+        @BindView(R.id.parking_adapter_cheque_imageview)
+        ImageView chequeImg;
+
         @BindView(R.id.favorite)
         ToggleButton favorite;
 
@@ -107,14 +120,20 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                 if (placesMax != 0) {
                     double percentage = getPercentage(placeDisponible, placesMax);
                     parkingPlacesProgBar.setProgress((int) percentage);
-                    parkingNbMaxPlaces.setText(String.valueOf(Math.round(100 - percentage) + "%"));
+                    parkingNbMaxPlaces.setText(String.valueOf( placeDisponible + " / " + placesMax));
                 }
                 heureDebut.setText(parking.getHeureDebut());
                 heureFin.setText(" à " + parking.getHeureFin());
+                setPaymentOptions(parking);
 
             }
         }
-
+        private void setPaymentOptions(final LightParking parking) {
+            ParkingParser.setImageVisibility(parking.isCreditCardAvailable(), this.credCardImg);
+            ParkingParser.setImageVisibility(parking.isCashAvailable(), this.cashImg);
+            ParkingParser.setImageVisibility(parking.isTotalGRCardAvailable(), this.totalImg);
+            ParkingParser.setImageVisibility(parking.isChequeAvailable(), this.chequeImg);
+        }
     }
 
     private double getPercentage(int currentValue, int refValue) {
@@ -122,5 +141,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         double div = ((double) value / (double) refValue);
         return (div * 100);
     }
+
+
 
 }

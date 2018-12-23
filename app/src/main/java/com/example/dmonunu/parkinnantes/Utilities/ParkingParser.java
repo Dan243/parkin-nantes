@@ -1,8 +1,9 @@
 package com.example.dmonunu.parkinnantes.utilities;
 
 
+import android.widget.ImageView;
 
-public final class ParkingPaymentOptionsParser {
+public final class ParkingParser {
 
 	public static boolean isCreditCardAvailable(final String options) {
 		return options.contains("CB en borne de sortie");
@@ -38,6 +39,15 @@ public final class ParkingPaymentOptionsParser {
 	public static boolean isLigneFourNear(final String publicsTransports) {
 		return publicsTransports.contains("Ligne 4") || publicsTransports.contains("Lignes 4") ||
 				publicsTransports.contains("Lignes 3-4");
+	}
+
+	public static void setImageVisibility(final boolean isServiceAvailable, final ImageView
+			imageView) {
+		int result = ImageView.GONE;
+		if (isServiceAvailable) {
+			result = ImageView.VISIBLE;
+		}
+		imageView.setVisibility(result);
 	}
 
 }

@@ -49,6 +49,7 @@ public class ParkingMapper {
             double longitude = parkingModel.getLongitude();
             String adresse = parkingModel.getAddress();
             String nomParking = parkingModel.getFullname();
+
             String presentation = parkingModel.getPresentation();
             String acces_transports_communs = parkingModel.getPublicTransportAccess();
             int stationnement_velo = parkingModel.getBikeCapacity();
@@ -78,47 +79,54 @@ public class ParkingMapper {
 
 
 
+            String heureDebut = "06:30";
+            String heureFin = "23:59";
+            String dateDebut = "2018-01-01";
+            String dateFin = "2020-01-01";
+            int nbPlaceDispo = 0;
+
+
             if (horaireModel != null) {
-
-                String heureDebut = horaireModel.getHeure_debut();
-
-                String heureFin = horaireModel.getHeure_fin();
-                String dateDebut = horaireModel.getDate_debut();
-                String dateFin = horaireModel.getDate_fin();
-
-                if (dispoModel != null) {
-                    int nbPlaceDispo = dispoModel.getGrp_disponible();
-
-                    return new LightParking.LightParkingBuilder()
-                            .idObj(idobj)
-                            .nomParking(nomParking)
-                            .nbPlaceDispo(nbPlaceDispo)
-                            .capaciteTotale(capaciteTotale)
-                            .telephone(telephone)
-                            .moyenPaiement(moyenPaiement)
-                            .heureDebut(heureDebut)
-                            .heureFin(heureFin)
-                            .latitude(latitude)
-                            .longitude(longitude)
-                            .dateDebut(dateDebut)
-                            .dateFin(dateFin)
-                            .adresse(adresse)
-                            .acces_transports_communs(acces_transports_communs)
-                            .capacite_moto(capacite_moto)
-                            .capacite_pmr(capacite_pmr)
-                            .stationnement_velo(stationnement_velo)
-                            .presentation(presentation)
-                            .isCashAvailable(isCashAvailable)
-                            .isChequeAvailable(isChequeAvailable)
-                            .isCreditCardAvailable(isCreditCardAvailable)
-                            .isTotalGRCardAvailable(isTotalGRCardAvailable)
-                            .isLigneOneNear(isLigneOneNear)
-                            .isLigneTwoNear(isLigneTwoNear)
-                            .isLigneThreeNear(isLigneThreeNear)
-                            .isLigneFourNear(isLigneFourNear)
-                            .build();
-                }
+                heureDebut = horaireModel.getHeure_debut();
+                heureFin = horaireModel.getHeure_fin();
+                dateDebut = horaireModel.getDate_debut();
+                dateFin = horaireModel.getDate_fin();
             }
+
+
+            if (dispoModel != null) {
+                nbPlaceDispo = dispoModel.getGrp_disponible();
+
+            }
+
+            return new LightParking.LightParkingBuilder()
+                    .idObj(idobj)
+                    .nomParking(nomParking)
+                    .nbPlaceDispo(nbPlaceDispo)
+                    .capaciteTotale(capaciteTotale)
+                    .telephone(telephone)
+                    .moyenPaiement(moyenPaiement)
+                    .heureDebut(heureDebut)
+                    .heureFin(heureFin)
+                    .latitude(latitude)
+                    .longitude(longitude)
+                    .dateDebut(dateDebut)
+                    .dateFin(dateFin)
+                    .adresse(adresse)
+                    .acces_transports_communs(acces_transports_communs)
+                    .capacite_moto(capacite_moto)
+                    .capacite_pmr(capacite_pmr)
+                    .stationnement_velo(stationnement_velo)
+                    .presentation(presentation)
+                    .isCashAvailable(isCashAvailable)
+                    .isChequeAvailable(isChequeAvailable)
+                    .isCreditCardAvailable(isCreditCardAvailable)
+                    .isTotalGRCardAvailable(isTotalGRCardAvailable)
+                    .isLigneOneNear(isLigneOneNear)
+                    .isLigneTwoNear(isLigneTwoNear)
+                    .isLigneThreeNear(isLigneThreeNear)
+                    .isLigneFourNear(isLigneFourNear)
+                    .build();
         }
         return null;
     }

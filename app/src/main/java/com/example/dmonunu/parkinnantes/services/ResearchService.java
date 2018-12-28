@@ -3,23 +3,19 @@ package com.example.dmonunu.parkinnantes.services;
 import android.content.Context;
 import android.os.AsyncTask;
 
-import com.example.dmonunu.parkinnantes.activities.ListParkingView;
-import com.example.dmonunu.parkinnantes.models.LightParking;
+import com.example.dmonunu.parkinnantes.event.EventBusManager;
+import com.example.dmonunu.parkinnantes.event.SearchResultEvent;
 import com.example.dmonunu.parkinnantes.models.ParkingDataBase;
-
-import java.util.List;
 
 /**
  * Created by Zheyu XIE.
  */
 public class ResearchService {
 
-    private ListParkingView view;
     private Context context;
     private String search;
 
-    public ResearchService(ListParkingView view, Context context, String search) {
-        this.view = view;
+    public ResearchService(Context context, String search) {
         this.context = context;
         this.search = search;
     }
@@ -28,19 +24,16 @@ public class ResearchService {
         new ResearchService.RoomAsyncTask().execute(search);
     }
 
-    public class RoomAsyncTask extends AsyncTask<String, Void, List<LightParking>> {
+    public class RoomAsyncTask extends AsyncTask<String, Void, Void> {
         @Override
-        protected List<LightParking> doInBackground(String... strings) {
-            List<LightParking> result = ParkingDataBase.getAppDatabase(context).lightParkingDao().findParkingsByName(strings[0]);
-            return result;
+        protected Void doInBackground(String... strings) {
+            EventBusManager.BUS.post(new SearchResultEvent(ParkingDataBase.getAppDatabase(context).lightParkingDao().findParkingsByName(strings[0])));
+            return null;
         }
 
         @Override
-        protected void onPostExecute(List<LightParking> lightParkings) {
-            super.onPostExecute(lightParkings);
-            if (view != null) {
-                view.createList(lightParkings);
-            }
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
         }
     }
 }

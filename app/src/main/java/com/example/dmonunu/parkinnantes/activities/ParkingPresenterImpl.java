@@ -30,11 +30,10 @@ public class ParkingPresenterImpl implements ParkingPresenter {
     private static final String DATABASE_NAME = "parking_db";
 
     private ParkingSearchRESTService parkingService;
-    private ParkingView view;
+
     private Context context;
 
-    public ParkingPresenterImpl(ParkingView view, Context context) {
-        this.view = view;
+    public ParkingPresenterImpl(Context context) {
         this.context = context;
         this.parkingService = BaseService.getRetrofitInstance().create(ParkingSearchRESTService.class);
     }
@@ -81,10 +80,8 @@ public class ParkingPresenterImpl implements ParkingPresenter {
                                 }
 
                                 List<LightParking> lightParkings = ParkingMapper.createLightParkings(dispoModels, horaireModels, parkingModels);
-
                                 new DatabaseAsync().execute(lightParkings);
-                                view.init(lightParkings);
-
+                                EventBusManager.BUS.post(new SearchResultEvent(ParkingDataBase.getAppDatabase(context).lightParkingDao().getParkings()));
                             }
 
                             @Override
@@ -109,7 +106,6 @@ public class ParkingPresenterImpl implements ParkingPresenter {
     }
 
     private class DatabaseAsync extends AsyncTask<List<LightParking>, Void, Void> {
-
         @Override
         protected Void doInBackground(List<LightParking>... lists) {
             for(LightParking parking : lists[0]) {
@@ -122,10 +118,6 @@ public class ParkingPresenterImpl implements ParkingPresenter {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
         }
-    }
-
-    private void getParkingsFromRoom() {
-        new RoomAsyncTask().execute("");
     }
 
     private boolean isNetworkOnline() {
@@ -148,19 +140,20 @@ public class ParkingPresenterImpl implements ParkingPresenter {
 
     }
 
-    private class RoomAsyncTask extends AsyncTask<String, Integer, List<LightParking>> {
-        protected List<LightParking> doInBackground(String... urls) {
-            return ParkingDataBase.getAppDatabase(context).lightParkingDao().getParkings();
+    private void getParkingsFromRoom() {
+        new RoomAsyncTask().execute();
+    }
+
+    private class RoomAsyncTask extends AsyncTask<Void, Void, List<LightParking>> {
+        @Override
+        protected List<LightParking> doInBackground(Void... voids) {
+            EventBusManager.BUS.post(new SearchResultEvent(ParkingDataBase.getAppDatabase(context).lightParkingDao().getParkings()));
+            return null;
         }
 
-        protected void onProgressUpdate(Integer... progress) {
-
-        }
-
-        protected void onPostExecute(List<LightParking> result) {
-            if (view != null) {
-                view.init(result);
-            }
+        @Override
+        protected void onPostExecute(List<LightParking> lightParkings) {
+            super.onPostExecute(lightParkings);
         }
     }
 }

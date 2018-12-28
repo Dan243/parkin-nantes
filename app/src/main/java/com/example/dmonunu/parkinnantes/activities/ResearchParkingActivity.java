@@ -1,7 +1,10 @@
 package com.example.dmonunu.parkinnantes.activities;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.example.dmonunu.parkinnantes.R;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class ResearchParkingActivity extends AppCompatActivity {
 

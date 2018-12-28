@@ -50,8 +50,13 @@
             android:name=".activities.ListParkingActivity"
             android:label="TOUS LES PARKINGS"
             android:parentActivityName=".activities.HomeActivity" />
+<<<<<<< HEAD
         <activity android:name=".activities.ParkingDetailsActivity"></activity>
 
+=======
+        <activity android:name=".activities.ParkingDetailsActivity" />
+        <activity android:name=".activities.ResearchParkingActivity"></activity>
+>>>>>>> [Android]Refactor ResearchService and ListParkingPresenterImpl considering event
     </application>
 
 </manifest>

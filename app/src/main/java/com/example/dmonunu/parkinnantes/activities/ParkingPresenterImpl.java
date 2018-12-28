@@ -71,7 +71,7 @@ public class ParkingPresenterImpl implements ParkingPresenter {
                             dispoModels.add(record.getFields());
                         }
 
-                        parkingService.recupTousLesHoraires("244400404_parkings-publics-nantes-horaires", 100).enqueue(new Callback<BaseResponse<HoraireModel>>() {
+                        parkingService.recupTousLesHoraires("244400404_parkings-publics-nantes-horaires", 300).enqueue(new Callback<BaseResponse<HoraireModel>>() {
                             @Override
                             public void onResponse(Call<BaseResponse<HoraireModel>> call, Response<BaseResponse<HoraireModel>> response) {
                                 List<Record<HoraireModel>> records = response.body().getRecords();
@@ -81,8 +81,10 @@ public class ParkingPresenterImpl implements ParkingPresenter {
                                 }
 
                                 List<LightParking> lightParkings = ParkingMapper.createLightParkings(dispoModels, horaireModels, parkingModels);
+
+                                new DatabaseAsync().execute(lightParkings);
                                 view.init(lightParkings);
-                                EventBusManager.BUS.post(new SearchResultEvent(lightParkings));
+
                             }
 
                             @Override
@@ -106,13 +108,20 @@ public class ParkingPresenterImpl implements ParkingPresenter {
         });
     }
 
-    private void insertParkignsInRoom(final List<LightParking> parkingModelList) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                ParkingDataBase.getAppDatabase(context).lightParkingDao().createParkings(parkingModelList);
+    private class DatabaseAsync extends AsyncTask<List<LightParking>, Void, Void> {
+
+        @Override
+        protected Void doInBackground(List<LightParking>... lists) {
+            for(LightParking parking : lists[0]) {
+                ParkingDataBase.getAppDatabase(context).lightParkingDao().createParking(parking);
             }
-        }).start();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+        }
     }
 
     private void getParkingsFromRoom() {

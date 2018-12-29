@@ -4,14 +4,17 @@ import com.example.dmonunu.parkinnantes.models.LightParking;
 
 import java.util.List;
 
+/**
+ * Created by Zheyu XIE.
+ */
 public class SearchResultEvent {
     private List<LightParking> parkings;
 
-    public SearchResultEvent(List<LightParking> places) {
-        this.parkings = places;
+    public SearchResultEvent(List<LightParking> parkings) {
+        this.parkings = parkings;
     }
 
-    public List<LightParking> getPlaces() {
+    public List<LightParking> getParkings() {
         return parkings;
     }
 }

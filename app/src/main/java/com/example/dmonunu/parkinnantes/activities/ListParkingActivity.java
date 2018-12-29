@@ -12,13 +12,15 @@ import android.os.Bundle;
 
 import com.example.dmonunu.parkinnantes.R;
 import com.example.dmonunu.parkinnantes.event.EventBusManager;
-import com.example.dmonunu.parkinnantes.models.LightParking;
+
+
+import com.example.dmonunu.parkinnantes.event.SearchResultEvent;
 import com.example.dmonunu.parkinnantes.ui.MyAdapter;
 import com.mancj.materialsearchbar.MaterialSearchBar;
+import com.squareup.otto.Subscribe;
+import com.example.dmonunu.parkinnantes.event.SaveEvent;
 
-import java.util.List;
-
-public class ListParkingActivity extends AppCompatActivity implements ParkingView {
+public class ListParkingActivity extends AppCompatActivity {
 
     @BindView(R.id.my_list_view)
     RecyclerView myListView;
@@ -37,21 +39,22 @@ public class ListParkingActivity extends AppCompatActivity implements ParkingVie
         setContentView(R.layout.activity_list_parking);
 
         ButterKnife.bind(this);
+
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
-        presenter = new ParkingPresenterImpl(this, getApplicationContext());
+
+        presenter = new ParkingPresenterImpl(getApplicationContext());
         presenter.getParkings();
         layoutManager = new LinearLayoutManager(this);
         myListView.setLayoutManager(layoutManager);
-
     }
 
-    @Override
-    public void init(List<LightParking> parkings){
-        myListView.setAdapter(new MyAdapter(parkings, this));
+
+    @Subscribe
+    public void searchResult(SearchResultEvent event) {
+        myListView.setAdapter(new MyAdapter(event.getParkings(), this));
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(myListView.getContext(), layoutManager.getOrientation() );
         myListView.addItemDecoration(dividerItemDecoration);
-
     }
     @Override
     protected void onResume() {
@@ -72,4 +75,11 @@ public class ListParkingActivity extends AppCompatActivity implements ParkingVie
         // Do NOT forget to call super.onPause()
         super.onPause();
     }
+
+
+    @Subscribe
+    public void saveSuccess(SaveEvent event) {
+        presenter.getParkingsFromRoom();
+    }
+
 }

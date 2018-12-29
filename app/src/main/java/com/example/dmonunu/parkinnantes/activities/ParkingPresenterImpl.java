@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.example.dmonunu.parkinnantes.event.EventBusManager;
+import com.example.dmonunu.parkinnantes.event.SaveEvent;
 import com.example.dmonunu.parkinnantes.event.SearchResultEvent;
 import com.example.dmonunu.parkinnantes.models.BaseResponse;
 import com.example.dmonunu.parkinnantes.models.DispoModel;
@@ -30,25 +31,24 @@ public class ParkingPresenterImpl implements ParkingPresenter {
     private static final String DATABASE_NAME = "parking_db";
 
     private ParkingSearchRESTService parkingService;
-    private ParkingView view;
+
     private Context context;
 
-    public ParkingPresenterImpl(ParkingView view, Context context) {
-        this.view = view;
+    public ParkingPresenterImpl(Context context) {
         this.context = context;
         this.parkingService = BaseService.getRetrofitInstance().create(ParkingSearchRESTService.class);
     }
 
     @Override
     public void getParkings() {
+        getParkingsFromRoom();
         if (isNetworkOnline()) {
             getParkingsFromApi();
-        } else {
-            getParkingsFromRoom();
         }
     }
 
-    private void getParkingsFromApi() {
+    @Override
+    public void getParkingsFromApi() {
         this.parkingService.recupTousLesParkings("244400404_parkings-publics-nantes", 100).enqueue(new Callback<BaseResponse<ParkingModel>>() {
             @Override
             public void onResponse(Call<BaseResponse<ParkingModel>> call, Response<BaseResponse<ParkingModel>> response) {
@@ -71,7 +71,7 @@ public class ParkingPresenterImpl implements ParkingPresenter {
                             dispoModels.add(record.getFields());
                         }
 
-                        parkingService.recupTousLesHoraires("244400404_parkings-publics-nantes-horaires", 100).enqueue(new Callback<BaseResponse<HoraireModel>>() {
+                        parkingService.recupTousLesHoraires("244400404_parkings-publics-nantes-horaires", 300).enqueue(new Callback<BaseResponse<HoraireModel>>() {
                             @Override
                             public void onResponse(Call<BaseResponse<HoraireModel>> call, Response<BaseResponse<HoraireModel>> response) {
                                 List<Record<HoraireModel>> records = response.body().getRecords();
@@ -81,8 +81,10 @@ public class ParkingPresenterImpl implements ParkingPresenter {
                                 }
 
                                 List<LightParking> lightParkings = ParkingMapper.createLightParkings(dispoModels, horaireModels, parkingModels);
-                                view.init(lightParkings);
-                                EventBusManager.BUS.post(new SearchResultEvent(lightParkings));
+                                for(LightParking parking : lightParkings) {
+                                    ParkingDataBase.getAppDatabase(context).lightParkingDao().createParking(parking);
+                                }
+                                EventBusManager.BUS.post(new SaveEvent());
                             }
 
                             @Override
@@ -106,20 +108,8 @@ public class ParkingPresenterImpl implements ParkingPresenter {
         });
     }
 
-    private void insertParkignsInRoom(final List<LightParking> parkingModelList) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                ParkingDataBase.getAppDatabase(context).lightParkingDao().createParkings(parkingModelList);
-            }
-        }).start();
-    }
-
-    private void getParkingsFromRoom() {
-        new RoomAsyncTask().execute("");
-    }
-
-    private boolean isNetworkOnline() {
+    @Override
+    public boolean isNetworkOnline() {
         boolean status = false;
         try{
             ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -139,18 +129,22 @@ public class ParkingPresenterImpl implements ParkingPresenter {
 
     }
 
-    private class RoomAsyncTask extends AsyncTask<String, Integer, List<LightParking>> {
-        protected List<LightParking> doInBackground(String... urls) {
+    @Override
+    public void getParkingsFromRoom() {
+        new RoomAsyncTask().execute();
+    }
+
+    private class RoomAsyncTask extends AsyncTask<Void, Void, List<LightParking>> {
+        @Override
+        protected List<LightParking> doInBackground(Void... voids) {
             return ParkingDataBase.getAppDatabase(context).lightParkingDao().getParkings();
         }
 
-        protected void onProgressUpdate(Integer... progress) {
-
-        }
-
-        protected void onPostExecute(List<LightParking> result) {
-            if (view != null) {
-                view.init(result);
+        @Override
+        protected void onPostExecute(List<LightParking> lightParkings) {
+            super.onPostExecute(lightParkings);
+            if (lightParkings != null) {
+                EventBusManager.BUS.post(new SearchResultEvent(lightParkings));
             }
         }
     }

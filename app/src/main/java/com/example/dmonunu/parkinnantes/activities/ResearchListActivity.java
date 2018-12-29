@@ -6,6 +6,7 @@ import android.widget.ListView;
 
 import com.example.dmonunu.parkinnantes.R;
 import com.example.dmonunu.parkinnantes.event.EventBusManager;
+import com.example.dmonunu.parkinnantes.event.SaveEvent;
 import com.example.dmonunu.parkinnantes.event.SearchResultEvent;
 import com.example.dmonunu.parkinnantes.models.LightParking;
 import com.example.dmonunu.parkinnantes.services.ResearchService;
@@ -28,14 +29,22 @@ public class ResearchListActivity extends AppCompatActivity {
 
     private ResearchService researchService;
 
+    private ListParkingPresenter listParkingPresenter;
+
+    private String name;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_research_list);
         ButterKnife.bind(this);
-        String name = getIntent().getStringExtra("name");
+        name = getIntent().getStringExtra("name");
         researchService = new ResearchServiceImpl(getApplicationContext());
         researchService.findParkingsFromRoom(name);
+        listParkingPresenter = new ListParkingPresenterImpl(getApplicationContext());
+        if (listParkingPresenter.isNetworkOnline()) {
+            listParkingPresenter.getParkingsFromApi();
+        }
     }
 
     @Override
@@ -55,5 +64,10 @@ public class ResearchListActivity extends AppCompatActivity {
         List<LightParking> parkingList = event.getParkings();
         parkingAdapter = new ParkingAdapter(this, parkingList);
         myListView.setAdapter(parkingAdapter);
+    }
+
+    @Subscribe
+    public void saveSuccess(SaveEvent event) {
+        researchService.findParkingsFromRoom(name);
     }
 }

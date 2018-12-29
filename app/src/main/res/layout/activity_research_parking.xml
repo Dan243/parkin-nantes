@@ -29,7 +29,7 @@
             android:id="@+id/listActivitybutton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="List" />
+            android:text="TOUS LES PARKINGS" />
 
     </LinearLayout>
 </RelativeLayout>

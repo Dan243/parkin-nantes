@@ -3,6 +3,8 @@ package com.example.dmonunu.parkinnantes.services;
 import android.content.Context;
 import android.os.AsyncTask;
 
+import com.example.dmonunu.parkinnantes.activities.ListParkingPresenter;
+import com.example.dmonunu.parkinnantes.activities.ListParkingPresenterImpl;
 import com.example.dmonunu.parkinnantes.event.EventBusManager;
 import com.example.dmonunu.parkinnantes.event.SearchResultEvent;
 import com.example.dmonunu.parkinnantes.models.LightParking;
@@ -35,7 +37,9 @@ public class ResearchServiceImpl implements ResearchService {
         @Override
         protected void onPostExecute(List<LightParking> lightParkings) {
             super.onPostExecute(lightParkings);
-            EventBusManager.BUS.post(new SearchResultEvent(lightParkings));
+            if (lightParkings != null){
+                EventBusManager.BUS.post(new SearchResultEvent(lightParkings));
+            }
         }
     }
 }

@@ -13,24 +13,12 @@ import android.os.Bundle;
 import com.example.dmonunu.parkinnantes.R;
 import com.example.dmonunu.parkinnantes.event.EventBusManager;
 
+
 import com.example.dmonunu.parkinnantes.event.SearchResultEvent;
-import com.example.dmonunu.parkinnantes.models.LightParking;
-import com.example.dmonunu.parkinnantes.services.ResearchService;
 import com.example.dmonunu.parkinnantes.ui.MyAdapter;
 import com.mancj.materialsearchbar.MaterialSearchBar;
 import com.squareup.otto.Subscribe;
-
-import java.util.List;
-
-public class ListParkingActivity extends AppCompatActivity {
-
-import com.example.dmonunu.parkinnantes.event.SearchResultEvent;
-import com.example.dmonunu.parkinnantes.models.LightParking;
-import com.example.dmonunu.parkinnantes.services.ResearchService;
-import com.example.dmonunu.parkinnantes.ui.ParkingAdapter;
-import com.squareup.otto.Subscribe;
-
-import java.util.List;
+import com.example.dmonunu.parkinnantes.event.SaveEvent;
 
 public class ListParkingActivity extends AppCompatActivity {
 
@@ -44,8 +32,6 @@ public class ListParkingActivity extends AppCompatActivity {
     private LinearLayoutManager layoutManager;
 
     private ParkingPresenter presenter;
-
-    private ResearchService researchService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,4 +75,11 @@ public class ListParkingActivity extends AppCompatActivity {
         // Do NOT forget to call super.onPause()
         super.onPause();
     }
+
+
+    @Subscribe
+    public void saveSuccess(SaveEvent event) {
+        presenter.getParkingsFromRoom();
+    }
+
 }

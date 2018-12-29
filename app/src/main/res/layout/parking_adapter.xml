@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <ToggleButton
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/favorite"
         android:layout_width="30dp"
         android:layout_height="34dp"
@@ -16,7 +16,7 @@
         android:layout_marginEnd="-58dp"
         android:layout_marginBottom="86dp"
         android:background="@drawable/ic_40dp_star"
-        android:text="@null" />
+        android:tint="@android:color/darker_gray"/>
 
     <TextView
         android:id="@+id/parking_adapter_name"
@@ -50,7 +50,8 @@
         android:layout_width="87dp"
         android:layout_height="29dp"
         android:layout_below="@+id/parking_adapter_address"
-        android:layout_marginStart="6dp"
+        android:layout_marginStart="-19dp"
+        android:layout_marginTop="-2dp"
         android:layout_marginEnd="5dp"
         android:layout_toEndOf="@+id/parking_adapter_constant_available_places"
         app:layout_constraintEnd_toStartOf="@+id/parking_adapter_total_imageview"
@@ -59,10 +60,11 @@
 
     <TextView
         android:id="@+id/parking_adapter_constant_available_places"
-        android:layout_width="109dp"
-        android:layout_height="29dp"
+        android:layout_width="70dp"
+        android:layout_height="28dp"
         android:layout_below="@+id/parking_adapter_address"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="1dp"
         android:text="Libre à : "
         android:textSize="11sp"
         app:layout_constraintStart_toStartOf="@+id/parking_adapter_address"
@@ -74,7 +76,7 @@
         android:layout_width="wrap_content"
         android:layout_height="25dp"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="-1dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="90dp"
         android:layout_marginEnd="8dp"
         android:layout_toEndOf="@+id/parking_adapter_progressBar"
@@ -102,9 +104,10 @@
         android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/parking_adapter_total_imageview"
         android:layout_alignBottom="@+id/heure_fin"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="-20dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="121dp"
+        android:layout_marginEnd="-30dp"
+        android:layout_marginBottom="32dp"
         app:srcCompat="@drawable/ic_20dp_credit_card" />
 
     <ImageView
@@ -123,11 +126,12 @@
         android:id="@+id/parking_adapter_total_imageview"
         android:layout_width="21dp"
         android:layout_height="20dp"
-
         android:layout_above="@+id/horaires"
         android:layout_alignEnd="@+id/parking_adapter_cheque_imageview"
-        android:layout_marginEnd="-23dp"
-        android:layout_marginBottom="-1dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="121dp"
+        android:layout_marginEnd="-28dp"
+        android:layout_marginBottom="5dp"
         app:srcCompat="@drawable/ic_total_color"
         tools:layout_editor_absoluteX="233dp"
         tools:layout_editor_absoluteY="126dp" />
@@ -145,12 +149,12 @@
 
     <TextView
         android:id="@+id/horaires"
-        android:layout_width="83dp"
-        android:layout_height="32dp"
+        android:layout_width="wrap_content"
+        android:layout_height="29dp"
         android:layout_below="@+id/parking_adapter_constant_payment_options"
         android:layout_alignStart="@+id/parking_adapter_constant_payment_options"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="-4dp"
+        android:layout_marginTop="0dp"
         android:layout_marginEnd="8dp"
         android:text="Ouvert de "
         android:textSize="11sp"
@@ -161,11 +165,11 @@
 
     <TextView
         android:id="@+id/heure_debut"
-        android:layout_width="59dp"
-        android:layout_height="25dp"
+        android:layout_width="38dp"
+        android:layout_height="29dp"
         android:layout_below="@+id/parking_adapter_address"
         android:layout_marginStart="2dp"
-        android:layout_marginTop="62dp"
+        android:layout_marginTop="58dp"
         android:layout_marginEnd="8dp"
         android:layout_toEndOf="@+id/horaires"
         android:textColor="@color/md_blue_500"
@@ -178,9 +182,9 @@
 
     <TextView
         android:id="@+id/heure_fin"
-        android:layout_width="59dp"
-        android:layout_height="24dp"
-        android:layout_marginStart="-2dp"
+        android:layout_width="47dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="1dp"
         android:layout_marginTop="148dp"
         android:layout_marginEnd="36dp"
         android:layout_toEndOf="@+id/heure_debut"

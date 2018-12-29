@@ -23,10 +23,10 @@ public interface LightParkingDao {
     @Query("SELECT * FROM LightParking WHERE isFavorite = 'true'")
     List<LightParking> getFavoriteParkings();
 
-    @Query("UPDATE LightParking SET isFavorite = :test")
-    void setFavorite(boolean test);
+    @Query("UPDATE LightParking SET isFavorite = 'true'")
+    void setFavorite();
 
-    @Query("UPDATE LightParking SET isFavorite = :test")
-    void removeFavorite(boolean test);
+    @Query("UPDATE LightParking SET isFavorite = 'false'")
+    void removeFavorite();
 
 }

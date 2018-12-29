@@ -94,7 +94,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         ImageView chequeImg;
 
         @BindView(R.id.favorite)
-        ToggleButton favorite;
+        ImageView favorite;
 
         private LightParking currentParking;
 
@@ -102,9 +102,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             super(itemView);
             ButterKnife.bind(this,itemView);
 
-            favorite.setText(null);
-            favorite.setTextOn(null);
-            favorite.setTextOff(null);
         }
 
         public void bind(LightParking parking){

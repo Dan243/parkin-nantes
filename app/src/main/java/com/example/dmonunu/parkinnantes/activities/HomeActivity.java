@@ -90,7 +90,7 @@ public class HomeActivity extends FragmentActivity implements ParkingView,
         toolBar.setTitle(getResources().getString(R.string.tournament));
 
         DrawerUtil.getDrawer(this,toolBar);
-        this.presenter = new ParkingPresenterImpl(this, getApplicationContext());
+        this.presenter = new ParkingPresenterImpl(getApplicationContext());
         this.presenter.getParkings();
         mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 

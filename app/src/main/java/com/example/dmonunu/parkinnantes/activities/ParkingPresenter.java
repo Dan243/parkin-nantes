@@ -1,6 +1,6 @@
 package com.example.dmonunu.parkinnantes.activities;
 
-public interface MapPresenter {
+public interface ParkingPresenter {
 
     void getParkings();
 }

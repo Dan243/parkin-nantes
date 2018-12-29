@@ -9,6 +9,7 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 
 @Dao
 public interface LightParkingDao {
@@ -19,6 +20,13 @@ public interface LightParkingDao {
     @Query("SELECT * FROM LightParking ")
     List<LightParking> getParkings();
 
+    @Query("SELECT * FROM LightParking WHERE isFavorite = 'true'")
+    List<LightParking> getFavoriteParkings();
 
+    @Query("UPDATE LightParking SET isFavorite = 'true'")
+    void setFavorite();
+
+    @Query("UPDATE LightParking SET isFavorite = 'false'")
+    void removeFavorite();
 
 }

@@ -1,29 +1,35 @@
 package com.example.dmonunu.parkinnantes.activities;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
 
 import com.example.dmonunu.parkinnantes.R;
+import com.example.dmonunu.parkinnantes.event.EventBusManager;
 import com.example.dmonunu.parkinnantes.models.LightParking;
-import com.example.dmonunu.parkinnantes.ui.ParkingAdapter;
+import com.example.dmonunu.parkinnantes.ui.MyAdapter;
+import com.mancj.materialsearchbar.MaterialSearchBar;
 
 import java.util.List;
 
-public class ListParkingActivity extends AppCompatActivity implements ListParkingView{
+public class ListParkingActivity extends AppCompatActivity implements ParkingView {
 
     @BindView(R.id.my_list_view)
-    ListView myListView;
+    RecyclerView myListView;
 
-    private ParkingAdapter parkingAdapter;
+    @BindView(R.id.search_bar)
+    MaterialSearchBar searchBar;
 
-    private ListParkingPresenter presenter;
+    private RecyclerView.Adapter mAdapter;
+    private LinearLayoutManager layoutManager;
+
+    private ParkingPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,27 +37,39 @@ public class ListParkingActivity extends AppCompatActivity implements ListParkin
         setContentView(R.layout.activity_list_parking);
 
         ButterKnife.bind(this);
-
-        presenter = new ListParkingPresenterImpl(this, getApplicationContext());
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
+        presenter = new ParkingPresenterImpl(this, getApplicationContext());
         presenter.getParkings();
+        layoutManager = new LinearLayoutManager(this);
+        myListView.setLayoutManager(layoutManager);
 
     }
 
     @Override
-    public void createList(List<LightParking> parkings){
-        parkingAdapter = new ParkingAdapter(this, parkings);
-        myListView.setAdapter(parkingAdapter);
-        myListView.setTranscriptMode(ListView.TRANSCRIPT_MODE_NORMAL);
+    public void init(List<LightParking> parkings){
+        myListView.setAdapter(new MyAdapter(parkings, this));
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(myListView.getContext(), layoutManager.getOrientation() );
+        myListView.addItemDecoration(dividerItemDecoration);
 
-        myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                final Intent parkingDetail = new Intent(ListParkingActivity.this, ParkingDetailsActivity.class);
-                LightParking lightParking = (LightParking) parent.getItemAtPosition(position);
-                parkingDetail.putExtra("SelectedParking", lightParking);
-                startActivity(parkingDetail);
-            }
-        });
+    }
+    @Override
+    protected void onResume() {
+        // Do NOT forget to call super.onResume()
+        super.onResume();
+
+        // Register to Event bus : now each time an event is posted, the activity will receive it if it is @Subscribed to this event
+        EventBusManager.BUS.register(this);
+
+
     }
 
+    @Override
+    protected void onPause() {
+        // Unregister from Event bus : if event are posted now, the activity will not receive it
+        EventBusManager.BUS.unregister(this);
+
+        // Do NOT forget to call super.onPause()
+        super.onPause();
+    }
 }

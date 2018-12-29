@@ -78,7 +78,11 @@ dependencies {
     implementation 'android.arch.persistence.room:runtime:1.0.0'
     annotationProcessor 'android.arch.persistence.room:compiler:1.0.0'
 
+    // RECYCLER VIEW
     implementation 'com.android.support:recyclerview-v7:28.0.0'
+
+    // MATERIAL SEARCHBAR
+    implementation 'com.github.mancj:MaterialSearchBar:0.8.1'
 
 
 }

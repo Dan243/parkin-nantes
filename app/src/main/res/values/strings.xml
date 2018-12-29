@@ -19,7 +19,9 @@
     <string name="twitterUsername">"@danmonunu"</string>
     <string name="popup_message_choice_yes"> Oui </string>
     <string name="popup_message_choice_no"> Non </string>
-    <string name="list_parking"> VOIR LES PARKINGS </string>
+    <string name="list_parking"> TOUS LES PARKINGS </string>
+    <string name="favori">FAVORIS</string>
+    <string name="rechercher">RECHERCHER DES PARKINGS</string>
 
 
 </resources>

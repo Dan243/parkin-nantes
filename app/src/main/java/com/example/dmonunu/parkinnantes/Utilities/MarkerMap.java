@@ -1,7 +1,7 @@
 package com.example.dmonunu.parkinnantes.utilities;
 
 import com.example.dmonunu.parkinnantes.R;
-import com.example.dmonunu.parkinnantes.activities.MapView;
+import com.example.dmonunu.parkinnantes.activities.ParkingView;
 import com.example.dmonunu.parkinnantes.models.LightParking;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;

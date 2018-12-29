@@ -2,7 +2,6 @@ package com.example.dmonunu.parkinnantes.activities;
 
 
 import android.Manifest;
-import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -11,9 +10,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.dmonunu.parkinnantes.event.EventBusManager;
 import com.example.dmonunu.parkinnantes.models.LightParking;
-import com.example.dmonunu.parkinnantes.utilities.DrawerUtil;
+
 import com.example.dmonunu.parkinnantes.R;
+import com.example.dmonunu.parkinnantes.utilities.DrawerUtil;
 import com.example.dmonunu.parkinnantes.utilities.MarkerMap;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -21,7 +22,6 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -34,7 +34,7 @@ import androidx.fragment.app.FragmentActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class HomeActivity extends FragmentActivity implements MapView,
+public class HomeActivity extends FragmentActivity implements ParkingView,
         GoogleMap.OnMyLocationButtonClickListener,
         GoogleMap.OnMyLocationClickListener, GoogleMap.OnMarkerClickListener{
 
@@ -42,7 +42,7 @@ public class HomeActivity extends FragmentActivity implements MapView,
     private static final String TAG = HomeActivity.class.getName();
     private GoogleMap mainMap;
     private static final int MY_LOCATION_REQUEST_CODE = 9401;
-    private MapPresenter presenter;
+    private ParkingPresenter presenter;
     private LocationManager mLocationManager;
     private ClusterManager<MyItem> mClusterManager;
 
@@ -87,14 +87,14 @@ public class HomeActivity extends FragmentActivity implements MapView,
         toolBar.setTitle(getResources().getString(R.string.tournament));
 
         DrawerUtil.getDrawer(this,toolBar);
-        this.presenter = new MapPresenterImpl(this, getApplicationContext());
+        this.presenter = new ParkingPresenterImpl(this, getApplicationContext());
         this.presenter.getParkings();
         mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
     }
 
     @Override
-    public void initMap(final List<LightParking> parkingModels) {
+    public void init(final List<LightParking> parkingModels) {
         SupportMapFragment mapFragment =
                 (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(new OnMapReadyCallback() {
@@ -175,4 +175,24 @@ public class HomeActivity extends FragmentActivity implements MapView,
         }
     }
 
+
+    @Override
+    protected void onResume() {
+        // Do NOT forget to call super.onResume()
+        super.onResume();
+
+        // Register to Event bus : now each time an event is posted, the activity will receive it if it is @Subscribed to this event
+        EventBusManager.BUS.register(this);
+
+
+    }
+
+    @Override
+    protected void onPause() {
+        // Unregister from Event bus : if event are posted now, the activity will not receive it
+        EventBusManager.BUS.unregister(this);
+
+        // Do NOT forget to call super.onPause()
+        super.onPause();
+    }
 }

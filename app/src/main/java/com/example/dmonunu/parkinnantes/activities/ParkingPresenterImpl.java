@@ -6,6 +6,8 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.example.dmonunu.parkinnantes.event.EventBusManager;
+import com.example.dmonunu.parkinnantes.event.SearchResultEvent;
 import com.example.dmonunu.parkinnantes.models.BaseResponse;
 import com.example.dmonunu.parkinnantes.models.DispoModel;
 import com.example.dmonunu.parkinnantes.models.HoraireModel;
@@ -20,19 +22,18 @@ import com.example.dmonunu.parkinnantes.services.ParkingSearchRESTService;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.room.Room;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MapPresenterImpl implements MapPresenter {
+public class ParkingPresenterImpl implements ParkingPresenter {
     private static final String DATABASE_NAME = "parking_db";
 
     private ParkingSearchRESTService parkingService;
-    private MapView view;
+    private ParkingView view;
     private Context context;
 
-    public MapPresenterImpl(MapView view, Context context) {
+    public ParkingPresenterImpl(ParkingView view, Context context) {
         this.view = view;
         this.context = context;
         this.parkingService = BaseService.getRetrofitInstance().create(ParkingSearchRESTService.class);
@@ -70,7 +71,7 @@ public class MapPresenterImpl implements MapPresenter {
                             dispoModels.add(record.getFields());
                         }
 
-                        parkingService.recupTousLesHoraires("244400404_parkings-publics-nantes-disponibilites", 100).enqueue(new Callback<BaseResponse<HoraireModel>>() {
+                        parkingService.recupTousLesHoraires("244400404_parkings-publics-nantes-horaires", 100).enqueue(new Callback<BaseResponse<HoraireModel>>() {
                             @Override
                             public void onResponse(Call<BaseResponse<HoraireModel>> call, Response<BaseResponse<HoraireModel>> response) {
                                 List<Record<HoraireModel>> records = response.body().getRecords();
@@ -80,7 +81,8 @@ public class MapPresenterImpl implements MapPresenter {
                                 }
 
                                 List<LightParking> lightParkings = ParkingMapper.createLightParkings(dispoModels, horaireModels, parkingModels);
-                                view.initMap(lightParkings);
+                                view.init(lightParkings);
+                                EventBusManager.BUS.post(new SearchResultEvent(lightParkings));
                             }
 
                             @Override
@@ -148,7 +150,7 @@ public class MapPresenterImpl implements MapPresenter {
 
         protected void onPostExecute(List<LightParking> result) {
             if (view != null) {
-                view.initMap(result);
+                view.init(result);
             }
         }
     }

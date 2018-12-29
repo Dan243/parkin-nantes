@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.example.dmonunu.parkinnantes.event.EventBusManager;
+import com.example.dmonunu.parkinnantes.event.SaveEvent;
 import com.example.dmonunu.parkinnantes.event.SearchResultEvent;
 import com.example.dmonunu.parkinnantes.models.BaseResponse;
 import com.example.dmonunu.parkinnantes.models.DispoModel;
@@ -40,14 +41,14 @@ public class ParkingPresenterImpl implements ParkingPresenter {
 
     @Override
     public void getParkings() {
+        getParkingsFromRoom();
         if (isNetworkOnline()) {
             getParkingsFromApi();
-        } else {
-            getParkingsFromRoom();
         }
     }
 
-    private void getParkingsFromApi() {
+    @Override
+    public void getParkingsFromApi() {
         this.parkingService.recupTousLesParkings("244400404_parkings-publics-nantes", 100).enqueue(new Callback<BaseResponse<ParkingModel>>() {
             @Override
             public void onResponse(Call<BaseResponse<ParkingModel>> call, Response<BaseResponse<ParkingModel>> response) {
@@ -80,8 +81,10 @@ public class ParkingPresenterImpl implements ParkingPresenter {
                                 }
 
                                 List<LightParking> lightParkings = ParkingMapper.createLightParkings(dispoModels, horaireModels, parkingModels);
-                                new DatabaseAsync().execute(lightParkings);
-                                EventBusManager.BUS.post(new SearchResultEvent(ParkingDataBase.getAppDatabase(context).lightParkingDao().getParkings()));
+                                for(LightParking parking : lightParkings) {
+                                    ParkingDataBase.getAppDatabase(context).lightParkingDao().createParking(parking);
+                                }
+                                EventBusManager.BUS.post(new SaveEvent());
                             }
 
                             @Override
@@ -105,22 +108,8 @@ public class ParkingPresenterImpl implements ParkingPresenter {
         });
     }
 
-    private class DatabaseAsync extends AsyncTask<List<LightParking>, Void, Void> {
-        @Override
-        protected Void doInBackground(List<LightParking>... lists) {
-            for(LightParking parking : lists[0]) {
-                ParkingDataBase.getAppDatabase(context).lightParkingDao().createParking(parking);
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-        }
-    }
-
-    private boolean isNetworkOnline() {
+    @Override
+    public boolean isNetworkOnline() {
         boolean status = false;
         try{
             ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -140,20 +129,23 @@ public class ParkingPresenterImpl implements ParkingPresenter {
 
     }
 
-    private void getParkingsFromRoom() {
+    @Override
+    public void getParkingsFromRoom() {
         new RoomAsyncTask().execute();
     }
 
     private class RoomAsyncTask extends AsyncTask<Void, Void, List<LightParking>> {
         @Override
         protected List<LightParking> doInBackground(Void... voids) {
-            EventBusManager.BUS.post(new SearchResultEvent(ParkingDataBase.getAppDatabase(context).lightParkingDao().getParkings()));
-            return null;
+            return ParkingDataBase.getAppDatabase(context).lightParkingDao().getParkings();
         }
 
         @Override
         protected void onPostExecute(List<LightParking> lightParkings) {
             super.onPostExecute(lightParkings);
+            if (lightParkings != null) {
+                EventBusManager.BUS.post(new SearchResultEvent(lightParkings));
+            }
         }
     }
 }

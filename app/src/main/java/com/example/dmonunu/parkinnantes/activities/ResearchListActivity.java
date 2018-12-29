@@ -14,6 +14,7 @@ import com.example.dmonunu.parkinnantes.services.ResearchServiceImpl;
 import com.example.dmonunu.parkinnantes.ui.ParkingAdapter;
 import com.squareup.otto.Subscribe;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,16 +32,20 @@ public class ResearchListActivity extends AppCompatActivity {
 
     private ListParkingPresenter listParkingPresenter;
 
-    private String name;
+    private List<String> research;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_research_list);
         ButterKnife.bind(this);
-        name = getIntent().getStringExtra("name");
+        research = new ArrayList<String>();
+        String name = getIntent().getStringExtra("name");
+        String address = getIntent().getStringExtra("address");
+        research.add(name);
+        research.add(address);
         researchService = new ResearchServiceImpl(getApplicationContext());
-        researchService.findParkingsFromRoom(name);
+        researchService.findParkingsFromRoom(research);
         listParkingPresenter = new ListParkingPresenterImpl(getApplicationContext());
         if (listParkingPresenter.isNetworkOnline()) {
             listParkingPresenter.getParkingsFromApi();
@@ -68,6 +73,6 @@ public class ResearchListActivity extends AppCompatActivity {
 
     @Subscribe
     public void saveSuccess(SaveEvent event) {
-        researchService.findParkingsFromRoom(name);
+        researchService.findParkingsFromRoom(research);
     }
 }

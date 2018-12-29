@@ -24,14 +24,14 @@ public class ResearchServiceImpl implements ResearchService {
     }
 
     @Override
-    public void findParkingsFromRoom(String search) {
-        new RoomAsyncTask().execute(search);
+    public void findParkingsFromRoom(List<String> research) {
+        new RoomAsyncTask().execute(research);
     }
 
-    private class RoomAsyncTask extends AsyncTask<String, Void, List<LightParking>> {
+    private class RoomAsyncTask extends AsyncTask<List<String>, Void, List<LightParking>> {
         @Override
-        protected List<LightParking> doInBackground(String... strings) {
-            return ParkingDataBase.getAppDatabase(context).lightParkingDao().findParkingsByName(strings[0]);
+        protected List<LightParking> doInBackground(List<String>... lists) {
+            return ParkingDataBase.getAppDatabase(context).lightParkingDao().findParkingsByNameAndAddress(lists[0].get(0), lists[0].get(1));
         }
 
         @Override

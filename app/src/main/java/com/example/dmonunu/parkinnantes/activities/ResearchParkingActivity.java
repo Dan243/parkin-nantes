@@ -17,6 +17,9 @@ public class ResearchParkingActivity extends AppCompatActivity {
     @BindView(R.id.name)
     EditText mNameEditText;
 
+    @BindView(R.id.address)
+    EditText mAddressEditText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,9 +31,9 @@ public class ResearchParkingActivity extends AppCompatActivity {
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name = mNameEditText.getText().toString();
                 Intent intent = new Intent(ResearchParkingActivity.this, ResearchListActivity.class);
-                intent.putExtra("name", name);
+                intent.putExtra("name", mNameEditText.getText().toString());
+                intent.putExtra("address", mAddressEditText.getText().toString());
                 startActivity(intent);
             }
         });

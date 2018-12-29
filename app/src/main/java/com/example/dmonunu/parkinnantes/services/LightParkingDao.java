@@ -36,15 +36,13 @@ public interface LightParkingDao {
     @Query("SELECT * FROM LightParking WHERE nbPlaceDispo >= :search")
     List<LightParking> findParkingsByDispo(int search);
 
-
-
-
-
-
     @Query("UPDATE LightParking SET isFavorite = 'true'")
     void setFavorite();
 
     @Query("UPDATE LightParking SET isFavorite = 'false'")
     void removeFavorite();
+
+    @Query("SELECT * FROM LightParking WHERE nomParking LIKE '%' || :name || '%' AND adresse LIKE '%' || :address || '%'")
+    List<LightParking> findParkingsByNameAndAddress(String name, String address);
 
 }

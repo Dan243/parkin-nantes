@@ -44,6 +44,7 @@ public class HomeActivity extends FragmentActivity implements MapView,
     private static final int MY_LOCATION_REQUEST_CODE = 9401;
     private MapPresenter presenter;
     private LocationManager mLocationManager;
+    private ClusterManager<MyItem> mClusterManager;
 
     private final LocationListener mLocationListener = new LocationListener() {
         @Override

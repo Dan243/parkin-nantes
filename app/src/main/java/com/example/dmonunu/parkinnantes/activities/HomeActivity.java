@@ -44,6 +44,7 @@ public class HomeActivity extends FragmentActivity implements ParkingView,
     private static final int MY_LOCATION_REQUEST_CODE = 9401;
     private ParkingPresenter presenter;
     private LocationManager mLocationManager;
+    private ClusterManager<MyItem> mClusterManager;
 
     private final LocationListener mLocationListener = new LocationListener() {
         @Override

@@ -44,7 +44,7 @@ public class HomeActivity extends FragmentActivity implements ParkingView,
     private static final int MY_LOCATION_REQUEST_CODE = 9401;
     private ParkingPresenter presenter;
     private LocationManager mLocationManager;
-    private ClusterManager<MyItem> mClusterManager;
+    //private ClusterManager<MyItem> mClusterManager;
 
     private final LocationListener mLocationListener = new LocationListener() {
         @Override
@@ -87,7 +87,7 @@ public class HomeActivity extends FragmentActivity implements ParkingView,
         toolBar.setTitle(getResources().getString(R.string.tournament));
 
         DrawerUtil.getDrawer(this,toolBar);
-        this.presenter = new ParkingPresenterImpl(this, getApplicationContext());
+        this.presenter = new ParkingPresenterImpl(getApplicationContext());
         this.presenter.getParkings();
         mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 

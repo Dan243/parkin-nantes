@@ -14,6 +14,8 @@ import com.example.dmonunu.parkinnantes.event.EventBusManager;
 import com.example.dmonunu.parkinnantes.models.LightParking;
 
 import com.example.dmonunu.parkinnantes.R;
+import com.example.dmonunu.parkinnantes.models.ParkingModel;
+import com.example.dmonunu.parkinnantes.utilities.ClusterItemImpl;
 import com.example.dmonunu.parkinnantes.utilities.DrawerUtil;
 import com.example.dmonunu.parkinnantes.utilities.MarkerMap;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -24,6 +26,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.maps.android.clustering.ClusterManager;
 
 import java.util.List;
 
@@ -44,7 +47,7 @@ public class HomeActivity extends FragmentActivity implements ParkingView,
     private static final int MY_LOCATION_REQUEST_CODE = 9401;
     private ParkingPresenter presenter;
     private LocationManager mLocationManager;
-    //private ClusterManager<MyItem> mClusterManager;
+    private ClusterManager<ClusterItemImpl> myClusterManager;
 
     private final LocationListener mLocationListener = new LocationListener() {
         @Override
@@ -101,6 +104,7 @@ public class HomeActivity extends FragmentActivity implements ParkingView,
             @Override
             public void onMapReady(GoogleMap googleMap) {
                 mainMap = googleMap;
+                setUpClusterer(parkingModels);
                 if (!checkForLocationPermission()) {
                     ActivityCompat.requestPermissions(HomeActivity.this, new String[] {
                             Manifest.permission.ACCESS_FINE_LOCATION}, MY_LOCATION_REQUEST_CODE);
@@ -108,12 +112,6 @@ public class HomeActivity extends FragmentActivity implements ParkingView,
                 // Add some markers to the map, and add a data object to each marker.
                 mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 300,
                         300, mLocationListener);
-                for (LightParking parkingModel : parkingModels) {
-                    if (parkingModel != null) {
-                        MarkerMap markerMap = new MarkerMap(parkingModel, googleMap);
-                        Marker marker = markerMap.createMarker();
-                    }
-                }
                 // Set a listener for marker click.
                 googleMap.setOnMarkerClickListener(HomeActivity.this);
             }
@@ -195,4 +193,35 @@ public class HomeActivity extends FragmentActivity implements ParkingView,
         // Do NOT forget to call super.onPause()
         super.onPause();
     }
+
+    private void setUpClusterer(List<LightParking> parkingModels) {
+        // Position the map.
+        mainMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(51.503186, -0.126446), 10));
+
+        // Initialize the manager with the context and the map.
+        // (Activity extends context, so we can pass 'this' in the constructor.)
+        myClusterManager = new ClusterManager<ClusterItemImpl>(this, mainMap);
+
+        // Point the map's listeners at the listeners implemented by the cluster
+        // manager.
+        mainMap.setOnCameraIdleListener(myClusterManager);
+        mainMap.setOnMarkerClickListener(myClusterManager);
+
+        // Add cluster items (markers) to the cluster manager.
+        addItems(parkingModels);
+    }
+
+    private void addItems(List<LightParking> parkingModels) {
+
+
+        for (LightParking parkingModel : parkingModels) {
+            if (parkingModel != null) {
+                ClusterItemImpl offsetItem = new ClusterItemImpl(parkingModel.getLatitude(), parkingModel.getLongitude());
+                myClusterManager.addItem(offsetItem);
+                //MarkerMap markerMap = new MarkerMap(parkingModel, googleMap);
+                //Marker marker = markerMap.createMarker();
+            }
+        }
+    }
+
 }

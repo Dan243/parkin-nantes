@@ -4,12 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
 
-<<<<<<< HEAD
 import com.example.dmonunu.parkinnantes.activities.HomeActivity;
-=======
 import com.example.dmonunu.parkinnantes.activities.ListParkingActivity;
 import com.example.dmonunu.parkinnantes.auth.ProfilActivity;
->>>>>>> Le commit de la der chance
 import com.example.dmonunu.parkinnantes.R;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
@@ -41,32 +38,13 @@ public class DrawerUtil {
         PrimaryDrawerItem drawerItemManagePlayers = new PrimaryDrawerItem().withIdentifier(1)
                 .withName(R.string.manage_player).withIcon(R.drawable.outline_account_circle_24);
         PrimaryDrawerItem drawerItemManagePlayersTournaments = new PrimaryDrawerItem()
-<<<<<<< HEAD
+
 
                 .withIdentifier(2).withName(R.string.list_parking).withIcon(R.drawable.baseline_directions_car_24);
         SecondaryDrawerItem drawerItemSettings = new SecondaryDrawerItem()
                 .withIdentifier(3).withName(R.string.favori).withIcon(R.drawable.baseline_favorite_border_24);
         SecondaryDrawerItem drawerItemAbout = new SecondaryDrawerItem().withIdentifier(4)
                 .withName(R.string.rechercher).withIcon(R.drawable.baseline_search_24);
-=======
-                .withIdentifier(2).withName(R.string.list_parking).withIcon(R.drawable.baseline_directions_car_24);
-
-
-        SecondaryDrawerItem drawerItemSettings = new SecondaryDrawerItem().withIdentifier(3);
-
-        SecondaryDrawerItem drawerItemAbout = new SecondaryDrawerItem().withIdentifier(4);
-        SecondaryDrawerItem drawerItemAbout1 = new SecondaryDrawerItem().withIdentifier(5);
-        SecondaryDrawerItem drawerItemAbout2 = new SecondaryDrawerItem().withIdentifier(6);
-        SecondaryDrawerItem drawerItemAbout3 = new SecondaryDrawerItem().withIdentifier(7);
-        SecondaryDrawerItem drawerItemAbout4 = new SecondaryDrawerItem().withIdentifier(8);
-        SecondaryDrawerItem drawerItemAbout5 = new SecondaryDrawerItem().withIdentifier(9);
-        SecondaryDrawerItem drawerItemDelete = new SecondaryDrawerItem().withIdentifier(10)
-                .withName("Supprimer mon compte").withIcon(R.drawable.outline_delete_forever_24);
-        SecondaryDrawerItem drawerItemDeconnexion = new SecondaryDrawerItem().withIdentifier(11)
-                .withName("Se déconnecter").withIcon(R.drawable.outline_exit_to_app_24);
-
-
->>>>>>> Le commit de la der chance
 
         SecondaryDrawerItem drawerItemAbout1 = new SecondaryDrawerItem().withIdentifier(5);
         SecondaryDrawerItem drawerItemAbout2 = new SecondaryDrawerItem().withIdentifier(6);
@@ -95,7 +73,6 @@ public class DrawerUtil {
                         drawerItemManagePlayersTournaments,
                         new DividerDrawerItem(),
                         drawerItemAbout,
-<<<<<<< HEAD
                         new DividerDrawerItem(),
                         drawerItemSettings,
                         new DividerDrawerItem(),
@@ -106,15 +83,7 @@ public class DrawerUtil {
                         drawerItemAbout5,
 
                         new DividerDrawerItem(),
-=======
-                        drawerItemAbout1,
-                        drawerItemAbout2,
-                        drawerItemAbout3,
-                        drawerItemAbout4,
-                        drawerItemAbout5,
-                        drawerItemSettings,
-                        new DividerDrawerItem(),
->>>>>>> Le commit de la der chance
+
                         drawerItemDelete,
                         drawerItemDeconnexion
                 )

@@ -37,14 +37,5 @@ public class ResearchParkingActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        Button mListButton = (Button) findViewById(R.id.listActivitybutton);
-        mListButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ResearchParkingActivity.this, ListParkingActivity.class);
-                startActivity(intent);
-            }
-        });
     }
 }

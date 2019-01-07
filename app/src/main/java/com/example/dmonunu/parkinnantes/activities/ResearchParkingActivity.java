@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 
 import com.example.dmonunu.parkinnantes.R;
@@ -20,6 +21,15 @@ public class ResearchParkingActivity extends AppCompatActivity {
     @BindView(R.id.address)
     EditText mAddressEditText;
 
+    @BindView(R.id.cash)
+    CheckBox mCashCheckBox;
+
+    @BindView(R.id.total_gr)
+    CheckBox mTotalGRCheckBox;
+
+    @BindView(R.id.cb)
+    CheckBox mCBCheckBox;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +44,24 @@ public class ResearchParkingActivity extends AppCompatActivity {
                 Intent intent = new Intent(ResearchParkingActivity.this, ResearchListActivity.class);
                 intent.putExtra("name", mNameEditText.getText().toString());
                 intent.putExtra("address", mAddressEditText.getText().toString());
+                if (mCashCheckBox.isChecked()) {
+                    intent.putExtra("cash", "Espèces");
+                }
+                else {
+                    intent.putExtra("cash", "");
+                }
+                if (mTotalGRCheckBox.isChecked()) {
+                    intent.putExtra("total_gr", "Total");
+                }
+                else {
+                    intent.putExtra("total_gr", "");
+                }
+                if (mCBCheckBox.isChecked()) {
+                    intent.putExtra("cb", "CB");
+                }
+                else {
+                    intent.putExtra("cb", "");
+                }
                 startActivity(intent);
             }
         });

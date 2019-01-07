@@ -46,8 +46,14 @@ public class ResearchListActivity extends AppCompatActivity {
         research = new ArrayList<String>();
         String name = getIntent().getStringExtra("name");
         String address = getIntent().getStringExtra("address");
+        String cash = getIntent().getStringExtra("cash");
+        String total_gr = getIntent().getStringExtra("total_gr");
+        String cb = getIntent().getStringExtra("cb");
         research.add(name);
         research.add(address);
+        research.add(cash);
+        research.add(total_gr);
+        research.add(cb);
         researchService = new ResearchServiceImpl(getApplicationContext());
         researchService.findParkingsFromRoom(research);
         ParkingPresenter parkingPresenter = new ParkingPresenterImpl(getApplicationContext());

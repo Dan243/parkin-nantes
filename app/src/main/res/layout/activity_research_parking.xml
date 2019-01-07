@@ -29,6 +29,14 @@
             android:hint="adresse du parking"
             android:inputType="text" />
 
+        <TextView
+            android:id="@+id/paiementTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:textSize="16dp"
+            android:text="Moyens de paiement acceptés" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -56,6 +64,34 @@
                 android:text="CB en borne de sortie" />
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/nbAvaiTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:textSize="16dp"
+            android:text="Nombre de places disponibles" />
+
+        <com.appyvet.materialrangebar.RangeBar xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/nb_avai"
+            android:layout_width="match_parent"
+            android:layout_height="63dp"
+            app:mrb_pinColor="#6c3f6a"
+            app:mrb_pinMaxFont="15sp"
+            app:mrb_pinMinFont="12sp"
+            app:mrb_pinRadius="14dp"
+            app:mrb_pinTextColor="@color/white"
+            app:mrb_rangeBar="true"
+            app:mrb_rangeBarPaddingBottom="20dp"
+            app:mrb_rangeBar_rounded="true"
+            app:mrb_selectorBoundaryColor="@color/accent"
+            app:mrb_selectorBoundarySize="2dp"
+            app:mrb_selectorSize="10dp"
+            app:mrb_temporaryPins="true"
+            app:mrb_tickEnd="700"
+            app:mrb_tickInterval="1"
+            app:mrb_tickStart="0" />
+
         <Button
             android:id="@+id/validateButton"
             android:layout_width="match_parent"
@@ -63,4 +99,5 @@
             android:text="Valider" />
 
     </LinearLayout>
+
 </RelativeLayout>

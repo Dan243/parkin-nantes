@@ -42,7 +42,7 @@ public interface LightParkingDao {
     @Query("UPDATE LightParking SET isFavorite = 'false'")
     void removeFavorite();
 
-    @Query("SELECT * FROM LightParking WHERE nomParking LIKE '%' || :name || '%' AND adresse LIKE '%' || :address || '%' AND moyenPaiement LIKE '%' || :cash || '%' AND moyenPaiement LIKE '%' || :total_gr || '%' AND moyenPaiement LIKE '%' || :cb || '%'")
-    List<LightParking> findParkingsByNameAndAddress(String name, String address, String cash, String total_gr, String cb);
+    @Query("SELECT * FROM LightParking WHERE nomParking LIKE '%' || :name || '%' AND adresse LIKE '%' || :address || '%' AND moyenPaiement LIKE '%' || :cash || '%' AND moyenPaiement LIKE '%' || :total_gr || '%' AND moyenPaiement LIKE '%' || :cb || '%' AND nbPlaceDispo > :left AND nbPlaceDispo < :right")
+    List<LightParking> findParkingsByNameAndAddress(String name, String address, String cash, String total_gr, String cb, int left, int right);
 
 }

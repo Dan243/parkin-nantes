@@ -43,7 +43,7 @@ public class ResearchListActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         layoutManager = new LinearLayoutManager(this);
         myListView.setLayoutManager(layoutManager);
-        research = new ArrayList<String>();
+        research = new ArrayList<>();
         String name = getIntent().getStringExtra("name");
         String address = getIntent().getStringExtra("address");
         String cash = getIntent().getStringExtra("cash");
@@ -54,6 +54,8 @@ public class ResearchListActivity extends AppCompatActivity {
         research.add(cash);
         research.add(total_gr);
         research.add(cb);
+        research.add(String.valueOf(getIntent().getIntExtra("left", 0)));
+        research.add(String.valueOf(getIntent().getIntExtra("right", 700)));
         researchService = new ResearchServiceImpl(getApplicationContext());
         researchService.findParkingsFromRoom(research);
         ParkingPresenter parkingPresenter = new ParkingPresenterImpl(getApplicationContext());

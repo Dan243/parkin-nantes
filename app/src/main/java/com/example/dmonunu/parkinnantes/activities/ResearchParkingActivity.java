@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
+import com.appyvet.materialrangebar.RangeBar;
 import com.example.dmonunu.parkinnantes.R;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,6 +30,9 @@ public class ResearchParkingActivity extends AppCompatActivity {
 
     @BindView(R.id.cb)
     CheckBox mCBCheckBox;
+
+    @BindView(R.id.nb_avai)
+    RangeBar mNbAvailRangeBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +66,8 @@ public class ResearchParkingActivity extends AppCompatActivity {
                 else {
                     intent.putExtra("cb", "");
                 }
+                intent.putExtra("left", mNbAvailRangeBar.getLeftIndex());
+                intent.putExtra("right", mNbAvailRangeBar.getRightIndex());
                 startActivity(intent);
             }
         });

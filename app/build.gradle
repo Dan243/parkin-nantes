@@ -86,6 +86,8 @@ dependencies {
     // MATERIAL SEARCHBAR
     implementation 'com.github.mancj:MaterialSearchBar:0.8.1'
 
+    implementation 'com.appyvet:materialrangebar:1.4.4'
+
 
 }
 

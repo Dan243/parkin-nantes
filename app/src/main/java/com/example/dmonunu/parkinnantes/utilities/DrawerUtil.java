@@ -6,6 +6,7 @@ import android.view.View;
 
 import com.example.dmonunu.parkinnantes.activities.HomeActivity;
 import com.example.dmonunu.parkinnantes.activities.ListParkingActivity;
+import com.example.dmonunu.parkinnantes.activities.ResearchParkingActivity;
 import com.example.dmonunu.parkinnantes.auth.ProfilActivity;
 import com.example.dmonunu.parkinnantes.R;
 import com.mikepenz.materialdrawer.Drawer;
@@ -43,7 +44,7 @@ public class DrawerUtil {
                 .withIdentifier(2).withName(R.string.list_parking).withIcon(R.drawable.baseline_directions_car_24);
         SecondaryDrawerItem drawerItemSettings = new SecondaryDrawerItem()
                 .withIdentifier(3).withName(R.string.favori).withIcon(R.drawable.baseline_favorite_border_24);
-        SecondaryDrawerItem drawerItemAbout = new SecondaryDrawerItem().withIdentifier(4)
+        PrimaryDrawerItem drawerItemAbout = new PrimaryDrawerItem().withIdentifier(4)
                 .withName(R.string.rechercher).withIcon(R.drawable.baseline_search_24);
 
         SecondaryDrawerItem drawerItemAbout1 = new SecondaryDrawerItem().withIdentifier(5);
@@ -98,6 +99,11 @@ public class DrawerUtil {
 
                         if (drawerItem.getIdentifier() == 2 && !(activity instanceof ListParkingActivity)) {
                             Intent intent = new Intent(activity, ListParkingActivity.class);
+                            view.getContext().startActivity(intent);
+                        }
+
+                        if (drawerItem.getIdentifier() == 4 && !(activity instanceof ResearchParkingActivity)) {
+                            Intent intent = new Intent(activity, ResearchParkingActivity.class);
                             view.getContext().startActivity(intent);
                         }
 

@@ -36,11 +36,11 @@ public interface LightParkingDao {
     @Query("SELECT * FROM LightParking WHERE nbPlaceDispo >= :search")
     List<LightParking> findParkingsByDispo(int search);
 
-    @Query("UPDATE LightParking SET isFavorite = 'true'")
-    void setFavorite();
+    @Query("UPDATE LightParking SET isFavorite = 'true' WHERE idobj =:search")
+    void setFavorite(String search);
 
-    @Query("UPDATE LightParking SET isFavorite = 'false'")
-    void removeFavorite();
+    @Query("UPDATE LightParking SET isFavorite = 'false' WHERE idobj =:search")
+    void removeFavorite(String search);
 
     @Query("SELECT * FROM LightParking WHERE nomParking LIKE '%' || :name || '%' AND adresse LIKE '%' || :address || '%' AND moyenPaiement LIKE '%' || :cash || '%' AND moyenPaiement LIKE '%' || :total_gr || '%' AND moyenPaiement LIKE '%' || :cb || '%' AND nbPlaceDispo > :left AND nbPlaceDispo < :right")
     List<LightParking> findParkingsByNameAndAddress(String name, String address, String cash, String total_gr, String cb, int left, int right);

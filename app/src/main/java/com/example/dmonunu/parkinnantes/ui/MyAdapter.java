@@ -14,6 +14,9 @@ import android.widget.ToggleButton;
 import com.example.dmonunu.parkinnantes.R;
 import com.example.dmonunu.parkinnantes.activities.ParkingDetailsActivity;
 import com.example.dmonunu.parkinnantes.models.LightParking;
+import com.example.dmonunu.parkinnantes.services.FavoriteService;
+import com.example.dmonunu.parkinnantes.services.FavoriteServiceImpl;
+import com.example.dmonunu.parkinnantes.services.ResearchServiceImpl;
 import com.example.dmonunu.parkinnantes.utilities.ParkingParser;
 
 import java.util.List;
@@ -24,14 +27,14 @@ import butterknife.ButterKnife;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
-
-
     private List<LightParking> listparking;
     private Activity activity;
-
+    private FavoriteService favoriteService;
+    boolean fav;
     public MyAdapter(List<LightParking> parkings, Activity activity){
         this.listparking = parkings;
         this.activity = activity;
+        this.favoriteService = new FavoriteServiceImpl(activity.getApplicationContext());
     }
 
     @Override
@@ -104,7 +107,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
         }
 
-        public void bind(LightParking parking){
+        public void bind(final LightParking parking){
 
             if (parking != null){
                 currentParking = parking;
@@ -122,6 +125,28 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                 heureDebut.setText(parking.getHeureDebut());
                 heureFin.setText(" à " + parking.getHeureFin());
                 setPaymentOptions(parking);
+                if (parking.isFavorite() == false){
+                    favorite.setBackgroundResource(R.drawable.star_grey);
+                } else {
+                    favorite.setBackgroundResource(R.drawable.star_yellow);
+                }
+                fav = parking.isFavorite();
+                favorite.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        if(fav) {
+                            favorite.setBackgroundResource(R.drawable.star_grey);
+                            fav = false;
+                            favoriteService.unSetFavoriteInRoom(parking.getIdobj());
+                        } else {
+                            favorite.setBackgroundResource(R.drawable.star_yellow);
+                            fav = true;
+                            favoriteService.setFavoriteInRoom(parking.getIdobj());
+                        }
+                    }
+                });
+
 
             }
         }
@@ -139,6 +164,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         return (div * 100);
     }
 
+    private void favoriteButton(boolean state, ImageView favorite){
 
+
+    }
 
 }

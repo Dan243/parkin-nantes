@@ -56,11 +56,9 @@ public class HomeActivity extends FragmentActivity implements ParkingView,
             double currentLongitude = location.getLongitude();
 
             LatLng latLng = new LatLng(currentLatitude, currentLongitude);
-            Log.i("XXXXXXXXXXX","XXXXXXXXXXXXXXXXXXxx");
             float zoomLevel = 16.0f; //This goes up to 21
             mainMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
             mainMap.animateCamera( CameraUpdateFactory.zoomTo(zoomLevel) );
-            Log.i("XXXXXXXXXXX","XXXXXXXXXXXXXXXXXXxx");
         }
 
         @Override

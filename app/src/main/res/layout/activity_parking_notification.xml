@@ -10,12 +10,14 @@
     tools:context=".activities.ParkingNotificationActivity">
 
     <Button
+        android:id="@+id/startButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Strat Service"
         android:onClick="startService" />
 
     <Button
+        android:id="@+id/stopButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Stop Service"

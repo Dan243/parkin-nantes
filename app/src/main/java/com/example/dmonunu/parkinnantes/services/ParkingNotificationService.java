@@ -1,7 +1,6 @@
 package com.example.dmonunu.parkinnantes.services;
 
 import android.Manifest;
-import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -15,16 +14,22 @@ import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.util.Log;
 
 import com.example.dmonunu.parkinnantes.R;
 import com.example.dmonunu.parkinnantes.activities.ParkingNotificationActivity;
-import com.google.android.gms.maps.model.LatLng;
+import com.example.dmonunu.parkinnantes.activities.ParkingPresenter;
+import com.example.dmonunu.parkinnantes.activities.ParkingPresenterImpl;
+import com.example.dmonunu.parkinnantes.event.EventBusManager;
+import com.example.dmonunu.parkinnantes.event.SaveEvent;
+import com.example.dmonunu.parkinnantes.event.SearchResultEvent;
+import com.example.dmonunu.parkinnantes.models.LightParking;
+import com.example.dmonunu.parkinnantes.models.ParkingDataBase;
+import com.squareup.otto.Subscribe;
+
+import java.util.List;
 
 import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
-import androidx.core.app.ServiceCompat;
 
 /**
  * Created by Zheyu XIE.
@@ -34,36 +39,46 @@ public class ParkingNotificationService extends Service {
     public static final String CHANNEL_ID = "parkingServiceChannel";
     private LocationManager mLocationManager;
     private LocationListener mLocationListener;
+    private ParkingPresenter presenter;
+    private List<LightParking> parkings;
 
     @Override
     public void onCreate() {
         super.onCreate();
         createNotificationChannel();
         mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        presenter = new ParkingPresenterImpl(getApplicationContext());
+        parkings = ParkingDataBase.getAppDatabase(getApplicationContext()).lightParkingDao().getParkings();
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        EventBusManager.BUS.register(this);
         mLocationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
+                presenter.getParkings();
                 double currentLatitude = location.getLatitude();
                 double currentLongitude = location.getLongitude();
                 Location currentLocation = new Location("Current Location");
                 currentLocation.setLatitude(currentLatitude);
                 currentLocation.setLongitude(currentLongitude);
-                Location parkingTourDeBretagne = new Location("Parking Tour Bretagne");
-                parkingTourDeBretagne.setLatitude(47.2178314095);
-                parkingTourDeBretagne.setLongitude(-1.55823146051);
-                float dist = currentLocation.distanceTo(parkingTourDeBretagne);
+                LightParking parking = findNearestParkingAvailable(currentLocation);
                 Intent notificationIntent = new Intent(ParkingNotificationService.this, ParkingNotificationActivity.class);
                 PendingIntent pendingIntent = PendingIntent.getActivity(ParkingNotificationService.this, 0, notificationIntent, 0);
                 NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(ParkingNotificationService.this, CHANNEL_ID)
                         .setSmallIcon(R.drawable.star_yellow)
                         .setContentTitle("Parking Notification Service")
-                        .setContentText("Vous êtes de " + dist + "m à Parking Tour Bretagne")
                         .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                         .setContentIntent(pendingIntent);
+                if(parking != null) {
+                    String text = "Vous êtes " + distanceParking(currentLocation, parking) + " m de " + parking.getNomParking() + " dont " + parking.getNbPlaceDispo() + " places disponibles";
+                    mBuilder.setContentText(text)
+                            .setStyle(new NotificationCompat.BigTextStyle()
+                                    .bigText(text));
+                } else {
+                    mBuilder.setContentText("Pas de parking proche et disponible");
+                }
                 startForeground(1, mBuilder.build());
             }
 
@@ -97,6 +112,7 @@ public class ParkingNotificationService extends Service {
 
     @Override
     public void onDestroy() {
+        EventBusManager.BUS.unregister(this);
         super.onDestroy();
         mLocationManager.removeUpdates(mLocationListener);
     }
@@ -121,5 +137,36 @@ public class ParkingNotificationService extends Service {
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
+    }
+
+    @Subscribe
+    public void searchResult(SearchResultEvent event) {
+        parkings = event.getParkings();
+    }
+
+    @Subscribe
+    public void saveSuccess(SaveEvent event) {
+        presenter.getParkingsFromRoom();
+    }
+
+    public LightParking findNearestParkingAvailable(Location location) {
+        LightParking resultParking = null;
+        float minDist = 500;
+        for (LightParking parking: parkings) {
+            float dist = distanceParking(location, parking);
+            if (dist < 500 && parking.getNbPlaceDispo() > 0 && dist < minDist) {
+                minDist = dist;
+                resultParking = parking;
+            }
+        }
+        return resultParking;
+    }
+
+    public float distanceParking(Location location, LightParking parking) {
+        Location parkingLocation = new Location(parking.getNomParking());
+        parkingLocation.setLatitude(parking.getLatitude());
+        parkingLocation.setLongitude(parking.getLongitude());
+        float dist = location.distanceTo(parkingLocation);
+        return dist;
     }
 }

@@ -72,7 +72,7 @@ public class ParkingNotificationService extends Service {
                         .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                         .setContentIntent(pendingIntent);
                 if(parking != null) {
-                    String text = "Vous êtes " + distanceParking(currentLocation, parking) + " m de " + parking.getNomParking() + " dont " + parking.getNbPlaceDispo() + " places disponibles";
+                    String text = "Vous êtes " + Math.round(distanceParking(currentLocation, parking)) + " m de " + parking.getNomParking() + " dont " + parking.getNbPlaceDispo() + " places disponibles";
                     mBuilder.setContentText(text)
                             .setStyle(new NotificationCompat.BigTextStyle()
                                     .bigText(text));

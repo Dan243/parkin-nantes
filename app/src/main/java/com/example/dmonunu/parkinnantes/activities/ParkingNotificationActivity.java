@@ -1,6 +1,8 @@
 package com.example.dmonunu.parkinnantes.activities;
 
 import android.Manifest;
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -42,17 +44,28 @@ public class ParkingNotificationActivity extends AppCompatActivity {
         } else {
 
         }
+        if (isMyServiceRunning(ParkingNotificationService.class)) {
+            mStartButton.setEnabled(false);
+            mStopButton.setEnabled(true);
+        }
+        else {
+            mStartButton.setEnabled(true);
+            mStopButton.setEnabled(false);
+        }
     }
 
     public void startService(View v) {
-        stopService(v);
         Intent serviceIntent = new Intent(this, ParkingNotificationService.class);
         ContextCompat.startForegroundService(this, serviceIntent);
+        mStartButton.setEnabled(false);
+        mStopButton.setEnabled(true);
     }
 
     public void stopService(View v) {
         Intent serviceIntent = new Intent(this, ParkingNotificationService.class);
         stopService(serviceIntent);
+        mStartButton.setEnabled(true);
+        mStopButton.setEnabled(false);
     }
 
     @Override
@@ -71,5 +84,15 @@ public class ParkingNotificationActivity extends AppCompatActivity {
             mStartButton.setEnabled(false);
             mStopButton.setEnabled(false);
         }
+    }
+
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

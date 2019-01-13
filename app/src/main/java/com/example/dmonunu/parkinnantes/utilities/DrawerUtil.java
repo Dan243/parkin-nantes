@@ -41,16 +41,13 @@ public class DrawerUtil {
         PrimaryDrawerItem drawerItemManagePlayers = new PrimaryDrawerItem().withIdentifier(1)
                 .withName(R.string.manage_player).withIcon(R.drawable.outline_account_circle_24);
         PrimaryDrawerItem drawerItemManagePlayersTournaments = new PrimaryDrawerItem()
-
-
                 .withIdentifier(2).withName(R.string.list_parking).withIcon(R.drawable.baseline_directions_car_24);
-        SecondaryDrawerItem drawerItemSettings = new SecondaryDrawerItem()
+        PrimaryDrawerItem drawerItemSettings = new PrimaryDrawerItem()
                 .withIdentifier(3).withName(R.string.favori).withIcon(R.drawable.baseline_favorite_border_24);
         PrimaryDrawerItem drawerItemAbout = new PrimaryDrawerItem().withIdentifier(4)
-                .withName(R.string.rechercher).withIcon(R.drawable.baseline_notifications_active_24);
-
+                .withName(R.string.rechercher).withIcon(R.drawable.baseline_search_24);
         PrimaryDrawerItem drawerItemAbout1 = new PrimaryDrawerItem().withIdentifier(5)
-                .withName("GERER LES NOTIFICATIONS").withIcon(R.drawable.baseline_search_24);
+                .withName("GERER LES NOTIFICATIONS").withIcon(R.drawable.baseline_notifications_active_24);
         SecondaryDrawerItem drawerItemAbout2 = new SecondaryDrawerItem().withIdentifier(6);
         SecondaryDrawerItem drawerItemAbout3 = new SecondaryDrawerItem().withIdentifier(7);
         SecondaryDrawerItem drawerItemAbout4 = new SecondaryDrawerItem().withIdentifier(8);
@@ -81,6 +78,7 @@ public class DrawerUtil {
                         drawerItemSettings,
                         new DividerDrawerItem(),
                         drawerItemAbout1,
+                        new DividerDrawerItem(),
                         drawerItemAbout2,
                         drawerItemAbout3,
                         drawerItemAbout4,

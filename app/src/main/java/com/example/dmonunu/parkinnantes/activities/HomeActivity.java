@@ -49,7 +49,7 @@ public class HomeActivity extends FragmentActivity implements
     private List<LightParking> parkings;
 
     @BindView(R.id.toolbar)
-    public Toolbar toolBar;
+    Toolbar toolBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,8 +75,7 @@ public class HomeActivity extends FragmentActivity implements
                 double currentLongitude = location.getLongitude();
                 LatLng latLng = new LatLng(currentLatitude, currentLongitude);
                 float zoomLevel = 16.0f; //This goes up to 21
-                mainMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-                mainMap.animateCamera(CameraUpdateFactory.zoomTo(zoomLevel));
+                mainMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoomLevel));
             }
 
             @Override
@@ -105,7 +104,7 @@ public class HomeActivity extends FragmentActivity implements
 
     @Override
     public void onMyLocationClick(@NonNull Location location) {
-        Toast.makeText(this, "Localisation actuelle :\n" + location, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Localisation actuelle :\n" + location.getLatitude() + ", " + location.getLongitude(), Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -126,8 +125,7 @@ public class HomeActivity extends FragmentActivity implements
                     // permission was granted, yay! Do the
                     // contacts-related task you need to do.
                 } else {
-                    ActivityCompat.requestPermissions(this, new String[] {
-                            Manifest.permission.ACCESS_FINE_LOCATION}, MY_LOCATION_REQUEST_CODE);
+
                 }
                 return;
             }
@@ -159,14 +157,12 @@ public class HomeActivity extends FragmentActivity implements
         // Initialize the manager with the context and the map.
         // (Activity extends context, so we can pass 'this' in the constructor.)
         myClusterManager = new ClusterManager<ClusterItemImpl>(this, mainMap);
-
-        // Add cluster items (markers) to the cluster manager.
-        addItems(parkingModels);
-
         // Point the map's listeners at the listeners implemented by the cluster
         // manager.
         mainMap.setOnCameraIdleListener(myClusterManager);
         mainMap.setOnMarkerClickListener(myClusterManager);
+        // Add cluster items (markers) to the cluster manager.
+        addItems(parkingModels);
     }
 
     private void addItems(List<LightParking> parkingModels) {

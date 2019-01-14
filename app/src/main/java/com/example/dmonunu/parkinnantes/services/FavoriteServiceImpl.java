@@ -13,14 +13,22 @@ import java.util.List;
 public class FavoriteServiceImpl implements FavoriteService {
 
     private Context context;
+    private boolean favorite;
 
     public FavoriteServiceImpl(Context context){
         this.context = context;
+        this.favorite = false;
     }
 
     @Override
     public void setFavoriteInRoom(List<String> fav) {
         new RoomAsyncTask().execute(fav);
+    }
+
+    @Override
+    public boolean isFavorite(String fav) {
+        new isFavorite().execute(fav);
+        return this.favorite;
     }
 
     private class RoomAsyncTask extends AsyncTask<List<String>, Void, Void> {
@@ -30,6 +38,20 @@ public class FavoriteServiceImpl implements FavoriteService {
              return null;
         }
 
+    }
+
+    public class isFavorite extends AsyncTask<String, Void, Boolean> {
+        @Override
+        protected Boolean doInBackground(final String... params) {
+
+            return ParkingDataBase.getAppDatabase(context).lightParkingDao().isFavorite(params[0]) ;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            super.onPostExecute(aBoolean);
+            FavoriteServiceImpl.this.favorite = aBoolean;
+        }
     }
 
 }

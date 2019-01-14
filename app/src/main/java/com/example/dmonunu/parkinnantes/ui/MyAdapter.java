@@ -129,13 +129,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                 setPaymentOptions(parking);
                 listfav = new ArrayList<>();
                 listfav.add(parking.getIdobj());
+                fav = favoriteService.isFavorite(parking.getIdobj());
 
-                if (parking.isFavorite() == false){
+                if (!fav){
                     favorite.setBackgroundResource(R.drawable.star_grey);
                 } else {
                     favorite.setBackgroundResource(R.drawable.star_yellow);
                 }
-                fav = parking.isFavorite();
                 favorite.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -145,11 +145,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                             fav = false;
                             listfav.add("false");
                             favoriteService.setFavoriteInRoom(listfav);
+                            parking.setFavorite(fav);
                         } else {
                             favorite.setBackgroundResource(R.drawable.star_yellow);
                             fav = true;
                             listfav.add("true");
                             favoriteService.setFavoriteInRoom(listfav);
+                            parking.setFavorite(fav);
                         }
                     }
                 });

@@ -59,6 +59,8 @@ public class HomeActivity extends FragmentActivity implements
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        toolBar.setTitle("Carte des parkings");
+        DrawerUtil.getDrawer(this,toolBar);
         this.presenter = new ParkingPresenterImpl(getApplicationContext());
         this.presenter.getParkings();
         if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -94,8 +96,6 @@ public class HomeActivity extends FragmentActivity implements
         };
         mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000000,
                 10000000, mLocationListener);
-        toolBar.setTitle(getResources().getString(R.string.tournament));
-        DrawerUtil.getDrawer(this,toolBar);
     }
 
     @Override

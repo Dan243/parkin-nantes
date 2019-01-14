@@ -1,5 +1,6 @@
 package com.example.dmonunu.parkinnantes.utilities;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
@@ -9,12 +10,16 @@ import com.example.dmonunu.parkinnantes.activities.ListParkingActivity;
 import com.example.dmonunu.parkinnantes.activities.ResearchParkingActivity;
 import com.example.dmonunu.parkinnantes.auth.ProfilActivity;
 import com.example.dmonunu.parkinnantes.R;
+import com.mikepenz.materialdrawer.AccountHeader;
+import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
+import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
 import androidx.appcompat.widget.Toolbar;
 
@@ -36,13 +41,16 @@ public class DrawerUtil {
         final PrimaryDrawerItem drawerEmptyItem= new PrimaryDrawerItem().withIdentifier(0).withName("");
         drawerEmptyItem.withEnabled(false);
 
-        PrimaryDrawerItem drawerItemManagePlayers = new PrimaryDrawerItem().withIdentifier(1)
-                .withName(R.string.manage_player).withIcon(R.drawable.outline_account_circle_24);
+
+
+
+        @SuppressLint("ResourceAsColor") PrimaryDrawerItem drawerItemManagePlayers = new PrimaryDrawerItem().withIdentifier(1)
+                .withName(R.string.manage_player).withIcon(R.drawable.outline_account_circle_24).withIconColor(R.color.menu_left);
         PrimaryDrawerItem drawerItemManagePlayersTournaments = new PrimaryDrawerItem()
 
 
                 .withIdentifier(2).withName(R.string.list_parking).withIcon(R.drawable.baseline_directions_car_24);
-        SecondaryDrawerItem drawerItemSettings = new SecondaryDrawerItem()
+        PrimaryDrawerItem drawerItemSettings = new PrimaryDrawerItem()
                 .withIdentifier(3).withName(R.string.favori).withIcon(R.drawable.baseline_favorite_border_24);
         PrimaryDrawerItem drawerItemAbout = new PrimaryDrawerItem().withIdentifier(4)
                 .withName(R.string.rechercher).withIcon(R.drawable.baseline_search_24);

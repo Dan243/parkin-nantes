@@ -10,12 +10,14 @@ import com.example.dmonunu.parkinnantes.event.SearchResultEvent;
 import com.example.dmonunu.parkinnantes.services.ResearchService;
 import com.example.dmonunu.parkinnantes.services.ResearchServiceImpl;
 import com.example.dmonunu.parkinnantes.ui.MyAdapter;
+import com.example.dmonunu.parkinnantes.utilities.DrawerUtil;
 import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,7 +29,8 @@ public class ResearchListActivity extends AppCompatActivity {
     @BindView(R.id.my_list_view)
     RecyclerView myListView;
 
-    private ArrayAdapter parkingAdapter;
+    @BindView(R.id.listsearchtoolbar)
+    Toolbar toolbar;
 
     private ResearchService researchService;
 
@@ -41,6 +44,8 @@ public class ResearchListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_research_list);
         ButterKnife.bind(this);
+        toolbar.setTitle("La liste des parkings trouvés");
+        DrawerUtil.getDrawer(this, toolbar);
         layoutManager = new LinearLayoutManager(this);
         myListView.setLayoutManager(layoutManager);
         research = new ArrayList<>();

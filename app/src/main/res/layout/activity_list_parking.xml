@@ -12,16 +12,13 @@
         android:orientation="vertical"
         >
 
-        <com.mancj.materialsearchbar.MaterialSearchBar
-            android:id="@+id/search_bar"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/parkingtoolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:mt_navIconEnabled="true"
-            app:mt_placeholder="Rechercher des parkings"
-            android:layout_margin="8dp"
-            style="@style/MaterialSearchBarLight">
-
-        </com.mancj.materialsearchbar.MaterialSearchBar>
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/my_list_view"
@@ -29,6 +26,7 @@
             android:layout_height="match_parent"
             android:clickable="true"
             >
+
         </androidx.recyclerview.widget.RecyclerView>
     </LinearLayout>
 

@@ -1,6 +1,7 @@
 package com.example.dmonunu.parkinnantes.auth;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.Toolbar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -15,6 +16,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.dmonunu.parkinnantes.activities.LoginActivity;
 import com.example.dmonunu.parkinnantes.R;
+import com.example.dmonunu.parkinnantes.utilities.DrawerUtil;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnSuccessListener;
 
@@ -32,6 +34,8 @@ public class ProfilActivity extends BaseActivity {
     TextView textInputEditTextUsername;
     @BindView(R.id.profile_activity_text_view_email)
     TextView textViewEmail;
+    @BindView(R.id.profiltoolbar)
+    Toolbar toolbar;
 
     private static final int SIGN_OUT_TASK = 10;
     private static final int DELETE_USER_TASK = 20;
@@ -49,8 +53,10 @@ public class ProfilActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
-        this.configureToolbar();
+        toolbar.setTitle(" Mon profil ");
+        DrawerUtil.getDrawer(this, toolbar);
         this.updateUIWhenCreating();
+
 
         int code = getIntent().getIntExtra(LOAD_METHOD_ID, 0);
         if (code == LOAD_METHOD_CODE) {

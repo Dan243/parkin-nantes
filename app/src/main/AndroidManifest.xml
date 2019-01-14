@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
         android:name="com.activeandroid.app.Application"
@@ -34,30 +35,30 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".activities.HomeActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".activities.HomeActivity" />
         <activity android:name=".activities.LoginActivity" />
         <activity
             android:name=".auth.ProfilActivity"
-            android:label="@string/manage_player"
-            android:parentActivityName=".activities.HomeActivity" />
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".activities.ListParkingActivity"
-            android:label="TOUS LES PARKINGS"
-            android:parentActivityName=".activities.HomeActivity" />
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activities.ParkingDetailsActivity" />
-        <activity android:name=".activities.ResearchParkingActivity" />
-        <activity android:name=".activities.ResearchListActivity" />
+        <activity android:name=".activities.ResearchParkingActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".activities.SplashScreen" android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity android:name=".activities.ResearchListActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".activities.ParkingNotificationActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <service android:name=".services.ParkingNotificationService" />
+        <activity android:name=".activities.ListFavoriteActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

@@ -19,6 +19,7 @@ import com.example.dmonunu.parkinnantes.services.FavoriteServiceImpl;
 import com.example.dmonunu.parkinnantes.services.ResearchServiceImpl;
 import com.example.dmonunu.parkinnantes.utilities.ParkingParser;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,7 +31,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     private List<LightParking> listparking;
     private Activity activity;
     private FavoriteService favoriteService;
-    boolean fav;
+    private boolean fav;
+    private List<String>listfav;
     public MyAdapter(List<LightParking> parkings, Activity activity){
         this.listparking = parkings;
         this.activity = activity;
@@ -125,12 +127,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                 heureDebut.setText(parking.getHeureDebut());
                 heureFin.setText(" à " + parking.getHeureFin());
                 setPaymentOptions(parking);
-                if (parking.isFavorite() == false){
+                listfav = new ArrayList<>();
+                listfav.add(parking.getIdobj());
+                fav = favoriteService.isFavorite(parking.getIdobj());
+
+                if (!fav){
                     favorite.setBackgroundResource(R.drawable.star_grey);
                 } else {
                     favorite.setBackgroundResource(R.drawable.star_yellow);
                 }
-                fav = parking.isFavorite();
                 favorite.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -138,11 +143,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                         if(fav) {
                             favorite.setBackgroundResource(R.drawable.star_grey);
                             fav = false;
-                            favoriteService.unSetFavoriteInRoom(parking.getIdobj());
+                            listfav.add("false");
+                            favoriteService.setFavoriteInRoom(listfav);
+                            parking.setFavorite(fav);
                         } else {
                             favorite.setBackgroundResource(R.drawable.star_yellow);
                             fav = true;
-                            favoriteService.setFavoriteInRoom(parking.getIdobj());
+                            listfav.add("true");
+                            favoriteService.setFavoriteInRoom(listfav);
+                            parking.setFavorite(fav);
                         }
                     }
                 });

@@ -29,7 +29,9 @@ public class ResearchServiceImpl implements ResearchService {
     private class RoomAsyncTask extends AsyncTask<List<String>, Void, List<LightParking>> {
         @Override
         protected List<LightParking> doInBackground(List<String>... lists) {
-            return ParkingDataBase.getAppDatabase(context).lightParkingDao().findParkingsByNameAndAddress(lists[0].get(0), lists[0].get(1), lists[0].get(2), lists[0].get(3), lists[0].get(4), Integer.parseInt(lists[0].get(5)), Integer.parseInt(lists[0].get(6)));
+            String name = lists[0].get(0);
+            String address = lists[0].get(1);
+            return ParkingDataBase.getAppDatabase(context).lightParkingDao().findParkingsByNameAndAddress(ifLastCharSpace(name), ifLastCharSpace(address), lists[0].get(2), lists[0].get(3), lists[0].get(4), Integer.parseInt(lists[0].get(5)), Integer.parseInt(lists[0].get(6)));
         }
 
         @Override
@@ -39,5 +41,15 @@ public class ResearchServiceImpl implements ResearchService {
                 EventBusManager.BUS.post(new SearchResultEvent(lightParkings));
             }
         }
+    }
+
+    public String ifLastCharSpace(String mString) {
+        if (mString.length()>1) {
+            if (mString.substring(mString.length() - 1).equals(" ")) {
+                return mString.substring(0, mString.length()-2);
+            }
+            return mString;
+        }
+        return mString;
     }
 }

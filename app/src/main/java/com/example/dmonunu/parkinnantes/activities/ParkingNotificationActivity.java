@@ -8,9 +8,11 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toolbar;
 
 import com.example.dmonunu.parkinnantes.R;
 import com.example.dmonunu.parkinnantes.services.ParkingNotificationService;
+import com.example.dmonunu.parkinnantes.utilities.DrawerUtil;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,11 +29,16 @@ public class ParkingNotificationActivity extends AppCompatActivity {
     @BindView(R.id.stopButton)
     Button mStopButton;
 
+    @BindView(R.id.notiftoolbar)
+    androidx.appcompat.widget.Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_parking_notification);
         ButterKnife.bind(this);
+        toolbar.setTitle(" Gérer les notifications");
+        DrawerUtil.getDrawer(this,toolbar);
         if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    Activity#requestPermissions

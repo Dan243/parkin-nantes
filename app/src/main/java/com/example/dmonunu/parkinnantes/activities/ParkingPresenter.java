@@ -9,4 +9,6 @@ public interface ParkingPresenter {
     boolean isNetworkOnline();
 
     void getParkingsFromRoom();
+
+    void getFavoriteParkings();
 }

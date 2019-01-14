@@ -2,7 +2,6 @@ package com.example.dmonunu.parkinnantes.activities;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -10,24 +9,24 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import android.os.Bundle;
+import android.widget.Toolbar;
 
 import com.example.dmonunu.parkinnantes.R;
 import com.example.dmonunu.parkinnantes.event.EventBusManager;
-
-
+import com.example.dmonunu.parkinnantes.event.SaveEvent;
 import com.example.dmonunu.parkinnantes.event.SearchResultEvent;
 import com.example.dmonunu.parkinnantes.ui.MyAdapter;
 import com.example.dmonunu.parkinnantes.utilities.DrawerUtil;
 import com.squareup.otto.Subscribe;
-import com.example.dmonunu.parkinnantes.event.SaveEvent;
 
-public class ListParkingActivity extends AppCompatActivity {
+public class ListFavoriteActivity extends AppCompatActivity {
 
-    @BindView(R.id.my_list_view)
-    RecyclerView myListView;
+    @BindView(R.id.my_favorite_list)
+    RecyclerView myfavoritelist;
 
-    @BindView(R.id.parkingtoolbar)
-    Toolbar searchBar;
+    @BindView(R.id.favoritetoolbar)
+    androidx.appcompat.widget.Toolbar toolbar;
+
 
     private RecyclerView.Adapter mAdapter;
     private LinearLayoutManager layoutManager;
@@ -37,24 +36,23 @@ public class ListParkingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_parking);
-
+        setContentView(R.layout.activity_list_favorite);
         ButterKnife.bind(this);
 
-        searchBar.setTitle("La liste de tous les parkings");
-        DrawerUtil.getDrawer(this, searchBar);
-        presenter = new ParkingPresenterImpl(getApplicationContext());
-        presenter.getParkings();
-        layoutManager = new LinearLayoutManager(this);
-        myListView.setLayoutManager(layoutManager);
-    }
+        toolbar.setTitle("La liste des parkings favoris");
+        DrawerUtil.getDrawer(this,toolbar);
 
+        presenter = new ParkingPresenterImpl(getApplicationContext());
+        presenter.getFavoriteParkings();
+        layoutManager = new LinearLayoutManager(this);
+        myfavoritelist.setLayoutManager(layoutManager);
+    }
 
     @Subscribe
     public void searchResult(SearchResultEvent event) {
-        myListView.setAdapter(new MyAdapter(event.getParkings(), this));
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(myListView.getContext(), layoutManager.getOrientation() );
-        myListView.addItemDecoration(dividerItemDecoration);
+        myfavoritelist.setAdapter(new MyAdapter(event.getParkings(), this));
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(myfavoritelist.getContext(), layoutManager.getOrientation() );
+        myfavoritelist.addItemDecoration(dividerItemDecoration);
     }
     @Override
     protected void onResume() {
@@ -81,5 +79,4 @@ public class ListParkingActivity extends AppCompatActivity {
     public void saveSuccess(SaveEvent event) {
         presenter.getParkingsFromRoom();
     }
-
 }

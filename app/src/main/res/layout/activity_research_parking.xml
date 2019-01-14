@@ -6,12 +6,21 @@
     android:layout_height="match_parent"
     tools:context="com.example.dmonunu.parkinnantes.activities.ResearchParkingActivity">
 
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
         android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/searchtoolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme" />
 
         <EditText
             android:id="@+id/name"
@@ -34,8 +43,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
-            android:textSize="16dp"
-            android:text="Moyens de paiement acceptés" />
+            android:text="Moyens de paiement acceptés"
+            android:textSize="16dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -69,8 +78,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
-            android:textSize="16dp"
-            android:text="Nombre de places disponibles" />
+            android:text="Nombre de places disponibles"
+            android:textSize="16dp" />
 
         <com.appyvet.materialrangebar.RangeBar xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/nb_avai"

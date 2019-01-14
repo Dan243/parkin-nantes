@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.View;
 
 import com.example.dmonunu.parkinnantes.activities.HomeActivity;
+import com.example.dmonunu.parkinnantes.activities.ListFavoriteActivity;
 import com.example.dmonunu.parkinnantes.activities.ListParkingActivity;
 import com.example.dmonunu.parkinnantes.activities.ParkingNotificationActivity;
 import com.example.dmonunu.parkinnantes.activities.ResearchParkingActivity;
@@ -46,10 +47,10 @@ public class DrawerUtil {
         SecondaryDrawerItem drawerItemSettings = new SecondaryDrawerItem()
                 .withIdentifier(3).withName(R.string.favori).withIcon(R.drawable.baseline_favorite_border_24);
         PrimaryDrawerItem drawerItemAbout = new PrimaryDrawerItem().withIdentifier(4)
-                .withName(R.string.rechercher).withIcon(R.drawable.baseline_search_24);
+                .withName(R.string.rechercher).withIcon(R.drawable.baseline_notifications_active_24);
 
         PrimaryDrawerItem drawerItemAbout1 = new PrimaryDrawerItem().withIdentifier(5)
-                .withName("PARKING NOTIFICATION").withIcon(R.drawable.baseline_search_24);
+                .withName("GERER LES NOTIFICATIONS").withIcon(R.drawable.baseline_search_24);
         SecondaryDrawerItem drawerItemAbout2 = new SecondaryDrawerItem().withIdentifier(6);
         SecondaryDrawerItem drawerItemAbout3 = new SecondaryDrawerItem().withIdentifier(7);
         SecondaryDrawerItem drawerItemAbout4 = new SecondaryDrawerItem().withIdentifier(8);
@@ -111,6 +112,11 @@ public class DrawerUtil {
 
                         if (drawerItem.getIdentifier() == 5 && !(activity instanceof ParkingNotificationActivity)) {
                             Intent intent = new Intent(activity, ParkingNotificationActivity.class);
+                            view.getContext().startActivity(intent);
+                        }
+
+                        if (drawerItem.getIdentifier() == 3 && !(activity instanceof ListFavoriteActivity)) {
+                            Intent intent = new Intent(activity, ListFavoriteActivity.class);
                             view.getContext().startActivity(intent);
                         }
 

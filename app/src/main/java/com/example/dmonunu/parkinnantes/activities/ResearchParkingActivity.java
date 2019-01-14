@@ -9,8 +9,10 @@ import android.widget.EditText;
 
 import com.appyvet.materialrangebar.RangeBar;
 import com.example.dmonunu.parkinnantes.R;
+import com.example.dmonunu.parkinnantes.utilities.DrawerUtil;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -34,6 +36,9 @@ public class ResearchParkingActivity extends AppCompatActivity {
     @BindView(R.id.nb_avai)
     RangeBar mNbAvailRangeBar;
 
+    @BindView(R.id.searchtoolbar)
+    Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +46,8 @@ public class ResearchParkingActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
+        toolbar.setTitle("Rechercher un parking");
+        DrawerUtil.getDrawer(this, toolbar);
         Button mButton = (Button) findViewById(R.id.validateButton);
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override

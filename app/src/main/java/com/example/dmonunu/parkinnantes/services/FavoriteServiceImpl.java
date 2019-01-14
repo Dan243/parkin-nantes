@@ -19,47 +19,17 @@ public class FavoriteServiceImpl implements FavoriteService {
     }
 
     @Override
-    public void setFavoriteInRoom(String fav) {
+    public void setFavoriteInRoom(List<String> fav) {
         new RoomAsyncTask().execute(fav);
     }
 
-    @Override
-    public void unSetFavoriteInRoom(String fav) {
-        new RoomAsyncTask2().execute();
-    }
-
-    @Override
-    public void getListOfFavoriteInRoom(List<String> fav) {
-        new RoomAsyncTask3().execute();
-    }
-
-    private class RoomAsyncTask extends AsyncTask<String, Void, Void> {
+    private class RoomAsyncTask extends AsyncTask<List<String>, Void, Void> {
         @Override
-        protected Void doInBackground(final String... params) {
-             ParkingDataBase.getAppDatabase(context).lightParkingDao().setFavorite(params[0]);
+        protected Void doInBackground(final List<String>... params) {
+             ParkingDataBase.getAppDatabase(context).lightParkingDao().setFavorite(params[0].get(0), params[0].get(1));
              return null;
         }
+
     }
 
-    private class RoomAsyncTask2 extends AsyncTask<String, Void, Void> {
-        @Override
-        protected Void doInBackground(final String... params) {
-            ParkingDataBase.getAppDatabase(context).lightParkingDao().removeFavorite(params[0]);
-            return null;
-        }
-    }
-
-    private class RoomAsyncTask3 extends AsyncTask<Void, Void, List<LightParking>> {
-        @Override
-        protected List<LightParking> doInBackground(Void... voids) {
-            return ParkingDataBase.getAppDatabase(context).lightParkingDao().getFavoriteParkings();
-        }
-
-        @Override
-        protected void onPostExecute(List<LightParking> lightParkings) {
-            super.onPostExecute(lightParkings);
-            if (lightParkings != null) {
-            }
-        }
-    }
 }

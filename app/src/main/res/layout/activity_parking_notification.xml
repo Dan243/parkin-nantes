@@ -4,23 +4,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     android:orientation="vertical"
-    android:gravity="center"
-    android:padding="16dp"
+
     tools:context=".activities.ParkingNotificationActivity">
 
-    <Button
-        android:id="@+id/startButton"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/notiftoolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Strat Service"
-        android:onClick="startService" />
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:gravity="center">
+        <Button
+            android:id="@+id/startButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
 
-    <Button
-        android:id="@+id/stopButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Stop Service"
-        android:onClick="stopService" />
+            android:text="Strat Service"
+            android:onClick="startService" />
+
+        <Button
+            android:id="@+id/stopButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:text="Stop Service"
+            android:onClick="stopService" />
+    </LinearLayout>
+
 
 </LinearLayout>

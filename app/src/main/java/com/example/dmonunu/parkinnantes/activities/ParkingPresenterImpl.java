@@ -134,10 +134,30 @@ public class ParkingPresenterImpl implements ParkingPresenter {
         new RoomAsyncTask().execute();
     }
 
+    @Override
+    public void getFavoriteParkings() {
+        new RoomAsyncTask1().execute();
+    }
+
     private class RoomAsyncTask extends AsyncTask<Void, Void, List<LightParking>> {
         @Override
         protected List<LightParking> doInBackground(Void... voids) {
             return ParkingDataBase.getAppDatabase(context).lightParkingDao().getParkings();
+        }
+
+        @Override
+        protected void onPostExecute(List<LightParking> lightParkings) {
+            super.onPostExecute(lightParkings);
+            if (lightParkings != null) {
+                EventBusManager.BUS.post(new SearchResultEvent(lightParkings));
+            }
+        }
+    }
+
+    private class RoomAsyncTask1 extends AsyncTask<Void, Void, List<LightParking>> {
+        @Override
+        protected List<LightParking> doInBackground(Void... voids) {
+            return ParkingDataBase.getAppDatabase(context).lightParkingDao().getFavoriteParkings();
         }
 
         @Override

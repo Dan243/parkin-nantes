@@ -38,23 +38,23 @@ public class DrawerUtil {
         final PrimaryDrawerItem drawerEmptyItem= new PrimaryDrawerItem().withIdentifier(0).withName("");
         drawerEmptyItem.withEnabled(false);
 
-        PrimaryDrawerItem drawerItemManagePlayers = new PrimaryDrawerItem().withIdentifier(1)
+        PrimaryDrawerItem accueil = new PrimaryDrawerItem().withIdentifier(1)
+                .withName("CARTE DES PARKINGS").withIcon(R.drawable.baseline_place_24);
+        PrimaryDrawerItem drawerItemManagePlayers = new PrimaryDrawerItem().withIdentifier(2)
                 .withName(R.string.manage_player).withIcon(R.drawable.outline_account_circle_24);
         PrimaryDrawerItem drawerItemManagePlayersTournaments = new PrimaryDrawerItem()
-                .withIdentifier(2).withName(R.string.list_parking).withIcon(R.drawable.baseline_directions_car_24);
+                .withIdentifier(3).withName(R.string.list_parking).withIcon(R.drawable.baseline_directions_car_24);
         PrimaryDrawerItem drawerItemSettings = new PrimaryDrawerItem()
-                .withIdentifier(3).withName(R.string.favori).withIcon(R.drawable.baseline_favorite_border_24);
-        PrimaryDrawerItem drawerItemAbout = new PrimaryDrawerItem().withIdentifier(4)
+                .withIdentifier(4).withName(R.string.favori).withIcon(R.drawable.baseline_favorite_border_24);
+        PrimaryDrawerItem drawerItemAbout = new PrimaryDrawerItem().withIdentifier(5)
                 .withName(R.string.rechercher).withIcon(R.drawable.baseline_search_24);
-        PrimaryDrawerItem drawerItemAbout1 = new PrimaryDrawerItem().withIdentifier(5)
+        PrimaryDrawerItem drawerItemAbout1 = new PrimaryDrawerItem().withIdentifier(6)
                 .withName("GERER LES NOTIFICATIONS").withIcon(R.drawable.baseline_notifications_active_24);
-        SecondaryDrawerItem drawerItemAbout2 = new SecondaryDrawerItem().withIdentifier(6);
-        SecondaryDrawerItem drawerItemAbout3 = new SecondaryDrawerItem().withIdentifier(7);
-        SecondaryDrawerItem drawerItemAbout4 = new SecondaryDrawerItem().withIdentifier(8);
-        SecondaryDrawerItem drawerItemAbout5 = new SecondaryDrawerItem().withIdentifier(9);
-        SecondaryDrawerItem drawerItemDelete = new SecondaryDrawerItem().withIdentifier(10)
+        SecondaryDrawerItem drawerItemAbout2 = new SecondaryDrawerItem().withIdentifier(7);
+        SecondaryDrawerItem drawerItemAbout3 = new SecondaryDrawerItem().withIdentifier(8);
+        SecondaryDrawerItem drawerItemDelete = new SecondaryDrawerItem().withIdentifier(9)
                 .withName("Supprimer mon compte").withIcon(R.drawable.outline_delete_forever_24);
-        SecondaryDrawerItem drawerItemDeconnexion = new SecondaryDrawerItem().withIdentifier(11)
+        SecondaryDrawerItem drawerItemDeconnexion = new SecondaryDrawerItem().withIdentifier(10)
                 .withName("Se déconnecter").withIcon(R.drawable.outline_exit_to_app_24);
 
 
@@ -69,6 +69,8 @@ public class DrawerUtil {
                 .addDrawerItems(
                         drawerEmptyItem,
                         new DividerDrawerItem(),
+                        accueil,
+                        new DividerDrawerItem(),
                         drawerItemManagePlayers,
                         new DividerDrawerItem(),
                         drawerItemManagePlayersTournaments,
@@ -81,8 +83,6 @@ public class DrawerUtil {
                         new DividerDrawerItem(),
                         drawerItemAbout2,
                         drawerItemAbout3,
-                        drawerItemAbout4,
-                        drawerItemAbout5,
 
                         new DividerDrawerItem(),
 
@@ -92,39 +92,44 @@ public class DrawerUtil {
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-                        if (drawerItem.getIdentifier() == 1 && !(activity instanceof ProfilActivity)) {
+                        if (drawerItem.getIdentifier() == 1 && !(activity instanceof HomeActivity)) {
+                            // load tournament screen
+                            Intent intent = new Intent(activity, HomeActivity.class);
+                            view.getContext().startActivity(intent);
+                        }
+                        if (drawerItem.getIdentifier() == 2 && !(activity instanceof ProfilActivity)) {
                             // load tournament screen
                             Intent intent = new Intent(activity, ProfilActivity.class);
                             view.getContext().startActivity(intent);
                         }
 
-                        if (drawerItem.getIdentifier() == 2 && !(activity instanceof ListParkingActivity)) {
+                        if (drawerItem.getIdentifier() == 3 && !(activity instanceof ListParkingActivity)) {
                             Intent intent = new Intent(activity, ListParkingActivity.class);
                             view.getContext().startActivity(intent);
                         }
 
-                        if (drawerItem.getIdentifier() == 4 && !(activity instanceof ResearchParkingActivity)) {
+                        if (drawerItem.getIdentifier() == 5 && !(activity instanceof ResearchParkingActivity)) {
                             Intent intent = new Intent(activity, ResearchParkingActivity.class);
                             view.getContext().startActivity(intent);
                         }
 
-                        if (drawerItem.getIdentifier() == 5 && !(activity instanceof ParkingNotificationActivity)) {
+                        if (drawerItem.getIdentifier() == 6 && !(activity instanceof ParkingNotificationActivity)) {
                             Intent intent = new Intent(activity, ParkingNotificationActivity.class);
                             view.getContext().startActivity(intent);
                         }
 
-                        if (drawerItem.getIdentifier() == 3 && !(activity instanceof ListFavoriteActivity)) {
+                        if (drawerItem.getIdentifier() == 4 && !(activity instanceof ListFavoriteActivity)) {
                             Intent intent = new Intent(activity, ListFavoriteActivity.class);
                             view.getContext().startActivity(intent);
                         }
 
-                        if (drawerItem.getIdentifier() == 10 && !(activity instanceof ProfilActivity)){
+                        if (drawerItem.getIdentifier() == 9 && !(activity instanceof ProfilActivity)){
                             Intent intent = new Intent(activity, ProfilActivity.class);
                             intent.putExtra(LOAD_METHOD_ID, LOAD_METHOD_CODE);
                             view.getContext().startActivity(intent);
                         }
 
-                        if (drawerItem.getIdentifier() == 11 && !(activity instanceof ProfilActivity)){
+                        if (drawerItem.getIdentifier() == 10 && !(activity instanceof ProfilActivity)){
                             Intent intent = new Intent(activity, ProfilActivity.class);
                             intent.putExtra(LOAD_METHOD_ID2, LOAD_METHOD_CODE2);
                             view.getContext().startActivity(intent);

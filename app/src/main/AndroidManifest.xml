@@ -46,13 +46,14 @@
         <activity android:name=".activities.ParkingDetailsActivity" />
         <activity android:name=".activities.ResearchParkingActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".activities.ResearchListActivity" />
         <activity android:name=".activities.SplashScreen" android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity android:name=".activities.ResearchListActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".activities.ParkingNotificationActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <service android:name=".services.ParkingNotificationService" />

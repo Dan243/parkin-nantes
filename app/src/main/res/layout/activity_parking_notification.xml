@@ -27,7 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
-            android:text="Strat Service"
+            android:text="Activer les notifications"
             android:onClick="startService" />
 
         <Button
@@ -35,7 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="16dp"
-            android:text="Stop Service"
+            android:text="Désactiver les notifications"
             android:onClick="stopService" />
     </LinearLayout>
 

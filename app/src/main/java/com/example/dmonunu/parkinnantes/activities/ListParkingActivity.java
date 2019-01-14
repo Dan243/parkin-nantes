@@ -30,6 +30,7 @@ public class ListParkingActivity extends AppCompatActivity {
     Toolbar searchBar;
 
     private RecyclerView.Adapter mAdapter;
+
     private LinearLayoutManager layoutManager;
 
     private ParkingPresenter presenter;

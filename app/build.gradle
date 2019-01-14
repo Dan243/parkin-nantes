@@ -83,8 +83,6 @@ dependencies {
     // RECYCLER VIEW
     implementation 'com.android.support:recyclerview-v7:28.0.0'
 
-    // MATERIAL SEARCHBAR
-
     implementation 'com.appyvet:materialrangebar:1.4.4'
 
 

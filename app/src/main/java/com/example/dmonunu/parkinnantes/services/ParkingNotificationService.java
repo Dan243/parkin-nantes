@@ -113,8 +113,8 @@ public class ParkingNotificationService extends Service {
     @Override
     public void onDestroy() {
         EventBusManager.BUS.unregister(this);
-        super.onDestroy();
         mLocationManager.removeUpdates(mLocationListener);
+        super.onDestroy();
     }
 
     @Nullable

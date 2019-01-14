@@ -3,28 +3,13 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">#241332</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">#3498db</item>
-        <item name="android:textViewStyle">@style/RobotoTextViewStyle</item>
-        <item name="buttonStyle">@style/RobotoButtonStyle</item>
-        <item name="android:statusBarColor">#1c0f26</item>
-        <item name="material_drawer_background">#1c0f26</item>
-        <item name="material_drawer_primary_text">#bdc3c7</item>
-        <item name="material_drawer_primary_icon">#bdc3c7</item>
-        <item name="material_drawer_secondary_text">#33373d</item>
-        <item name="material_drawer_hint_text">@color/material_drawer_hint_text</item>
-        <item name="material_drawer_divider">@color/material_drawer_divider</item>
-        <item name="material_drawer_selected">#9b59b6</item> <!-- Material 2 defines 12% alpha, primary color -->
-        <item name="material_drawer_selected_legacy">#9b59b6</item> <!-- Defines the color if legacy style (Material 1, is enabled) -->
-        <item name="material_drawer_selected_text">#9b59b6</item>
-        <item name="material_drawer_header_selection_text">#bdc3c7</item>
-        <item name="material_drawer_header_selection_subtext">#bdc3c7</item>
-        <item name="material_drawer_legacy_style">false</item> <!-- Enables legacy Material 1 style -->
+        <item name="colorAccent">@color/colorAccent</item>
     </style>
 
     <style name="LoginTheme" parent="AppTheme">
-        <item name="colorPrimary">#241332</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorButtonNormal">@color/colorAccent</item>
@@ -47,24 +32,12 @@
 
     <style name="noBar" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">#241332</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
     <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowBackground">@drawable/splashscreen</item>
     </style>
-
-    <style name="RobotoTextViewStyle" parent="android:Widget.TextView">
-        <item name="android:fontFamily">@font/robotothin</item>
-    </style>
-
-    <style name="RobotoButtonStyle" parent="android:Widget.Holo.Button">
-        <item name="android:fontFamily">@font/robotothin</item>
-    </style>
-
-
-
-
 
 </resources>

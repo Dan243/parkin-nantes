@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Park\'In Nantes</string>
-    <string name="tournament"> Park\'in Nantes </string>
-    <string name="manage_player">Mon profil</string>
+    <string name="tournament"> Menu </string>
+    <string name="manage_player">MON PROFIL</string>
     <string name="about">about</string>
     <string name="help">help</string>
     <string name="donate">donate</string>
@@ -19,9 +19,9 @@
     <string name="twitterUsername">"@danmonunu"</string>
     <string name="popup_message_choice_yes"> Oui </string>
     <string name="popup_message_choice_no"> Non </string>
-    <string name="list_parking"> Tous les parkings </string>
-    <string name="favori">Favoris </string>
-    <string name="rechercher">Rechercher un parking </string>
+    <string name="list_parking"> TOUS LES PARKINGS </string>
+    <string name="favori">FAVORIS</string>
+    <string name="rechercher">RECHERCHER DES PARKINGS</string>
 
 
 </resources>

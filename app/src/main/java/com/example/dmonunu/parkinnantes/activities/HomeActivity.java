@@ -87,8 +87,6 @@ public class HomeActivity extends FragmentActivity implements ParkingView,
         ButterKnife.bind(this);
         toolBar.setTitle(getResources().getString(R.string.tournament));
 
-
-
         DrawerUtil.getDrawer(this,toolBar);
         this.presenter = new ParkingPresenterImpl(getApplicationContext());
         this.presenter.getParkings();

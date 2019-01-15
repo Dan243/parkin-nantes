@@ -81,8 +81,9 @@ public class ParkingPresenterImpl implements ParkingPresenter {
                                 }
 
                                 List<LightParking> lightParkings = ParkingMapper.createLightParkings(dispoModels, horaireModels, parkingModels);
+                                List<LightParking> lightParkingsInitials = ParkingDataBase.getAppDatabase(context).lightParkingDao().getParkings();
                                 for(LightParking parking : lightParkings) {
-                                    ParkingDataBase.getAppDatabase(context).lightParkingDao().createParking(parking);
+                                    ParkingDataBase.getAppDatabase(context).lightParkingDao().createParking(updateParkingFavori(parking, lightParkingsInitials));
                                 }
                                 EventBusManager.BUS.post(new SaveEvent());
                             }
@@ -136,7 +137,7 @@ public class ParkingPresenterImpl implements ParkingPresenter {
 
     @Override
     public void getFavoriteParkings() {
-        new RoomAsyncTask1().execute();
+        new RoomFavoriAsyncTask().execute();
     }
 
     private class RoomAsyncTask extends AsyncTask<Void, Void, List<LightParking>> {
@@ -154,7 +155,7 @@ public class ParkingPresenterImpl implements ParkingPresenter {
         }
     }
 
-    private class RoomAsyncTask1 extends AsyncTask<Void, Void, List<LightParking>> {
+    private class RoomFavoriAsyncTask extends AsyncTask<Void, Void, List<LightParking>> {
         @Override
         protected List<LightParking> doInBackground(Void... voids) {
             return ParkingDataBase.getAppDatabase(context).lightParkingDao().getFavoriteParkings();
@@ -167,5 +168,15 @@ public class ParkingPresenterImpl implements ParkingPresenter {
                 EventBusManager.BUS.post(new SearchResultEvent(lightParkings));
             }
         }
+    }
+
+    @Override
+    public LightParking updateParkingFavori(LightParking parking, List<LightParking> parkings) {
+        for (LightParking item: parkings) {
+            if (parking.getIdobj().equals(item.getIdobj())) {
+                parking.setFavorite(item.isFavorite());
+            }
+        }
+        return parking;
     }
 }

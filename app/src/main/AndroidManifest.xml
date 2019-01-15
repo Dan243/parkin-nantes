@@ -43,7 +43,8 @@
         <activity
             android:name=".activities.ListParkingActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activities.ParkingDetailsActivity" />
+        <activity android:name=".activities.ParkingDetailsActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".activities.ResearchParkingActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".activities.SplashScreen" android:theme="@style/SplashTheme">

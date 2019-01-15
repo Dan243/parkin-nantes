@@ -29,8 +29,6 @@ public class ListParkingActivity extends AppCompatActivity {
     @BindView(R.id.parkingtoolbar)
     Toolbar searchBar;
 
-    private RecyclerView.Adapter mAdapter;
-
     private LinearLayoutManager layoutManager;
 
     private ParkingPresenter presenter;
@@ -64,8 +62,6 @@ public class ListParkingActivity extends AppCompatActivity {
 
         // Register to Event bus : now each time an event is posted, the activity will receive it if it is @Subscribed to this event
         EventBusManager.BUS.register(this);
-
-
     }
 
     @Override

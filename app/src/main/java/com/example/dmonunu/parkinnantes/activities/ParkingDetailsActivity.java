@@ -68,6 +68,9 @@ public class ParkingDetailsActivity extends AppCompatActivity implements OnStree
         streetViewPanoramaFragment.getStreetViewPanoramaAsync(this);
 
         this.selectedParking = (LightParking) getIntent().getSerializableExtra("SelectedParking");
+        this.setPublicsTransports();
+        this.setPaymentOptions();
+        this.setTextViewFields();
     }
 
     @Override
@@ -75,5 +78,43 @@ public class ParkingDetailsActivity extends AppCompatActivity implements OnStree
         final double latitude = this.selectedParking.getLatitude();
         final double longitude = this.selectedParking.getLongitude();
         panorama.setPosition(new LatLng(latitude, longitude));
+    }
+
+    private void setTextViewFields() {
+        this.parkingNom.setText(this.selectedParking.getNomParking());
+        this.parkingAdresse.setText(this.selectedParking.getAdresse());
+        final int capaciteTotale = this.selectedParking.getCapaciteTotale();
+        final int placesDisponibles = this.selectedParking.getNbPlaceDispo();
+        parkingCapacite.setText(placesDisponibles + "/" + capaciteTotale);
+    }
+
+    private void setPaymentOptions() {
+        if (!this.selectedParking.isCreditCardAvailable()) {
+            this.creditCardImageView.setVisibility(ImageView.GONE);
+        }
+        if (!this.selectedParking.isCashAvailable()) {
+            this.cashImageView.setVisibility(ImageView.GONE);
+        }
+        if (!this.selectedParking.isTotalGRCardAvailable()) {
+            this.totalGrImageView.setVisibility(ImageView.GONE);
+        }
+        if (!this.selectedParking.isChequeAvailable()) {
+            this.chequeImageView.setVisibility(ImageView.GONE);
+        }
+    }
+
+    private void setPublicsTransports() {
+        if (!this.selectedParking.isLigneOneNear()) {
+            this.ligne1Img.setVisibility(ImageView.GONE);
+        }
+        if (!this.selectedParking.isLigneTwoNear()) {
+            this.ligne2Img.setVisibility(ImageView.GONE);
+        }
+        if (!this.selectedParking.isLigneThreeNear()) {
+            this.ligne3Img.setVisibility(ImageView.GONE);
+        }
+        if (!this.selectedParking.isLigneFourNear()) {
+            this.ligne4Img.setVisibility(ImageView.GONE);
+        }
     }
 }

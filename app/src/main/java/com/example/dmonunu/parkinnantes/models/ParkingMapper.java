@@ -55,6 +55,7 @@ public class ParkingMapper {
             int stationnement_velo = parkingModel.getBikeCapacity();
             int capacite_moto = parkingModel.getMotoCapacity();
             int capacite_pmr = parkingModel.getPmrCapacity();
+            boolean isFavorite = false;
             boolean isCreditCardAvailable = false;
             boolean isCashAvailable = false;
             boolean isChequeAvailable = false;
@@ -126,6 +127,7 @@ public class ParkingMapper {
                     .isLigneTwoNear(isLigneTwoNear)
                     .isLigneThreeNear(isLigneThreeNear)
                     .isLigneFourNear(isLigneFourNear)
+                    .isFavorite(isFavorite)
                     .build();
         }
         return null;

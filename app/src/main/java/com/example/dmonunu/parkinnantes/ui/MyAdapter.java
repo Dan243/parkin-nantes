@@ -32,7 +32,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     private Activity activity;
     private FavoriteService favoriteService;
     private boolean fav;
-    private List<String>listfav;
     public MyAdapter(List<LightParking> parkings, Activity activity){
         this.listparking = parkings;
         this.activity = activity;
@@ -55,6 +54,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     public void onBindViewHolder(MyViewHolder holder, final int position) {
         final LightParking lightParking = listparking.get(position);
         holder.bind(lightParking);
+        fav = lightParking.isFavorite();
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -127,9 +127,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                 heureDebut.setText(parking.getHeureDebut());
                 heureFin.setText(" à " + parking.getHeureFin());
                 setPaymentOptions(parking);
-                listfav = new ArrayList<>();
-                listfav.add(parking.getIdobj());
-                fav = favoriteService.isFavorite(parking.getIdobj());
+
 
                 if (!fav){
                     favorite.setBackgroundResource(R.drawable.star_grey);
@@ -140,18 +138,17 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                     @Override
                     public void onClick(View v) {
 
-                        if(fav) {
-                            favorite.setBackgroundResource(R.drawable.star_grey);
-                            fav = false;
-                            listfav.add("false");
-                            favoriteService.setFavoriteInRoom(listfav);
-                            parking.setFavorite(fav);
-                        } else {
+                        if(!fav) {
                             favorite.setBackgroundResource(R.drawable.star_yellow);
                             fav = true;
-                            listfav.add("true");
-                            favoriteService.setFavoriteInRoom(listfav);
                             parking.setFavorite(fav);
+                            favoriteService.setFavoriteInRoom(parking.getIdobj());
+                        } else {
+                            favorite.setBackgroundResource(R.drawable.star_grey);
+                            fav = false;
+                            parking.setFavorite(fav);
+                            favoriteService.removeFavoriteInRoom(parking.getIdobj());
+
                         }
                     }
                 });
@@ -171,11 +168,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         int value = refValue - currentValue;
         double div = ((double) value / (double) refValue);
         return (div * 100);
-    }
-
-    private void favoriteButton(boolean state, ImageView favorite){
-
-
     }
 
 }

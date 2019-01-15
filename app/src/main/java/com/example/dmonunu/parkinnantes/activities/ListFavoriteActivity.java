@@ -33,6 +33,7 @@ public class ListFavoriteActivity extends AppCompatActivity {
 
     private ParkingPresenter presenter;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

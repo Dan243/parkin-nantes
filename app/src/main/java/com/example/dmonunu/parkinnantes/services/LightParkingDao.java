@@ -36,8 +36,11 @@ public interface LightParkingDao {
     @Query("SELECT * FROM LightParking WHERE nbPlaceDispo >= :search")
     List<LightParking> findParkingsByDispo(int search);
 
-    @Query("UPDATE LightParking SET isFavorite =:fav WHERE idobj =:search")
-    void setFavorite(String search, String fav);
+    @Query("UPDATE LightParking SET isFavorite ='true' WHERE idobj =:search")
+    void setFavorite(String search);
+
+    @Query("UPDATE LightParking SET isFavorite ='false' WHERE idobj =:search")
+    void removeFavorite(String search);
 
     @Query("SELECT isFavorite FROM LightParking WHERE idobj =:fav")
     boolean isFavorite(String fav);

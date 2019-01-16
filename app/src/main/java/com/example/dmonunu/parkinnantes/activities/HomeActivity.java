@@ -208,14 +208,13 @@ public class HomeActivity extends FragmentActivity implements
         myClusterManager.clearItems();
         for (LightParking parkingModel : parkingModels) {
             if (parkingModel != null) {
-                ClusterItemImpl offsetItem = new ClusterItemImpl(parkingModel.getLatitude(), parkingModel.getLongitude(), parkingModel.getNbPlaceDispo(), parkingModel.getNomParking());
+                String title = parkingModel.getNomParking();
+                String snippet = "Situé à " + parkingModel.getAdresse() + "\nIl y a " + parkingModel.getNbPlaceDispo() + " places disponibles";
+                ClusterItemImpl offsetItem = new ClusterItemImpl(parkingModel.getLatitude(), parkingModel.getLongitude(), title, snippet, parkingModel.getNbPlaceDispo());
                 myClusterManager.addItem(offsetItem);
-                //MarkerMap markerMap = new MarkerMap(parkingModel, googleMap);
-                //Marker marker = markerMap.createMarker();
             }
         }
-        myClusterManager.getMarkerCollection().setOnInfoWindowAdapter(
-                new CustomInfoWindowGoogleMap(this));
+        myClusterManager.getMarkerCollection().setOnInfoWindowAdapter(new CustomInfoWindowGoogleMap(this));
         myClusterManager.setRenderer(new MarkerMap(this.getApplicationContext(), mainMap, myClusterManager));
         animateCluster(parkingModels);
     }

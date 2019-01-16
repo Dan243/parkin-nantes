@@ -7,4 +7,6 @@ import java.util.List;
  */
 public interface ResearchService {
     void findParkingsFromRoom(List<String> research);
+
+    void searchParkingByNameOrAddress(String s);
 }

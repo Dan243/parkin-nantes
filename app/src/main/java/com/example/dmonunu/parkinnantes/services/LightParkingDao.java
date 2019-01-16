@@ -35,6 +35,9 @@ public interface LightParkingDao {
     @Query("SELECT * FROM LightParking WHERE nomParking = :search")
     LightParking findParkingByName(String search);
 
+    @Query("SELECT * FROM LightParking WHERE nomParking LIKE '%' || :search || '%' OR adresse LIKE '%' || :search || '%'")
+    List<LightParking> findParkingsByNameOrAddress(String search);
+
     @Query("SELECT * FROM LightParking WHERE nbPlaceDispo >= :search")
     List<LightParking> findParkingsByDispo(int search);
 

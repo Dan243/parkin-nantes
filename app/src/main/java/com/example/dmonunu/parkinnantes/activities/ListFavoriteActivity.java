@@ -8,10 +8,15 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.widget.EditText;
 
 import com.example.dmonunu.parkinnantes.R;
 import com.example.dmonunu.parkinnantes.event.EventBusManager;
 import com.example.dmonunu.parkinnantes.event.SearchResultEvent;
+import com.example.dmonunu.parkinnantes.services.ResearchService;
+import com.example.dmonunu.parkinnantes.services.ResearchServiceImpl;
 import com.example.dmonunu.parkinnantes.ui.MyAdapter;
 import com.example.dmonunu.parkinnantes.utilities.DrawerUtil;
 import com.squareup.otto.Subscribe;
@@ -24,10 +29,14 @@ public class ListFavoriteActivity extends AppCompatActivity {
     @BindView(R.id.favoritetoolbar)
     androidx.appcompat.widget.Toolbar toolbar;
 
+    @BindView(R.id.search_edittext)
+    EditText mSearchEditText;
+
     private LinearLayoutManager layoutManager;
 
     private ParkingPresenter presenter;
 
+    private ResearchService researchService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,13 +51,35 @@ public class ListFavoriteActivity extends AppCompatActivity {
         presenter.getFavoriteParkings();
         layoutManager = new LinearLayoutManager(this);
         myfavoritelist.setLayoutManager(layoutManager);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(myfavoritelist.getContext(), layoutManager.getOrientation() );
+        myfavoritelist.addItemDecoration(dividerItemDecoration);
+        researchService = new ResearchServiceImpl(getApplicationContext());
+        mSearchEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (editable.length() == 0) {
+                    researchService.searchParkingFavoriByNameOrAddress("");
+                }
+                else {
+                    researchService.searchParkingFavoriByNameOrAddress(editable.toString());
+                }
+            }
+        });
     }
 
     @Subscribe
     public void searchResult(SearchResultEvent event) {
         myfavoritelist.setAdapter(new MyAdapter(event.getParkings(), this));
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(myfavoritelist.getContext(), layoutManager.getOrientation() );
-        myfavoritelist.addItemDecoration(dividerItemDecoration);
     }
     @Override
     protected void onResume() {

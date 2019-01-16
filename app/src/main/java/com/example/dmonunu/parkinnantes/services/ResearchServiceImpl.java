@@ -64,6 +64,26 @@ public class ResearchServiceImpl implements ResearchService {
         }
     }
 
+    @Override
+    public void searchParkingFavoriByNameOrAddress(String s) {
+        new RoomFavoriByNameOrAddressAsyncTask().execute(s);
+    }
+
+    private class RoomFavoriByNameOrAddressAsyncTask extends AsyncTask<String, Void, List<LightParking>> {
+        @Override
+        protected List<LightParking> doInBackground(String... strings) {
+            return ParkingDataBase.getAppDatabase(context).lightParkingDao().findParkingsFavoriByNameOrAddress(ifLastCharSpace(strings[0]));
+        }
+
+        @Override
+        protected void onPostExecute(List<LightParking> lightParkings) {
+            super.onPostExecute(lightParkings);
+            if (lightParkings != null){
+                EventBusManager.BUS.post(new SearchResultEvent(lightParkings));
+            }
+        }
+    }
+
     private String ifLastCharSpace(String mString) {
         if (mString.length()>1) {
             if (mString.substring(mString.length() - 1).equals(" ")) {

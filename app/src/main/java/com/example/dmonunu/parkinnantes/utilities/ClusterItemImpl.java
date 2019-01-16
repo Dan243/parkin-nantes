@@ -4,19 +4,21 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.maps.android.clustering.ClusterItem;
 
 public class ClusterItemImpl implements ClusterItem {
-    private final LatLng mPosition;
+    private LatLng mPosition;
     private String mTitle;
     private String mSnippet;
     private int nbPlaces;
 
-
-
-    public ClusterItemImpl(double lat, double lng, int nbPlaces, String title) {
+    public ClusterItemImpl(double lat, double lng) {
         mPosition = new LatLng(lat, lng);
-        mTitle = title;
-        this.nbPlaces = nbPlaces;
     }
 
+    public ClusterItemImpl(double lat, double lng, String title, String snippet, int nbPlaces) {
+        mPosition = new LatLng(lat, lng);
+        mTitle = title;
+        mSnippet = snippet;
+        this.nbPlaces = nbPlaces;
+    }
 
     @Override
     public LatLng getPosition() {
@@ -36,6 +38,4 @@ public class ClusterItemImpl implements ClusterItem {
     public int getNbPlaces() {
         return nbPlaces;
     }
-
-
 }

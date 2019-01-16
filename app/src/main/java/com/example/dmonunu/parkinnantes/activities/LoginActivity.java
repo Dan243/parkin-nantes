@@ -38,7 +38,7 @@ public class LoginActivity extends BaseActivity {
                                         new AuthUI.IdpConfig.GoogleBuilder().build(),
                                         new AuthUI.IdpConfig.FacebookBuilder().build()))
                         .setIsSmartLockEnabled(false, true)
-                        //.setLogo(R.drawable.ic_logo_auth)
+                        .setLogo(R.drawable.logo)
                         .build(),
                 RC_SIGN_IN);
     }

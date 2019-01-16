@@ -11,6 +11,7 @@ import butterknife.ButterKnife;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.widget.EditText;
 
 import com.example.dmonunu.parkinnantes.R;
@@ -55,6 +56,8 @@ public class ListParkingActivity extends AppCompatActivity {
         presenter.getParkings();
         layoutManager = new LinearLayoutManager(this);
         myListView.setLayoutManager(layoutManager);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(myListView.getContext(), layoutManager.getOrientation() );
+        myListView.addItemDecoration(dividerItemDecoration);
         researchService = new ResearchServiceImpl(getApplicationContext());
         mSearchEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -69,7 +72,12 @@ public class ListParkingActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                researchService.searchParkingByNameOrAddress(editable.toString());
+                if (editable.length() == 0) {
+                    researchService.searchParkingByNameOrAddress("");
+                }
+                else {
+                    researchService.searchParkingByNameOrAddress(editable.toString());
+                }
             }
         });
     }
@@ -78,8 +86,6 @@ public class ListParkingActivity extends AppCompatActivity {
     @Subscribe
     public void searchResult(SearchResultEvent event) {
         myListView.setAdapter(new MyAdapter(event.getParkings(), this));
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(myListView.getContext(), layoutManager.getOrientation() );
-        myListView.addItemDecoration(dividerItemDecoration);
     }
     @Override
     protected void onResume() {

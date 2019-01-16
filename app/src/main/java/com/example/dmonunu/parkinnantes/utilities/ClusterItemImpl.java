@@ -7,16 +7,16 @@ public class ClusterItemImpl implements ClusterItem {
     private final LatLng mPosition;
     private String mTitle;
     private String mSnippet;
+    private int nbPlaces;
 
-    public ClusterItemImpl(double lat, double lng) {
-        mPosition = new LatLng(lat, lng);
-    }
 
-    public ClusterItemImpl(double lat, double lng, String title, String snippet) {
+
+    public ClusterItemImpl(double lat, double lng, int nbPlaces, String title) {
         mPosition = new LatLng(lat, lng);
         mTitle = title;
-        mSnippet = snippet;
+        this.nbPlaces = nbPlaces;
     }
+
 
     @Override
     public LatLng getPosition() {
@@ -32,4 +32,10 @@ public class ClusterItemImpl implements ClusterItem {
     public String getSnippet() {
         return mSnippet;
     }
+
+    public int getNbPlaces() {
+        return nbPlaces;
+    }
+
+
 }

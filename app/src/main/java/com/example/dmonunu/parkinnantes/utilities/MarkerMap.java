@@ -1,48 +1,33 @@
 package com.example.dmonunu.parkinnantes.utilities;
 
+import android.content.Context;
+
+
 import com.example.dmonunu.parkinnantes.R;
-import com.example.dmonunu.parkinnantes.activities.ParkingView;
-import com.example.dmonunu.parkinnantes.models.LightParking;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.maps.android.clustering.ClusterManager;
+import com.google.maps.android.clustering.view.DefaultClusterRenderer;
 
-public class MarkerMap {
+public class MarkerMap extends DefaultClusterRenderer<ClusterItemImpl> {
 
-    private LightParking parking;
-    private GoogleMap googleMap;
 
-    public MarkerMap(LightParking parking, GoogleMap googleMap) {
-        this.parking = parking;
-        this.googleMap = googleMap;
+    public MarkerMap(Context context, GoogleMap map, ClusterManager<ClusterItemImpl> clusterManager) {
+        super(context, map, clusterManager);
     }
 
-    public LightParking getParking() {
-        return parking;
-    }
-
-    public void setParking(LightParking parking) {
-        this.parking = parking;
-    }
-
-    public Marker createMarker() {
-        LatLng latLng = new LatLng(parking.getLatitude(), parking.getLongitude());
-        if (parking.getNbPlaceDispo() > 0) {
-            Marker marker = googleMap.addMarker(new MarkerOptions()
-                    .position(latLng)
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.dispo_icon))
-                    .title(parking.getNomParking()));
-            marker.setTag(parking);
-            return marker;
+    @Override
+    protected void onBeforeClusterItemRendered(ClusterItemImpl item, MarkerOptions markerOptions) {
+        super.onBeforeClusterItemRendered(item, markerOptions);
+        if (item.getNbPlaces() == 0) {
+            markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.full_icon));
         } else {
-            Marker marker = googleMap.addMarker(new MarkerOptions()
-                    .position(latLng)
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.full_icon))
-                    .title(parking.getNomParking()));
-            marker.setTag(parking);
-            return marker;
+            markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.dispo_icon));
         }
     }
+
+
 }
+
+

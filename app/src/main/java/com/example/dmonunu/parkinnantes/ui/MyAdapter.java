@@ -1,25 +1,23 @@
 package com.example.dmonunu.parkinnantes.ui;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.ToggleButton;
 
 
 import com.example.dmonunu.parkinnantes.R;
 import com.example.dmonunu.parkinnantes.activities.ParkingDetailsActivity;
 import com.example.dmonunu.parkinnantes.models.LightParking;
-import com.example.dmonunu.parkinnantes.services.FavoriteService;
-import com.example.dmonunu.parkinnantes.services.FavoriteServiceImpl;
-import com.example.dmonunu.parkinnantes.services.ResearchServiceImpl;
+import com.example.dmonunu.parkinnantes.models.ParkingDataBase;
 import com.example.dmonunu.parkinnantes.utilities.ParkingParser;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,13 +28,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     private List<LightParking> listparking;
     private Activity activity;
-    private FavoriteService favoriteService;
-    private boolean fav;
-    private List<String>listfav;
+    private Context context;
+
     public MyAdapter(List<LightParking> parkings, Activity activity){
         this.listparking = parkings;
         this.activity = activity;
-        this.favoriteService = new FavoriteServiceImpl(activity.getApplicationContext());
+        this.context = activity.getApplicationContext();
     }
 
     @Override
@@ -110,7 +107,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         }
 
         public void bind(final LightParking parking){
-
             if (parking != null){
                 currentParking = parking;
                 parkingName.setText(parking.getNomParking());
@@ -127,38 +123,54 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                 heureDebut.setText(parking.getHeureDebut());
                 heureFin.setText(" à " + parking.getHeureFin());
                 setPaymentOptions(parking);
-                listfav = new ArrayList<>();
-                listfav.add(parking.getIdobj());
-                fav = favoriteService.isFavorite(parking.getIdobj());
 
-                if (!fav){
+                if (!parking.isFavorite()){
                     favorite.setBackgroundResource(R.drawable.star_grey);
+                    favorite.setTag(R.drawable.star_grey);
                 } else {
                     favorite.setBackgroundResource(R.drawable.star_yellow);
+                    favorite.setTag(R.drawable.star_yellow);
                 }
                 favorite.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
-                        if(fav) {
-                            favorite.setBackgroundResource(R.drawable.star_grey);
-                            fav = false;
-                            listfav.add("false");
-                            favoriteService.setFavoriteInRoom(listfav);
-                            parking.setFavorite(fav);
-                        } else {
-                            favorite.setBackgroundResource(R.drawable.star_yellow);
-                            fav = true;
-                            listfav.add("true");
-                            favoriteService.setFavoriteInRoom(listfav);
-                            parking.setFavorite(fav);
+                        Integer fTag = (Integer) favorite.getTag();
+                        fTag = fTag == null ? R.drawable.star_grey : fTag;
+                        switch(fTag) {
+                            case R.drawable.star_grey:
+                                parking.setFavorite(true);
+                                favorite.setBackgroundResource(R.drawable.star_yellow);
+                                favorite.setTag(R.drawable.star_yellow);
+                                new RoomFavoriTrueAsyncTask().execute(parking);
+                                break;
+                            default:
+                                parking.setFavorite(false);
+                                favorite.setBackgroundResource(R.drawable.star_grey);
+                                favorite.setTag(R.drawable.star_grey);
+                                new RoomFavoriFalseAsyncTask().execute(parking);
+                                break;
                         }
                     }
                 });
-
-
             }
         }
+
+        private class RoomFavoriTrueAsyncTask extends AsyncTask<LightParking, Void, Void> {
+            @Override
+            protected Void doInBackground(LightParking... lightParkings) {
+                ParkingDataBase.getAppDatabase(context).lightParkingDao().setFavorite(lightParkings[0].getIdobj(), true);
+                return null;
+            }
+        }
+
+        private class RoomFavoriFalseAsyncTask extends AsyncTask<LightParking, Void, Void> {
+            @Override
+            protected Void doInBackground(LightParking... lightParkings) {
+                ParkingDataBase.getAppDatabase(context).lightParkingDao().setFavorite(lightParkings[0].getIdobj(), false);
+                return null;
+            }
+        }
+
         private void setPaymentOptions(final LightParking parking) {
             ParkingParser.setImageVisibility(parking.isCreditCardAvailable(), this.credCardImg);
             ParkingParser.setImageVisibility(parking.isCashAvailable(), this.cashImg);
@@ -172,10 +184,4 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         double div = ((double) value / (double) refValue);
         return (div * 100);
     }
-
-    private void favoriteButton(boolean state, ImageView favorite){
-
-
-    }
-
 }

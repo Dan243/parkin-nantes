@@ -20,11 +20,10 @@ public interface LightParkingDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void createParking(LightParking parking);
 
-    @Query("SELECT * FROM LightParking ")
+    @Query("SELECT * FROM LightParking")
     List<LightParking> getParkings();
 
-
-    @Query("SELECT * FROM LightParking WHERE isFavorite = 'true'")
+    @Query("SELECT * FROM LightParking WHERE isFavorite = 1")
     List<LightParking> getFavoriteParkings();
 
     @Query("SELECT * FROM LightParking WHERE adresse LIKE '%' || :search || '%'")
@@ -37,10 +36,7 @@ public interface LightParkingDao {
     List<LightParking> findParkingsByDispo(int search);
 
     @Query("UPDATE LightParking SET isFavorite =:fav WHERE idobj =:search")
-    void setFavorite(String search, String fav);
-
-    @Query("SELECT isFavorite FROM LightParking WHERE idobj =:fav")
-    boolean isFavorite(String fav);
+    void setFavorite(String search, boolean fav);
 
     @Query("SELECT * FROM LightParking WHERE nomParking LIKE '%' || :name || '%' AND adresse LIKE '%' || :address || '%' AND moyenPaiement LIKE '%' || :cash || '%' AND moyenPaiement LIKE '%' || :total_gr || '%' AND moyenPaiement LIKE '%' || :cb || '%' AND nbPlaceDispo > :left AND nbPlaceDispo < :right")
     List<LightParking> findParkingsByNameAndAddress(String name, String address, String cash, String total_gr, String cb, int left, int right);

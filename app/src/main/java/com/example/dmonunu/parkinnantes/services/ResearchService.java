@@ -9,4 +9,6 @@ public interface ResearchService {
     void findParkingsFromRoom(List<String> research);
 
     void searchParkingByNameOrAddress(String s);
+
+    void searchParkingFavoriByNameOrAddress(String s);
 }

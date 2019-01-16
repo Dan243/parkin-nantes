@@ -54,7 +54,7 @@
                 android:layout_width="30dp"
                 android:layout_height="47dp"
                 android:layout_marginStart="320dp"
-                android:layout_marginTop="15dp"/>
+                android:layout_marginTop="15dp" />
 
             <View
                 android:id="@+id/parking_details_separator"
@@ -72,8 +72,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignStart="@+id/parking_details_name"
                 android:layout_alignParentTop="true"
-                android:layout_marginStart="-58dp"
-                android:layout_marginTop="80dp"
+                android:layout_marginStart="-54dp"
+                android:layout_marginTop="79dp"
                 android:textColor="@color/md_green_500"
                 android:textSize="26sp" />
 
@@ -84,7 +84,7 @@
                 android:layout_height="30dp"
                 android:layout_alignTop="@+id/parking_details_away_places"
                 android:layout_alignParentStart="true"
-                android:layout_marginStart="53dp"
+                android:layout_marginStart="57dp"
                 android:layout_marginTop="6dp"
                 android:src="@drawable/baseline_local_parking_24" />
 
@@ -96,7 +96,7 @@
                 android:layout_alignStart="@+id/parking_design"
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="43dp"
-                android:layout_marginTop="83dp"
+                android:layout_marginTop="85dp"
                 android:textColor="@color/md_green_500"
                 android:textSize="26sp" />
 
@@ -106,7 +106,7 @@
                 android:layout_height="36dp"
                 android:layout_alignTop="@+id/parking_details_away_places"
                 android:layout_alignParentStart="true"
-                android:layout_marginStart="137dp"
+                android:layout_marginStart="141dp"
                 android:layout_marginTop="3dp"
                 android:src="@drawable/baseline_directions_bike_24" />
 
@@ -127,7 +127,7 @@
                 android:layout_height="42dp"
                 android:layout_alignTop="@+id/parking_details_away_places"
                 android:layout_alignParentStart="true"
-                android:layout_marginStart="225dp"
+                android:layout_marginStart="229dp"
                 android:layout_marginTop="0dp"
                 android:src="@drawable/baseline_motorcycle_24" />
 
@@ -138,7 +138,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="81dp"
+                android:layout_marginTop="85dp"
                 android:layout_toEndOf="@+id/moto"
                 android:textColor="@color/md_green_500"
                 android:textSize="26sp" />
@@ -150,67 +150,52 @@
                 android:layout_height="37dp"
                 android:layout_alignTop="@+id/parking_details_away_places"
                 android:layout_alignParentStart="true"
-                android:layout_marginStart="312dp"
+                android:layout_marginStart="316dp"
                 android:layout_marginTop="0dp"
                 android:src="@drawable/baseline_accessible_24" />
-
-            <View
-                android:id="@+id/parking_details_separator2"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="0dp"
-                android:layout_marginTop="130dp"
-                android:background="@android:color/holo_green_light" />
 
 
             <TextView
                 android:id="@+id/parkingpres"
-                android:layout_width="350dp"
-                android:layout_height="50dp"
+                android:layout_width="355dp"
+                android:layout_height="59dp"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="141dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="145dp"
                 android:textColor="@color/black" />
 
             <fragment
                 android:id="@+id/parking_details_mapView"
                 android:name="com.google.android.gms.maps.StreetViewPanoramaFragment"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="220dp"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentBottom="true"
                 android:layout_marginStart="0dp"
-                android:layout_marginBottom="190dp" />
+                android:layout_marginBottom="177dp" />
 
-            <View
-                android:id="@+id/parking_details_separator3"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="0dp"
-                android:layout_marginTop="410dp"
-                android:background="@android:color/holo_green_light" />
+
 
             <TextView
                 android:id="@+id/constant_payement_otpions"
                 android:layout_width="159dp"
                 android:layout_height="25dp"
                 android:layout_marginStart="35dp"
-                android:layout_marginTop="420dp"
+                android:layout_marginTop="450dp"
                 android:gravity="center_vertical|left"
                 android:text="Options de paiements : "
                 android:textColor="#000"
-                android:textSize="13sp"
-                 />
+                android:textSize="13sp" />
+
+
 
             <ImageView
                 android:id="@+id/credit_card_imageview"
                 android:layout_width="35dp"
                 android:layout_height="31dp"
                 android:layout_marginStart="175dp"
-                android:layout_marginTop="415dp"
+                android:layout_marginTop="445dp"
                 app:srcCompat="@drawable/ic_40dp_credit_card" />
 
             <ImageView
@@ -218,7 +203,7 @@
                 android:layout_width="29dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="220dp"
-                android:layout_marginTop="420dp"
+                android:layout_marginTop="450dp"
                 app:srcCompat="@drawable/ic_40dp_money" />
 
             <ImageView
@@ -226,7 +211,7 @@
                 android:layout_width="29dp"
                 android:layout_height="31dp"
                 android:layout_marginStart="260dp"
-                android:layout_marginTop="418dp"
+                android:layout_marginTop="448dp"
                 app:srcCompat="@drawable/ic_total_color" />
 
             <ImageView
@@ -234,7 +219,7 @@
                 android:layout_width="29dp"
                 android:layout_height="31dp"
                 android:layout_marginStart="300dp"
-                android:layout_marginTop="418dp"
+                android:layout_marginTop="448dp"
                 app:srcCompat="@drawable/ic_40dp_cheque_color" />
 
             <androidx.appcompat.widget.AppCompatImageView
@@ -251,8 +236,8 @@
                 android:id="@+id/give_money_imageview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="415dp"
                 android:layout_marginStart="1dp"
+                android:layout_marginTop="445dp"
                 app:srcCompat="@drawable/ic_25dp_give_money" />
 
 
@@ -260,8 +245,8 @@
                 android:id="@+id/parking_details_tram_imageview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="460dp"
                 android:layout_marginStart="1dp"
+                android:layout_marginTop="490dp"
                 app:srcCompat="@drawable/ic_25dp_tram" />
 
 
@@ -270,7 +255,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="25dp"
                 android:layout_marginStart="35dp"
-                android:layout_marginTop="460dp"
+                android:layout_marginTop="490dp"
                 android:gravity="center_vertical|left"
                 android:text="Transports en commun :"
                 android:textColor="#000"
@@ -284,7 +269,7 @@
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginStart="185dp"
-                android:layout_marginTop="460dp"
+                android:layout_marginTop="490dp"
                 app:srcCompat="@drawable/ic_ligne1" />
 
             <ImageView
@@ -292,7 +277,7 @@
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginStart="218dp"
-                android:layout_marginTop="460dp"
+                android:layout_marginTop="490dp"
                 app:srcCompat="@drawable/ic_ligne2" />
 
             <ImageView
@@ -300,7 +285,7 @@
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginStart="250dp"
-                android:layout_marginTop="460dp"
+                android:layout_marginTop="490dp"
                 app:srcCompat="@drawable/ic_ligne3" />
 
             <ImageView
@@ -308,7 +293,7 @@
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginStart="281dp"
-                android:layout_marginTop="460dp"
+                android:layout_marginTop="490dp"
                 app:srcCompat="@drawable/ic_ligne4" />
 
 
@@ -317,7 +302,7 @@
                 android:layout_width="20dp"
                 android:layout_height="22dp"
                 android:layout_marginStart="1dp"
-                android:layout_marginTop="500dp"
+                android:layout_marginTop="530dp"
                 app:srcCompat="@drawable/icons8_phone_26" />
 
 
@@ -326,27 +311,26 @@
                 android:layout_width="wrap_content"
                 android:layout_height="25dp"
                 android:layout_marginStart="35dp"
-                android:layout_marginTop="500dp"
+                android:layout_marginTop="530dp"
                 android:gravity="center_vertical|left"
                 android:text="Numéro de téléphone :"
                 android:textColor="#000"
-                android:textSize="13sp"
-                />
+                android:textSize="13sp" />
 
             <TextView
                 android:id="@+id/parking_telephone"
                 android:layout_width="100dp"
                 android:layout_height="25dp"
-                android:textColor="@color/md_green_100"
                 android:layout_marginStart="175dp"
-                android:layout_marginTop="500dp"/>
+                android:layout_marginTop="530dp"
+                android:textColor="@color/md_green_100" />
 
             <ImageView
                 android:id="@+id/website"
                 android:layout_width="20dp"
                 android:layout_height="22dp"
                 android:layout_marginStart="1dp"
-                android:layout_marginTop="540dp"
+                android:layout_marginTop="570dp"
                 app:srcCompat="@drawable/icons8_globe_26" />
 
 
@@ -355,21 +339,62 @@
                 android:layout_width="wrap_content"
                 android:layout_height="25dp"
                 android:layout_marginStart="35dp"
-                android:layout_marginTop="540dp"
+                android:layout_marginTop="570dp"
                 android:gravity="center_vertical|left"
                 android:text="Site internet :"
                 android:textColor="#000"
-                android:textSize="13sp"
-                />
+                android:textSize="13sp" />
 
             <TextView
                 android:id="@+id/parking_website"
                 android:layout_width="200dp"
                 android:layout_height="25dp"
-                android:textColor="@color/com_facebook_blue"
                 android:layout_marginStart="11dp"
-                android:layout_marginTop="540dp"
-                android:layout_toEndOf="@+id/parking_details_website" />
+                android:layout_marginTop="570dp"
+                android:linksClickable="true"
+                android:autoLink="web"
+                android:layout_toEndOf="@+id/parking_details_website"
+                android:textColor="@color/com_facebook_blue" />
+
+            <TextView
+                android:id="@+id/parking_details_constante_info_compl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="420dp"
+                android:text="Informations complémentaires"
+                android:textColor="@color/colorPrimary"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                 />
+
+            <View
+                android:id="@+id/test"
+                android:layout_width="1250dp"
+                android:layout_height="2dp"
+                android:layout_marginStart="215dp"
+                android:layout_marginTop="430dp"
+                android:background="@color/colorPrimary"
+               />
+
+            <TextView
+                android:id="@+id/parking_details_constante_des"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="125dp"
+                android:text=" Description du parking"
+                android:textColor="@color/colorPrimary"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <View
+                android:id="@+id/test2"
+                android:layout_width="250dp"
+                android:layout_height="2dp"
+                android:layout_marginStart="165dp"
+                android:layout_marginTop="137dp"
+                android:background="@color/colorPrimary" />
 
         </RelativeLayout>
     </LinearLayout>

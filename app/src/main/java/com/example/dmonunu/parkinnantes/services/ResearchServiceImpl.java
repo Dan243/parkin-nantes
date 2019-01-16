@@ -3,6 +3,7 @@ package com.example.dmonunu.parkinnantes.services;
 import android.content.Context;
 import android.os.AsyncTask;
 
+import com.example.dmonunu.parkinnantes.activities.ListParkingActivity;
 import com.example.dmonunu.parkinnantes.event.EventBusManager;
 import com.example.dmonunu.parkinnantes.event.SearchResultEvent;
 import com.example.dmonunu.parkinnantes.models.LightParking;
@@ -43,7 +44,27 @@ public class ResearchServiceImpl implements ResearchService {
         }
     }
 
-    public String ifLastCharSpace(String mString) {
+    @Override
+    public void searchParkingByNameOrAddress(String s) {
+        new RoomByNameOrAddressAsyncTask().execute(s);
+    }
+
+    private class RoomByNameOrAddressAsyncTask extends AsyncTask<String, Void, List<LightParking>> {
+        @Override
+        protected List<LightParking> doInBackground(String... strings) {
+            return ParkingDataBase.getAppDatabase(context).lightParkingDao().findParkingsByNameOrAddress(ifLastCharSpace(strings[0]));
+        }
+
+        @Override
+        protected void onPostExecute(List<LightParking> lightParkings) {
+            super.onPostExecute(lightParkings);
+            if (lightParkings != null){
+                EventBusManager.BUS.post(new SearchResultEvent(lightParkings));
+            }
+        }
+    }
+
+    private String ifLastCharSpace(String mString) {
         if (mString.length()>1) {
             if (mString.substring(mString.length() - 1).equals(" ")) {
                 return mString.substring(0, mString.length()-2);

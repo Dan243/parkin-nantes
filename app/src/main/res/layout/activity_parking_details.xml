@@ -51,14 +51,10 @@
 
             <ImageView
                 android:id="@+id/parking_details_favorites_button"
-                android:layout_width="26dp"
+                android:layout_width="30dp"
                 android:layout_height="47dp"
-                android:layout_alignBottom="@+id/parking_details_adress"
-                android:layout_alignParentEnd="true"
-                android:layout_marginStart="28dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="13dp"
-                android:layout_toEndOf="@+id/parking_details_name" />
+                android:layout_marginStart="320dp"
+                android:layout_marginTop="15dp"/>
 
             <View
                 android:id="@+id/parking_details_separator"
@@ -88,18 +84,18 @@
                 android:layout_height="30dp"
                 android:layout_alignTop="@+id/parking_details_away_places"
                 android:layout_alignParentStart="true"
-                android:layout_marginStart="60dp"
-                android:layout_marginTop="4dp"
+                android:layout_marginStart="53dp"
+                android:layout_marginTop="6dp"
                 android:src="@drawable/baseline_local_parking_24" />
 
 
             <TextView
                 android:id="@+id/parking_details_bike_places"
-                android:layout_width="52dp"
+                android:layout_width="43dp"
                 android:layout_height="wrap_content"
                 android:layout_alignStart="@+id/parking_design"
                 android:layout_alignParentTop="true"
-                android:layout_marginStart="34dp"
+                android:layout_marginStart="43dp"
                 android:layout_marginTop="83dp"
                 android:textColor="@color/md_green_500"
                 android:textSize="26sp" />
@@ -110,7 +106,7 @@
                 android:layout_height="36dp"
                 android:layout_alignTop="@+id/parking_details_away_places"
                 android:layout_alignParentStart="true"
-                android:layout_marginStart="144dp"
+                android:layout_marginStart="137dp"
                 android:layout_marginTop="3dp"
                 android:src="@drawable/baseline_directions_bike_24" />
 
@@ -119,8 +115,8 @@
                 android:layout_width="37dp"
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@+id/parking_details_bike_places"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="0dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="1dp"
                 android:layout_toEndOf="@+id/bike_design"
                 android:textColor="@color/md_green_500"
                 android:textSize="26sp" />
@@ -131,7 +127,7 @@
                 android:layout_height="42dp"
                 android:layout_alignTop="@+id/parking_details_away_places"
                 android:layout_alignParentStart="true"
-                android:layout_marginStart="241dp"
+                android:layout_marginStart="225dp"
                 android:layout_marginTop="0dp"
                 android:src="@drawable/baseline_motorcycle_24" />
 
@@ -141,7 +137,7 @@
                 android:layout_width="37dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:layout_marginStart="15dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="81dp"
                 android:layout_toEndOf="@+id/moto"
                 android:textColor="@color/md_green_500"
@@ -154,7 +150,7 @@
                 android:layout_height="37dp"
                 android:layout_alignTop="@+id/parking_details_away_places"
                 android:layout_alignParentStart="true"
-                android:layout_marginStart="337dp"
+                android:layout_marginStart="312dp"
                 android:layout_marginTop="0dp"
                 android:src="@drawable/baseline_accessible_24" />
 
@@ -172,10 +168,10 @@
                 android:id="@+id/parkingpres"
                 android:layout_width="350dp"
                 android:layout_height="50dp"
-                android:layout_above="@+id/parking_details_mapView"
                 android:layout_alignParentStart="true"
-                android:layout_marginStart="21dp"
-                android:layout_marginBottom="18dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="141dp"
                 android:textColor="@color/black" />
 
             <fragment
@@ -341,6 +337,7 @@
                 android:id="@+id/parking_telephone"
                 android:layout_width="100dp"
                 android:layout_height="25dp"
+                android:textColor="@color/md_green_100"
                 android:layout_marginStart="175dp"
                 android:layout_marginTop="500dp"/>
 
@@ -367,10 +364,12 @@
 
             <TextView
                 android:id="@+id/parking_website"
-                android:layout_width="400dp"
+                android:layout_width="200dp"
                 android:layout_height="25dp"
-                android:layout_marginStart="125dp"
-                android:layout_marginTop="540dp"/>
+                android:textColor="@color/com_facebook_blue"
+                android:layout_marginStart="11dp"
+                android:layout_marginTop="540dp"
+                android:layout_toEndOf="@+id/parking_details_website" />
 
         </RelativeLayout>
     </LinearLayout>

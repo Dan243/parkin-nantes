@@ -3,7 +3,7 @@
         android:height="24dp"
         android:viewportWidth="24.0"
         android:viewportHeight="24.0"
-        android:tint="?attr/colorControlNormal">
+        android:tint="@color/com_facebook_blue">
     <path
         android:fillColor="@android:color/white"
         android:pathData="M12,4m-2,0a2,2 0,1 1,4 0a2,2 0,1 1,-4 0"/>

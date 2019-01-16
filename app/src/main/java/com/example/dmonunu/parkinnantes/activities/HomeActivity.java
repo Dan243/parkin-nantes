@@ -2,11 +2,14 @@ package com.example.dmonunu.parkinnantes.activities;
 
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.dmonunu.parkinnantes.event.EventBusManager;
@@ -15,13 +18,17 @@ import com.example.dmonunu.parkinnantes.event.SearchResultEvent;
 import com.example.dmonunu.parkinnantes.models.LightParking;
 
 import com.example.dmonunu.parkinnantes.R;
+import com.example.dmonunu.parkinnantes.models.ParkingDataBase;
 import com.example.dmonunu.parkinnantes.utilities.ClusterItemImpl;
+import com.example.dmonunu.parkinnantes.utilities.CustomInfoWindowGoogleMap;
 import com.example.dmonunu.parkinnantes.utilities.DrawerUtil;
+import com.example.dmonunu.parkinnantes.utilities.MarkerMap;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.maps.android.clustering.ClusterManager;
 import com.squareup.otto.Subscribe;
@@ -47,6 +54,7 @@ public class HomeActivity extends FragmentActivity implements
     private LocationListener mLocationListener;
     private ClusterManager<ClusterItemImpl> myClusterManager;
     private List<LightParking> parkings;
+    private Location myLocationInit;
 
     @BindView(R.id.toolbar)
     Toolbar toolBar;
@@ -71,6 +79,7 @@ public class HomeActivity extends FragmentActivity implements
         mLocationListener = new LocationListener() {
             @Override
             public void onLocationChanged(final Location location) {
+                myLocationInit = location;
                 double currentLatitude = location.getLatitude();
                 double currentLongitude = location.getLongitude();
                 LatLng latLng = new LatLng(currentLatitude, currentLongitude);
@@ -99,6 +108,7 @@ public class HomeActivity extends FragmentActivity implements
 
     @Override
     public boolean onMarkerClick(Marker marker) {
+        Toast.makeText(this, "Localisation actuelle :\n" + marker.getTag() + ", " + marker.getTag(), Toast.LENGTH_LONG).show();
         return false;
     }
 
@@ -154,21 +164,22 @@ public class HomeActivity extends FragmentActivity implements
     }
 
     private void setUpClusterer(List<LightParking> parkingModels) {
-        // Initialize the manager with the context and the map.
-        // (Activity extends context, so we can pass 'this' in the constructor.)
+
         myClusterManager = new ClusterManager<ClusterItemImpl>(this, mainMap);
-        // Point the map's listeners at the listeners implemented by the cluster
-        // manager.
         mainMap.setOnCameraIdleListener(myClusterManager);
         mainMap.setOnMarkerClickListener(myClusterManager);
-        // Add cluster items (markers) to the cluster manager.
+        mainMap.setInfoWindowAdapter(myClusterManager.getMarkerManager());
+        myClusterManager.getMarkerCollection().setOnInfoWindowAdapter(
+                new CustomInfoWindowGoogleMap(this));
+        myClusterManager.setRenderer(new MarkerMap(this.getApplicationContext(), mainMap, myClusterManager));
+
         addItems(parkingModels);
     }
 
     private void addItems(List<LightParking> parkingModels) {
         for (LightParking parkingModel : parkingModels) {
             if (parkingModel != null) {
-                ClusterItemImpl offsetItem = new ClusterItemImpl(parkingModel.getLatitude(), parkingModel.getLongitude());
+                ClusterItemImpl offsetItem = new ClusterItemImpl(parkingModel.getLatitude(), parkingModel.getLongitude(), parkingModel.getNbPlaceDispo(), parkingModel.getNomParking());
                 myClusterManager.addItem(offsetItem);
                 //MarkerMap markerMap = new MarkerMap(parkingModel, googleMap);
                 //Marker marker = markerMap.createMarker();
@@ -179,11 +190,36 @@ public class HomeActivity extends FragmentActivity implements
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mainMap = googleMap;
+        mainMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener()
+        {
+            @Override
+            public void onInfoWindowClick(Marker arg0) {
+                LightParking ligthParking = ParkingDataBase.getAppDatabase(HomeActivity.this).lightParkingDao().findParkingByName(arg0.getTitle());
+                final Intent parkingIntent = new Intent(HomeActivity.this, ParkingDetailsActivity.class);
+                parkingIntent.putExtra("SelectedParking", ligthParking);
+                startActivity(parkingIntent);
+            }
+
+        });
         mainMap.getUiSettings().setZoomControlsEnabled(true);
         mainMap.setOnMarkerClickListener(this);
         mainMap.setMyLocationEnabled(true);
         mainMap.setOnMyLocationButtonClickListener(this);
         mainMap.setOnMyLocationClickListener(this);
+
+
+        try {
+            boolean success = googleMap.setMapStyle(
+                    MapStyleOptions.loadRawResourceStyle(
+                            this, R.raw.google_dark_theme));
+
+            if (!success) {
+                Log.e("WORK", "Style parsing failed.");
+            }
+        } catch (Resources.NotFoundException e) {
+            Log.e("WORK", "Can't find style. Error: ", e);
+        }
+
     }
 
     @Subscribe
@@ -195,5 +231,11 @@ public class HomeActivity extends FragmentActivity implements
     public void searchResult(SearchResultEvent event) {
         parkings = event.getParkings();
         setUpClusterer(parkings);
+    }
+
+
+    public void onInfoWindowClick(Marker marker) {
+        Toast.makeText(this, "Info window clicked",
+                Toast.LENGTH_SHORT).show();
     }
 }

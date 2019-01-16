@@ -19,4 +19,9 @@
     <color name="white">#FFFFFF</color>
     <color name="red">#DF0101</color>
     <color name="black">#000000</color>
+
+    <color name="greygreg">#2f3032</color>
+    <color name="orangegreg">#e87e04</color>
+    <color name="whitegreg">#dadfe1</color>
+    <color name="darkgreg">#6c7a89</color>
 </resources>

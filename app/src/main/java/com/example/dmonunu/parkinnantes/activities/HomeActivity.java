@@ -9,7 +9,10 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.dmonunu.parkinnantes.event.EventBusManager;
@@ -19,6 +22,8 @@ import com.example.dmonunu.parkinnantes.models.LightParking;
 
 import com.example.dmonunu.parkinnantes.R;
 import com.example.dmonunu.parkinnantes.models.ParkingDataBase;
+import com.example.dmonunu.parkinnantes.services.ResearchService;
+import com.example.dmonunu.parkinnantes.services.ResearchServiceImpl;
 import com.example.dmonunu.parkinnantes.utilities.ClusterItemImpl;
 import com.example.dmonunu.parkinnantes.utilities.CustomInfoWindowGoogleMap;
 import com.example.dmonunu.parkinnantes.utilities.DrawerUtil;
@@ -28,6 +33,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.maps.android.clustering.ClusterManager;
@@ -55,9 +61,13 @@ public class HomeActivity extends FragmentActivity implements
     private ClusterManager<ClusterItemImpl> myClusterManager;
     private List<LightParking> parkings;
     private Location myLocationInit;
+    private ResearchService researchService;
 
     @BindView(R.id.toolbar)
     Toolbar toolBar;
+
+    @BindView(R.id.search_edittext)
+    EditText mSearchEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +93,7 @@ public class HomeActivity extends FragmentActivity implements
                 double currentLatitude = location.getLatitude();
                 double currentLongitude = location.getLongitude();
                 LatLng latLng = new LatLng(currentLatitude, currentLongitude);
-                float zoomLevel = 16.0f; //This goes up to 21
+                float zoomLevel = 15.0f; //This goes up to 21
                 mainMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoomLevel));
             }
 
@@ -104,6 +114,29 @@ public class HomeActivity extends FragmentActivity implements
         };
         mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000000,
                 10000000, mLocationListener);
+
+        researchService = new ResearchServiceImpl(getApplicationContext());
+        mSearchEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (editable.length() == 0) {
+                    researchService.searchParkingByNameOrAddress("");
+                }
+                else {
+                    researchService.searchParkingByNameOrAddress(editable.toString());
+                }
+            }
+        });
     }
 
     @Override
@@ -169,14 +202,10 @@ public class HomeActivity extends FragmentActivity implements
         mainMap.setOnCameraIdleListener(myClusterManager);
         mainMap.setOnMarkerClickListener(myClusterManager);
         mainMap.setInfoWindowAdapter(myClusterManager.getMarkerManager());
-        myClusterManager.getMarkerCollection().setOnInfoWindowAdapter(
-                new CustomInfoWindowGoogleMap(this));
-        myClusterManager.setRenderer(new MarkerMap(this.getApplicationContext(), mainMap, myClusterManager));
-
-        addItems(parkingModels);
     }
 
     private void addItems(List<LightParking> parkingModels) {
+        myClusterManager.clearItems();
         for (LightParking parkingModel : parkingModels) {
             if (parkingModel != null) {
                 ClusterItemImpl offsetItem = new ClusterItemImpl(parkingModel.getLatitude(), parkingModel.getLongitude(), parkingModel.getNbPlaceDispo(), parkingModel.getNomParking());
@@ -185,6 +214,10 @@ public class HomeActivity extends FragmentActivity implements
                 //Marker marker = markerMap.createMarker();
             }
         }
+        myClusterManager.getMarkerCollection().setOnInfoWindowAdapter(
+                new CustomInfoWindowGoogleMap(this));
+        myClusterManager.setRenderer(new MarkerMap(this.getApplicationContext(), mainMap, myClusterManager));
+        animateCluster(parkingModels);
     }
 
     @Override
@@ -206,7 +239,7 @@ public class HomeActivity extends FragmentActivity implements
         mainMap.setMyLocationEnabled(true);
         mainMap.setOnMyLocationButtonClickListener(this);
         mainMap.setOnMyLocationClickListener(this);
-
+        setUpClusterer(parkings);
 
         try {
             boolean success = googleMap.setMapStyle(
@@ -230,12 +263,32 @@ public class HomeActivity extends FragmentActivity implements
     @Subscribe
     public void searchResult(SearchResultEvent event) {
         parkings = event.getParkings();
-        setUpClusterer(parkings);
+        addItems(parkings);
     }
 
 
     public void onInfoWindowClick(Marker marker) {
         Toast.makeText(this, "Info window clicked",
                 Toast.LENGTH_SHORT).show();
+    }
+
+    private void animateCluster(List<LightParking> parkings) {
+        if (parkings.size() > 0) {
+            LatLngBounds.Builder builder = new LatLngBounds.Builder();
+            for (LightParking parking : parkings) {
+                builder.include(new LatLng(parking.getLatitude(), parking.getLongitude()));
+            }
+            LatLngBounds bounds = builder.build();
+
+            // padding in pixels
+            int padding = 100;
+            // use animateCamera if animation is required
+            mainMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, padding));
+
+            if (parkings.size() == 1) {
+                // you might want to a custom zoom level if there is only 1 item
+                mainMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+            }
+        }
     }
 }

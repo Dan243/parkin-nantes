@@ -46,6 +46,8 @@ public class ResearchListActivity extends AppCompatActivity {
         DrawerUtil.getDrawer(this, toolbar);
         layoutManager = new LinearLayoutManager(this);
         myListView.setLayoutManager(layoutManager);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(myListView.getContext(), layoutManager.getOrientation() );
+        myListView.addItemDecoration(dividerItemDecoration);
         research = new ArrayList<>();
         String name = getIntent().getStringExtra("name");
         String address = getIntent().getStringExtra("address");
@@ -82,8 +84,6 @@ public class ResearchListActivity extends AppCompatActivity {
     @Subscribe
     public void searchResult(SearchResultEvent event) {
         myListView.setAdapter(new MyAdapter(event.getParkings(), this));
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(myListView.getContext(), layoutManager.getOrientation() );
-        myListView.addItemDecoration(dividerItemDecoration);
     }
 
     @Subscribe

@@ -20,10 +20,14 @@
         <EditText
             android:id="@+id/search_edittext"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_height="180px"
             android:ems="10"
-            android:hint="Recherchez un parking"
+            android:hint="  Recherchez un parking"
+            android:textColor="@color/whitegreg"
+            android:gravity = "center_vertical"
+            android:textColorHint="@color/grey"
+            android:textCursorDrawable="@null"
+            android:background="@drawable/edittext_bg"
             android:inputType="text" />
 
         <fragment xmlns:android="http://schemas.android.com/apk/res/android"

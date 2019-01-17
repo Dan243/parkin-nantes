@@ -1,6 +1,8 @@
 package com.example.dmonunu.parkinnantes.activities;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 
 import com.example.dmonunu.parkinnantes.R;
 import com.example.dmonunu.parkinnantes.event.EventBusManager;
@@ -30,6 +32,9 @@ public class ResearchListActivity extends AppCompatActivity {
 
     @BindView(R.id.listsearchtoolbar)
     Toolbar toolbar;
+
+    @BindView(R.id.textview)
+    TextView textView;
 
     private ResearchService researchService;
 
@@ -81,6 +86,9 @@ public class ResearchListActivity extends AppCompatActivity {
 
     @Subscribe
     public void searchResult(SearchResultEvent event) {
+        if(event.getParkings().size() == 0) {
+            textView.setVisibility(View.VISIBLE);
+        }
         myListView.setAdapter(new MyAdapter(event.getParkings(), this));
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(myListView.getContext(), layoutManager.getOrientation() );
         myListView.addItemDecoration(dividerItemDecoration);

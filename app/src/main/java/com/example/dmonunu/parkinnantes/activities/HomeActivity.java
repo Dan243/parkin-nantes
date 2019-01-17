@@ -279,10 +279,11 @@ public class HomeActivity extends FragmentActivity implements
             }
             LatLngBounds bounds = builder.build();
 
-            // padding in pixels
-            int padding = 100;
+            int width = getResources().getDisplayMetrics().widthPixels;
+            int height = getResources().getDisplayMetrics().heightPixels;
+            int padding = (int) (width * 0.12); // offset from edges of the map 12% of screen
             // use animateCamera if animation is required
-            mainMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, padding));
+            mainMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, width, height, padding));
         }
         if (parkings.size() == 1) {
             // you might want to a custom zoom level if there is only 1 item

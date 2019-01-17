@@ -1,8 +1,6 @@
 package com.example.dmonunu.parkinnantes.activities;
 
 import android.os.Bundle;
-import android.view.View;
-import android.widget.TextView;
 
 import com.example.dmonunu.parkinnantes.R;
 import com.example.dmonunu.parkinnantes.event.EventBusManager;
@@ -33,9 +31,6 @@ public class ResearchListActivity extends AppCompatActivity {
     @BindView(R.id.listsearchtoolbar)
     Toolbar toolbar;
 
-    @BindView(R.id.resultInfo)
-    TextView resultInfo;
-
     private ResearchService researchService;
 
     private LinearLayoutManager layoutManager;
@@ -51,6 +46,8 @@ public class ResearchListActivity extends AppCompatActivity {
         DrawerUtil.getDrawer(this, toolbar);
         layoutManager = new LinearLayoutManager(this);
         myListView.setLayoutManager(layoutManager);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(myListView.getContext(), layoutManager.getOrientation() );
+        myListView.addItemDecoration(dividerItemDecoration);
         research = new ArrayList<>();
         String name = getIntent().getStringExtra("name");
         String address = getIntent().getStringExtra("address");
@@ -86,15 +83,7 @@ public class ResearchListActivity extends AppCompatActivity {
 
     @Subscribe
     public void searchResult(SearchResultEvent event) {
-        if(event.getParkings().size() > 0) {
-            resultInfo.setVisibility(View.INVISIBLE);
-        }
-        else {
-            resultInfo.setText("Pas de parking trouvé");
-        }
         myListView.setAdapter(new MyAdapter(event.getParkings(), this));
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(myListView.getContext(), layoutManager.getOrientation() );
-        myListView.addItemDecoration(dividerItemDecoration);
     }
 
     @Subscribe

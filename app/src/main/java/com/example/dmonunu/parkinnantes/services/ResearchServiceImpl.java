@@ -46,7 +46,9 @@ public class ResearchServiceImpl implements ResearchService {
         @Override
         protected void onPostExecute(List<LightParking> lightParkings) {
             super.onPostExecute(lightParkings);
-            EventBusManager.BUS.post(new SearchResultEvent(lightParkings));
+            if (lightParkings != null){
+                EventBusManager.BUS.post(new SearchResultEvent(lightParkings));
+            }
         }
     }
 

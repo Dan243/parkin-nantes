@@ -1,7 +1,6 @@
 package com.example.dmonunu.parkinnantes.activities;
 
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
 
 import com.example.dmonunu.parkinnantes.R;
 import com.example.dmonunu.parkinnantes.event.EventBusManager;
@@ -34,7 +33,6 @@ public class ResearchListActivity extends AppCompatActivity {
 
     private ResearchService researchService;
 
-    private RecyclerView.Adapter mAdapter;
     private LinearLayoutManager layoutManager;
 
     private List<String> research;

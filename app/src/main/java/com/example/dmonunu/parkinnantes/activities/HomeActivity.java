@@ -272,7 +272,7 @@ public class HomeActivity extends FragmentActivity implements
     }
 
     private void animateCluster(List<LightParking> parkings) {
-        if (parkings.size() > 0) {
+        if (parkings.size() > 1) {
             LatLngBounds.Builder builder = new LatLngBounds.Builder();
             for (LightParking parking : parkings) {
                 builder.include(new LatLng(parking.getLatitude(), parking.getLongitude()));
@@ -283,11 +283,10 @@ public class HomeActivity extends FragmentActivity implements
             int padding = 100;
             // use animateCamera if animation is required
             mainMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, padding));
-
-            if (parkings.size() == 1) {
-                // you might want to a custom zoom level if there is only 1 item
-                mainMap.animateCamera(CameraUpdateFactory.zoomTo(15));
-            }
+        }
+        if (parkings.size() == 1) {
+            // you might want to a custom zoom level if there is only 1 item
+            mainMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(parkings.get(0).getLatitude(), parkings.get(0).getLongitude()), 15));
         }
     }
 }

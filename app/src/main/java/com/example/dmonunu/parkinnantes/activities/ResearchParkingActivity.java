@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Switch;
 
 import com.appyvet.materialrangebar.RangeBar;
 import com.example.dmonunu.parkinnantes.R;
@@ -21,17 +22,17 @@ public class ResearchParkingActivity extends AppCompatActivity {
     @BindView(R.id.name)
     EditText mNameEditText;
 
-    @BindView(R.id.address)
+    @BindView(R.id.adress)
     EditText mAddressEditText;
 
     @BindView(R.id.cash)
-    CheckBox mCashCheckBox;
+    Switch mCashCheckBox;
 
     @BindView(R.id.total_gr)
-    CheckBox mTotalGRCheckBox;
+    Switch mTotalGRCheckBox;
 
     @BindView(R.id.cb)
-    CheckBox mCBCheckBox;
+    Switch mCBCheckBox;
 
     @BindView(R.id.nb_avai)
     RangeBar mNbAvailRangeBar;

@@ -21,13 +21,6 @@
 
         </androidx.appcompat.widget.Toolbar>
 
-        <TextView
-            android:id="@+id/resultInfo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="" />
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/my_list_view"
             android:layout_width="match_parent"

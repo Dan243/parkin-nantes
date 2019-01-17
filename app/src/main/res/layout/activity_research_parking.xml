@@ -11,6 +11,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#ffffff"
         android:layout_alignParentStart="true"
         android:orientation="vertical">
 
@@ -22,78 +23,213 @@
             android:minHeight="?attr/actionBarSize"
             android:theme="?attr/actionBarTheme" />
 
-        <EditText
-            android:id="@+id/name"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="nom du parking"
-            android:inputType="text" />
+            android:gravity="center_horizontal">
 
-        <EditText
-            android:id="@+id/address"
+            <ImageView
+                android:layout_width="180px"
+                android:layout_height="180px"
+                android:paddingTop="50px"
+                android:src="@drawable/logo_park"
+                android:layout_marginTop="45px"
+                android:layout_gravity="center_horizontal"/>
+        </LinearLayout>
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="adresse du parking"
-            android:inputType="text" />
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txtNomPar"
+                android:layout_width="wrap_content"
+                android:layout_height="180px"
+                android:fontFamily="@font/aleobold"
+                android:background="@drawable/naneeditrs"
+                android:text="Nom :"
+                android:textColor="@color/orangegreg"
+                android:paddingLeft="15px"
+                android:paddingRight="15px"
+                android:textSize="18dp" />
+
+            <EditText
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="180px"
+                android:ems="10"
+                android:textColor="#000000"
+                android:gravity = "center_vertical"
+                android:textColorHint="@color/orangegreg"
+                android:textCursorDrawable="@null"
+                android:paddingLeft="15px"
+                android:paddingRight="15px"
+                android:layout_marginRight="45px"
+                android:background="@drawable/edit_text_sf"
+                android:inputType="text" />
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/paiementTextView"
+            android:id="@+id/txtAdrrPar"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="6dp"
-            android:text="Moyens de paiement acceptés"
-            android:textSize="16dp" />
+            android:layout_height="180px"
+            android:fontFamily="@font/aleobold"
+            android:background="@drawable/naneeditrs"
+            android:text="Adresse :"
+            android:textColor="@color/orangegreg"
+            android:paddingLeft="15px"
+            android:paddingRight="15px"
+            android:textSize="18dp" />
+
+        <EditText
+            android:id="@+id/adress"
+            android:layout_width="match_parent"
+            android:layout_height="180px"
+            android:ems="10"
+            android:textColor="#000000"
+            android:gravity = "center_vertical"
+            android:textColorHint="@color/orangegreg"
+            android:textCursorDrawable="@null"
+            android:paddingLeft="15px"
+            android:paddingRight="15px"
+            android:layout_marginRight="45px"
+            android:background="@drawable/edit_text_sf"
+            android:inputType="text" />
+
+
+
+    </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <CheckBox
+
+            <TextView
+                android:id="@+id/txtCash"
+                android:layout_width="wrap_content"
+                android:layout_height="120px"
+                android:fontFamily="@font/aleobold"
+                android:background="@drawable/naneeditrs"
+                android:text="Paiement en liquide :"
+                android:textColor="@color/orangegreg"
+                android:layout_marginTop="70px"
+                android:paddingLeft="15px"
+                android:paddingRight="15px"
+                android:textSize="18dp" />
+
+            <Switch
                 android:id="@+id/cash"
+                android:layout_marginTop="70px"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Espèces" />
+                android:layout_height="wrap_content"/>
 
-            <CheckBox
-                android:id="@+id/total_gr"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Total GR" />
 
-            <CheckBox
-                android:id="@+id/cb"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="CB en borne de sortie" />
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/txtTotal"
+                android:layout_width="wrap_content"
+                android:layout_height="120px"
+                android:fontFamily="@font/aleobold"
+                android:background="@drawable/naneeditrs"
+                android:text="Paiement via carte Total :"
+                android:textColor="@color/orangegreg"
+                android:layout_marginTop="20px"
+                android:paddingLeft="15px"
+                android:paddingRight="15px"
+                android:textSize="18dp" />
+
+            <Switch
+                android:id="@+id/total_gr"
+                android:layout_marginTop="20px"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/txtCb"
+                android:layout_width="wrap_content"
+                android:layout_height="120px"
+                android:fontFamily="@font/aleobold"
+                android:background="@drawable/naneeditrs"
+                android:text="Paiement via Carte Bancaire :"
+                android:textColor="@color/orangegreg"
+                android:layout_marginTop="20px"
+                android:paddingLeft="15px"
+                android:paddingRight="15px"
+                android:textSize="18dp" />
+
+            <Switch
+                android:id="@+id/cb"
+                android:layout_marginTop="20px"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+
 
         <TextView
             android:id="@+id/nbAvaiTextView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="6dp"
-            android:text="Nombre de places disponibles"
-            android:textSize="16dp" />
+            android:fontFamily="@font/aleobold"
+            android:background="@drawable/naneeditrs"
+            android:text="Nombre de places disponibles :"
+            android:textColor="@color/orangegreg"
+            android:layout_marginTop="20px"
+            android:paddingLeft="15px"
+            android:paddingRight="15px"
+            android:textSize="18dp" />
 
         <com.appyvet.materialrangebar.RangeBar xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/nb_avai"
             android:layout_width="match_parent"
-            android:layout_height="63dp"
-            app:mrb_pinColor="#6c3f6a"
+            android:layout_height="190px"
+            app:mrb_pinColor="@color/orangegreg"
+            app:mrb_connectingLineColor="@color/orangegreg"
+            app:mrb_connectingLineColors="@color/orangegreg"
+            app:mrb_selectorColor="@color/orangegreg"
+            app:mrb_tickColor="@color/orangegreg"
             app:mrb_pinMaxFont="15sp"
             app:mrb_pinMinFont="12sp"
             app:mrb_pinRadius="14dp"
             app:mrb_pinTextColor="@color/white"
+            app:mrb_rangeBarColor="@color/orangegreg"
             app:mrb_rangeBar="true"
             app:mrb_rangeBarPaddingBottom="20dp"
             app:mrb_rangeBar_rounded="true"
-            app:mrb_selectorBoundaryColor="@color/accent"
+            app:mrb_selectorBoundaryColor="@color/orangegreg"
             app:mrb_selectorBoundarySize="2dp"
             app:mrb_selectorSize="10dp"
             app:mrb_temporaryPins="true"
@@ -101,10 +237,15 @@
             app:mrb_tickInterval="1"
             app:mrb_tickStart="0" />
 
+        </LinearLayout>
+
         <Button
             android:id="@+id/validateButton"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/whitegreg"
+            android:background="@drawable/bg_radius_btn"
             android:text="Valider" />
 
     </LinearLayout>

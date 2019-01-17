@@ -33,8 +33,8 @@ public class ResearchListActivity extends AppCompatActivity {
     @BindView(R.id.listsearchtoolbar)
     Toolbar toolbar;
 
-    @BindView(R.id.textview)
-    TextView textView;
+    @BindView(R.id.resultInfo)
+    TextView resultInfo;
 
     private ResearchService researchService;
 
@@ -86,8 +86,11 @@ public class ResearchListActivity extends AppCompatActivity {
 
     @Subscribe
     public void searchResult(SearchResultEvent event) {
-        if(event.getParkings().size() == 0) {
-            textView.setVisibility(View.VISIBLE);
+        if(event.getParkings().size() > 0) {
+            resultInfo.setVisibility(View.INVISIBLE);
+        }
+        else {
+            resultInfo.setText("Pas de parking trouvé");
         }
         myListView.setAdapter(new MyAdapter(event.getParkings(), this));
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(myListView.getContext(), layoutManager.getOrientation() );

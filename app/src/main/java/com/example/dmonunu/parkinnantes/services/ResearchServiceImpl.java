@@ -10,6 +10,10 @@ import com.example.dmonunu.parkinnantes.models.LightParking;
 import com.example.dmonunu.parkinnantes.models.ParkingDataBase;
 
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Zheyu XIE.
@@ -17,6 +21,10 @@ import java.util.List;
 public class ResearchServiceImpl implements ResearchService {
 
     private Context context;
+
+    private static final long REFRESH_DELAY = 650;
+    private ScheduledExecutorService mScheduler = Executors.newScheduledThreadPool(1);
+    private ScheduledFuture mLastScheduleTask;
 
     public ResearchServiceImpl(Context context) {
         this.context = context;
@@ -45,8 +53,17 @@ public class ResearchServiceImpl implements ResearchService {
     }
 
     @Override
-    public void searchParkingByNameOrAddress(String s) {
-        new RoomByNameOrAddressAsyncTask().execute(s);
+    public void searchParkingByNameOrAddress(final String s) {
+        if (mLastScheduleTask != null && !mLastScheduleTask.isDone()) {
+            mLastScheduleTask.cancel(true);
+        }
+
+        mLastScheduleTask = mScheduler.schedule(new Runnable() {
+            @Override
+            public void run() {
+                new RoomByNameOrAddressAsyncTask().execute(s);
+            }
+        }, REFRESH_DELAY, TimeUnit.MILLISECONDS);
     }
 
     private class RoomByNameOrAddressAsyncTask extends AsyncTask<String, Void, List<LightParking>> {
@@ -65,8 +82,17 @@ public class ResearchServiceImpl implements ResearchService {
     }
 
     @Override
-    public void searchParkingFavoriByNameOrAddress(String s) {
-        new RoomFavoriByNameOrAddressAsyncTask().execute(s);
+    public void searchParkingFavoriByNameOrAddress(final String s) {
+        if (mLastScheduleTask != null && !mLastScheduleTask.isDone()) {
+            mLastScheduleTask.cancel(true);
+        }
+
+        mLastScheduleTask = mScheduler.schedule(new Runnable() {
+            @Override
+            public void run() {
+                new RoomFavoriByNameOrAddressAsyncTask().execute(s);
+            }
+        }, REFRESH_DELAY, TimeUnit.MILLISECONDS);
     }
 
     private class RoomFavoriByNameOrAddressAsyncTask extends AsyncTask<String, Void, List<LightParking>> {

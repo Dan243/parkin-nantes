@@ -22,6 +22,7 @@ import com.example.dmonunu.parkinnantes.activities.ParkingPresenterImpl;
 import com.example.dmonunu.parkinnantes.event.EventBusManager;
 import com.example.dmonunu.parkinnantes.event.SaveEvent;
 import com.example.dmonunu.parkinnantes.event.SearchResultEvent;
+import com.example.dmonunu.parkinnantes.event.StartNotifSuccessEvent;
 import com.example.dmonunu.parkinnantes.models.LightParking;
 import com.example.dmonunu.parkinnantes.models.ParkingDataBase;
 import com.squareup.otto.Subscribe;
@@ -80,6 +81,7 @@ public class ParkingNotificationService extends Service {
                     mBuilder.setContentText("Pas de parking proche et disponible");
                 }
                 startForeground(1, mBuilder.build());
+                EventBusManager.BUS.post(new StartNotifSuccessEvent());
             }
 
             @Override

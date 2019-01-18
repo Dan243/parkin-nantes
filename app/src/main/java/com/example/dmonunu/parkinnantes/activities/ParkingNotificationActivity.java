@@ -9,11 +9,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.example.dmonunu.parkinnantes.R;
+import com.example.dmonunu.parkinnantes.event.EventBusManager;
+import com.example.dmonunu.parkinnantes.event.StartNotifSuccessEvent;
 import com.example.dmonunu.parkinnantes.services.ParkingNotificationService;
 import com.example.dmonunu.parkinnantes.utilities.DrawerUtil;
+import com.squareup.otto.Subscribe;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -62,20 +64,32 @@ public class ParkingNotificationActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        EventBusManager.BUS.register(this);
+    }
+
+    @Override
+    protected void onPause() {
+        EventBusManager.BUS.unregister(this);
+        super.onPause();
+    }
+
     public void startService(View v) {
         mStartButton.setEnabled(false);
-        mStopButton.setEnabled(true);
         Intent serviceIntent = new Intent(this, ParkingNotificationService.class);
-        Toast.makeText(this, "Notifications activées", Toast.LENGTH_SHORT).show();
         ContextCompat.startForegroundService(this, serviceIntent);
     }
 
     public void stopService(View v) {
-        Intent serviceIntent = new Intent(this, ParkingNotificationService.class);
-        stopService(serviceIntent);
-        Toast.makeText(this, "Notifications désactivées", Toast.LENGTH_SHORT).show();
-        mStartButton.setEnabled(true);
-        mStopButton.setEnabled(false);
+        if (isMyServiceRunning(ParkingNotificationService.class)) {
+            mStopButton.setEnabled(false);
+            Intent serviceIntent = new Intent(this, ParkingNotificationService.class);
+            stopService(serviceIntent);
+            Toast.makeText(this, "Notifications désactivées", Toast.LENGTH_SHORT).show();
+            mStartButton.setEnabled(true);
+        }
     }
 
     @Override
@@ -104,5 +118,11 @@ public class ParkingNotificationActivity extends AppCompatActivity {
             }
         }
         return false;
+    }
+
+    @Subscribe
+    public void startNotifSuccess(StartNotifSuccessEvent event) {
+        Toast.makeText(this, "Notifications activées", Toast.LENGTH_SHORT).show();
+        mStopButton.setEnabled(true);
     }
 }

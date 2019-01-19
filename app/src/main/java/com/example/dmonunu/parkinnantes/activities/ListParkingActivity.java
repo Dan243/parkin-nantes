@@ -12,7 +12,9 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.dmonunu.parkinnantes.R;
 import com.example.dmonunu.parkinnantes.event.EventBusManager;
@@ -36,6 +38,9 @@ public class ListParkingActivity extends AppCompatActivity {
 
     @BindView(R.id.search_edittext)
     EditText mSearchEditText;
+
+    @BindView(R.id.tv_list_parking_no_result_found)
+    TextView noResultFoundTextView;
 
     private LinearLayoutManager layoutManager;
 
@@ -85,8 +90,23 @@ public class ListParkingActivity extends AppCompatActivity {
 
     @Subscribe
     public void searchResult(SearchResultEvent event) {
-        myListView.setAdapter(new MyAdapter(event.getParkings(), this));
+        if (event != null && event.getParkings() != null) {
+            if (event.getParkings().isEmpty()) {
+                // todo : show nothing found
+                noResultFoundTextView.setVisibility(View.VISIBLE);
+                myListView.setVisibility(View.GONE);
+            } else {
+                noResultFoundTextView.setVisibility(View.GONE);
+                myListView.setVisibility(View.VISIBLE);
+                myListView.setAdapter(new MyAdapter(event.getParkings(), this));
+            }
+        } else {
+            // todo : show nothing
+            noResultFoundTextView.setVisibility(View.VISIBLE);
+            myListView.setVisibility(View.GONE);
+        }
     }
+
     @Override
     protected void onResume() {
         // Do NOT forget to call super.onResume()

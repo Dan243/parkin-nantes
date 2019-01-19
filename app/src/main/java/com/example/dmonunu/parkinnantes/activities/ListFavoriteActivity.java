@@ -10,7 +10,9 @@ import butterknife.ButterKnife;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.dmonunu.parkinnantes.R;
 import com.example.dmonunu.parkinnantes.event.EventBusManager;
@@ -31,6 +33,9 @@ public class ListFavoriteActivity extends AppCompatActivity {
 
     @BindView(R.id.search_edittext)
     EditText mSearchEditText;
+
+    @BindView(R.id.tv_list_parking_no_result_found)
+    TextView noResultFoundTextView;
 
     private LinearLayoutManager layoutManager;
 
@@ -79,7 +84,21 @@ public class ListFavoriteActivity extends AppCompatActivity {
 
     @Subscribe
     public void searchResult(SearchResultEvent event) {
-        myfavoritelist.setAdapter(new MyAdapter(event.getParkings(), this));
+        if (event != null && event.getParkings() != null) {
+            if (event.getParkings().isEmpty()) {
+                // todo : show nothing found
+                noResultFoundTextView.setVisibility(View.VISIBLE);
+                myfavoritelist.setVisibility(View.GONE);
+            } else {
+                noResultFoundTextView.setVisibility(View.GONE);
+                myfavoritelist.setVisibility(View.VISIBLE);
+                myfavoritelist.setAdapter(new MyAdapter(event.getParkings(), this));
+            }
+        } else {
+            // todo : show nothing
+            noResultFoundTextView.setVisibility(View.VISIBLE);
+            myfavoritelist.setVisibility(View.GONE);
+        }
     }
     @Override
     protected void onResume() {

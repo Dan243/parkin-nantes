@@ -32,6 +32,19 @@
             android:id="@+id/my_favorite_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"></androidx.recyclerview.widget.RecyclerView>
+
+        <TextView
+            android:id="@+id/tv_list_parking_no_result_found"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:visibility="gone"
+            android:text="No result found"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            />
+
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+

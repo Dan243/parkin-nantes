@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:visibility="gone"
-            android:text="No result found"
+            android:text="Pas de parking en favori"
             android:textSize="18sp"
             android:textStyle="bold"
             />

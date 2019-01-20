@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:visibility="gone"
-                android:text="No result found"
+                android:text="Pas de parking trouvé"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 />

@@ -68,7 +68,7 @@ public class ParkingNotificationService extends Service {
                 Intent notificationIntent = new Intent(ParkingNotificationService.this, ParkingNotificationActivity.class);
                 PendingIntent pendingIntent = PendingIntent.getActivity(ParkingNotificationService.this, 0, notificationIntent, 0);
                 NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(ParkingNotificationService.this, CHANNEL_ID)
-                        .setSmallIcon(R.drawable.star_yellow)
+                        .setSmallIcon(R.drawable.baseline_notifications_active_24)
                         .setContentTitle("Parking Notification Service")
                         .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                         .setContentIntent(pendingIntent);
